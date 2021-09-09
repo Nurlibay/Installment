@@ -9,5 +9,23 @@
         android:id="@+id/clientsFragment"
         android:name="uz.texnopos.installment.clients.ClientsFragment"
         android:label="fragment_clients"
-        tools:layout="@layout/fragment_clients" />
+        tools:layout="@layout/fragment_clients" >
+        <action
+            android:id="@+id/action_clientsFragment_to_fragmentClient"
+            app:destination="@id/fragmentClient" />
+        <action
+            android:id="@+id/action_clientsFragment_to_fragmentAddClient"
+            app:destination="@id/fragmentAddClient" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragmentClient"
+        android:name="uz.texnopos.installment.client.FragmentClient"
+        android:label="FragmentAddClient"
+        tools:layout="@layout/fragment_client"/>
+    <fragment
+        android:id="@+id/fragmentAddClient"
+        android:name="uz.texnopos.installment.addClient.FragmentAddClient"
+        android:label="FragmentAddClient"
+        tools:layout="@layout/fragment_add_client"/>
+
 </navigation>

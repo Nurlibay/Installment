@@ -6,6 +6,8 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import uz.texnopos.installment.R
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 
@@ -37,10 +39,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     }
     private val adapter=ClientAdapter()
     private var clicked = false
+    private lateinit var navController: NavController
     private lateinit var bind: FragmentClientsBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentClientsBinding.bind(view)
+        navController=Navigation.findNavController(view)
         bind.apply {
             rvClients.adapter=adapter
 
@@ -48,11 +52,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 onFloatingClicked()
             }
             floatingAddButton.setOnClickListener {
-                Toast.makeText(requireContext(), "Floating add button", Toast.LENGTH_SHORT).show()
+                navController.navigate(R.id.action_clientsFragment_to_fragmentAddClient)
             }
             floatingCalcButton.setOnClickListener {
-                Toast.makeText(requireContext(), "Floating calculator button", Toast.LENGTH_SHORT)
-                    .show()
+                navController.navigate(R.id.action_clientsFragment_to_fragmentClient)
             }
         }
     }
