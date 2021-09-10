@@ -3,7 +3,6 @@ package uz.texnopos.installment.client
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import uz.texnopos.installment.R
@@ -13,6 +12,7 @@ import uz.texnopos.installment.databinding.FragmentClientBinding
 class FragmentClient: Fragment(R.layout.fragment_client) {
 
     private lateinit var binding: FragmentClientBinding
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -42,4 +42,8 @@ class FragmentClient: Fragment(R.layout.fragment_client) {
         activity?.window?.statusBarColor = Color.parseColor("#303A44")
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.item_background)
+    }
 }
