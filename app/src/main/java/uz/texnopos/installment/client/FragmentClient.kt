@@ -1,7 +1,9 @@
 package uz.texnopos.installment.client
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import uz.texnopos.installment.R
@@ -31,6 +33,13 @@ class FragmentClient: Fragment(R.layout.fragment_client) {
                 }
             }
         }.attach()
+
+        setStatusBarColor()
+    }
+
+    private fun setStatusBarColor() {
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activity?.window?.statusBarColor = Color.parseColor("#303A44")
     }
 
 }
