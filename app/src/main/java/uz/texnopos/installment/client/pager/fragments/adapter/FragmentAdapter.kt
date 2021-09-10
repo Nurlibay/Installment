@@ -1,4 +1,4 @@
-package uz.texnopos.installment.client.pager.fragments
+package uz.texnopos.installment.client.pager.fragments.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -18,7 +18,7 @@ class FragmentAdapter: RecyclerView.Adapter<FragmentAdapter.FragmentViewHolder>(
             }
     }
 
-    var models :MutableList<ModelPhoneList> = mutableListOf()
+    var models : MutableList<ModelPhoneList> = mutableListOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
