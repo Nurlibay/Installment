@@ -1,11 +1,11 @@
-package uz.texnopos.installment.ui.client.pager
+package uz.texnopos.installment.client.pager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.texnopos.installment.ui.client.pager.fragments.FragmentFirst
-import uz.texnopos.installment.ui.client.pager.fragments.FragmentSecond
-import uz.texnopos.installment.ui.client.pager.fragments.FragmentThird
-import uz.texnopos.installment.ui.client.FragmentClient
+import uz.texnopos.installment.client.pager.fragments.FragmentFirst
+import uz.texnopos.installment.client.pager.fragments.FragmentSecond
+import uz.texnopos.installment.client.pager.fragments.FragmentThird
+import uz.texnopos.installment.client.FragmentClient
 
 class ViewPagerAdapter(fragmentClient: FragmentClient) : FragmentStateAdapter(fragmentClient){
 

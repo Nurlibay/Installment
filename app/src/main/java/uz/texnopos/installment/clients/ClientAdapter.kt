@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.clients
+package uz.texnopos.installment.clients
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

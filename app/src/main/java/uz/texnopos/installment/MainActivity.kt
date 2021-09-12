@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui
+package uz.texnopos.installment
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

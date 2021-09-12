@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.clients
+package uz.texnopos.installment.clients
 
 import android.os.Bundle
 import android.view.View
@@ -38,7 +38,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             R.anim.to_bottom_anim
         )
     }
-    private val adapter=ClientAdapter()
+    private val adapter= ClientAdapter()
     private var clicked = false
     private lateinit var navController: NavController
     private lateinit var bind: FragmentClientsBinding

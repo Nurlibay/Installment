@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.addClient
+package uz.texnopos.installment.addClient
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.client.pager.fragments.adapter
+package uz.texnopos.installment.client.pager.fragments.adapter
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

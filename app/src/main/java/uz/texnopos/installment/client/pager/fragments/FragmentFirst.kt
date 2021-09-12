@@ -1,10 +1,10 @@
-package uz.texnopos.installment.ui.client.pager.fragments
+package uz.texnopos.installment.client.pager.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import uz.texnopos.installment.R
-import uz.texnopos.installment.ui.client.pager.fragments.adapter.FragmentAdapter
+import uz.texnopos.installment.client.pager.fragments.adapter.FragmentAdapter
 import uz.texnopos.installment.model.ModelPhoneList
 import uz.texnopos.installment.databinding.FragmentFirstBinding
 

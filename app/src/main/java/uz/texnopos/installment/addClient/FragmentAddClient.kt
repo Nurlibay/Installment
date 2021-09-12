@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.addClient
+package uz.texnopos.installment.addClient
 
 import android.os.Bundle
 import android.view.View
@@ -18,7 +18,7 @@ class FragmentAddClient: Fragment(R.layout.fragment_add_client) {
 
     private lateinit var binding: FragmentAddClientBinding
     private lateinit var navController: NavController
-    private lateinit var viewModel:AddClientViewModel
+    private lateinit var viewModel: AddClientViewModel
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

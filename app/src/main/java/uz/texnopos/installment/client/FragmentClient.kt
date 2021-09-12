@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.client
+package uz.texnopos.installment.client
 
 import android.os.Bundle
 import android.view.View
@@ -6,7 +6,7 @@ import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import uz.texnopos.installment.R
-import uz.texnopos.installment.ui.client.pager.ViewPagerAdapter
+import uz.texnopos.installment.client.pager.ViewPagerAdapter
 import uz.texnopos.installment.databinding.FragmentClientBinding
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -53,7 +53,8 @@ class FragmentClient : Fragment(R.layout.fragment_client) {
     private fun makePhoneCall() {
         if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(requireActivity(),
-                arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL)
+                arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL
+            )
         } else {
             val callIntent = Intent(Intent.ACTION_CALL)
             callIntent.data = Uri.parse("tel:${binding.tvClientPhone.text}")
