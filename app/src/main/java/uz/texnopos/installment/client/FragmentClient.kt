@@ -2,7 +2,6 @@ package uz.texnopos.installment.client
 
 import android.os.Bundle
 import android.view.View
-import android.view.WindowManager
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import uz.texnopos.installment.R
@@ -11,6 +10,7 @@ import uz.texnopos.installment.databinding.FragmentClientBinding
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -22,6 +22,7 @@ class FragmentClient : Fragment(R.layout.fragment_client) {
     companion object {
         const val REQUEST_CALL = 1
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -82,5 +83,9 @@ class FragmentClient : Fragment(R.layout.fragment_client) {
                 Toast.makeText(requireContext(), "PERMISSION DENIED", Toast.LENGTH_LONG).show()
             }
         }
+    }
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.item_background)
     }
 }

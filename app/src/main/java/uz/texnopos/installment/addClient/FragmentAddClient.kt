@@ -51,4 +51,9 @@ class FragmentAddClient: Fragment(R.layout.fragment_add_client) {
             R.color.addclientFragmentStatusBarColor)
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.background_color)
+    }
 }
