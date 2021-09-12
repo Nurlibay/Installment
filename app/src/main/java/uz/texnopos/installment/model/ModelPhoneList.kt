@@ -1,4 +1,4 @@
-package uz.texnopos.installment.data
+package uz.texnopos.installment.model
 
 data class ModelPhoneList(
     var phoneName: String,

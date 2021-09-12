@@ -11,4 +11,8 @@
     <color name="item_background">#303A44</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true" >#6C6C6D</color>
 
+    <color name="clientFragmentStatusBarColor">#303A44</color>
+    <color name="addclientFragmentStatusBarColor">#3B4551</color>
+    <color name="clientsFragmentStatusBarColor">#3B4551</color>
+
 </resources>

@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import uz.texnopos.installment.data.ModelPhoneList
+import uz.texnopos.installment.model.ModelPhoneList
 import uz.texnopos.installment.databinding.ItemPhoneListBinding
 
 class FragmentAdapter: RecyclerView.Adapter<FragmentAdapter.FragmentViewHolder>() {

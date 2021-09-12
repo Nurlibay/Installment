@@ -1,14 +1,12 @@
 package uz.texnopos.installment.client.pager.fragments
 
-import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import uz.texnopos.installment.R
 import uz.texnopos.installment.client.pager.fragments.adapter.FragmentAdapter
-import uz.texnopos.installment.data.ModelPhoneList
+import uz.texnopos.installment.model.ModelPhoneList
 import uz.texnopos.installment.databinding.FragmentThirdBinding
-import android.view.WindowManager
 
 class FragmentThird : Fragment(R.layout.fragment_third) {
 

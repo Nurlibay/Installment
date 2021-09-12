@@ -2,19 +2,15 @@ package uz.texnopos.installment.clients
 
 import android.os.Bundle
 import android.view.View
+import android.view.WindowManager
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import uz.texnopos.installment.databinding.FragmentClientsBinding
-
-import android.view.WindowManager
-
-import android.os.Build
-import android.view.Window
-import androidx.core.content.ContextCompat
 import uz.texnopos.installment.R
 
 
@@ -44,7 +40,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             R.anim.to_bottom_anim
         )
     }
-    private val adapter=ClientAdapter()
+    private val adapter= ClientAdapter()
     private var clicked = false
     private lateinit var navController: NavController
     private lateinit var bind: FragmentClientsBinding
@@ -53,6 +49,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentClientsBinding.bind(view)
         navController=Navigation.findNavController(view)
+        setStatusBarColor()
         bind.apply {
             rvClients.adapter=adapter
             adapter.onItemClick {
@@ -99,6 +96,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             bind.floatingButton.startAnimation(rotateClose)
         }
 
+    }
+
+    private fun setStatusBarColor() {
+        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(),
+            R.color.clientsFragmentStatusBarColor)
     }
 
     override fun onStart() {
