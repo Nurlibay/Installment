@@ -7,25 +7,40 @@
 
     <fragment
         android:id="@+id/clientsFragment"
-        android:name="uz.texnopos.installment.clients.ClientsFragment"
+        android:name="uz.texnopos.installment.ui.clients.ClientsFragment"
         android:label="fragment_clients"
         tools:layout="@layout/fragment_clients" >
         <action
             android:id="@+id/action_clientsFragment_to_fragmentClient"
-            app:destination="@id/fragmentClient" />
+            app:destination="@id/fragmentClient"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            />
         <action
             android:id="@+id/action_clientsFragment_to_fragmentAddClient"
-            app:destination="@id/fragmentAddClient" />
+            app:destination="@id/fragmentAddClient"
+            />
     </fragment>
     <fragment
         android:id="@+id/fragmentClient"
-        android:name="uz.texnopos.installment.client.FragmentClient"
+        android:name="uz.texnopos.installment.ui.client.FragmentClient"
         android:label="FragmentAddClient"
-        tools:layout="@layout/fragment_client"/>
+        tools:layout="@layout/fragment_client">
+        <action
+            android:id="@+id/action_fragmentClient_to_clientsFragment"
+            app:destination="@id/clientsFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/fragmentAddClient"
-        android:name="uz.texnopos.installment.addClient.FragmentAddClient"
+        android:name="uz.texnopos.installment.ui.addClient.FragmentAddClient"
         android:label="FragmentAddClient"
-        tools:layout="@layout/fragment_add_client"/>
+        tools:layout="@layout/fragment_add_client">
+        <action
+            android:id="@+id/action_fragmentAddClient_to_clientsFragment"
+            app:destination="@id/clientsFragment" />
+    </fragment>
 
 </navigation>

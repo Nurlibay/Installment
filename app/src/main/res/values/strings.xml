@@ -6,7 +6,7 @@
     <string name="surname">Фамилия</string>
     <string name="patronymic">Отчество</string>
     <string name="email">Email-почта</string>
-    <string name="passport_series">Серия пспорта</string>
+    <string name="passport_series">Серия папорта</string>
     <string name="phone">Телефон</string>
     <string name="address">Адрес</string>
     <string name="sign_up">Регистрация</string>
