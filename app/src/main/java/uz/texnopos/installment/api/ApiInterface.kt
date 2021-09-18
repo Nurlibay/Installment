@@ -6,6 +6,7 @@ import uz.texnopos.installment.model.ModelPhoneList
 
 interface ApiInterface {
 
+
     @GET("")
     suspend fun getPhoneData(): Response<ModelPhoneList>
 

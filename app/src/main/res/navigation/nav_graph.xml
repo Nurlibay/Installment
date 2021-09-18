@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/clientsFragment">
+    app:startDestination="@id/fragmentLogin">
 
     <fragment
         android:id="@+id/clientsFragment"
@@ -22,6 +22,9 @@
             android:id="@+id/action_clientsFragment_to_fragmentAddClient"
             app:destination="@id/fragmentAddClient"
             />
+        <action
+            android:id="@+id/action_clientsFragment_to_fragmentPayment"
+            app:destination="@id/fragmentPayment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentClient"
@@ -37,10 +40,18 @@
         android:id="@+id/fragmentAddClient"
         android:name="uz.texnopos.installment.addClient.FragmentAddClient"
         android:label="FragmentAddClient"
-        tools:layout="@layout/fragment_add_client">
+        tools:layout="@layout/fragment_add_client"/>
+    <fragment
+        android:id="@+id/fragmentLogin"
+        android:name="uz.texnopos.installment.login.FragmentLogin"
+        android:label="FragmentLogin" >
         <action
-            android:id="@+id/action_fragmentAddClient_to_clientsFragment"
+            android:id="@+id/action_fragmentLogin_to_clientsFragment"
             app:destination="@id/clientsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentPayment"
+        android:name="uz.texnopos.installment.payment.FragmentPayment"
+        android:label="FragmentPayment" />
 
 </navigation>
