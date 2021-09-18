@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Installment</string>
+    <string name="app_name">Рассрочка</string>
     <string name="add_client">Добавление клиента</string>
     <string name="name">Имя</string>
     <string name="family">Фамилия</string>
@@ -10,8 +10,6 @@
     <string name="phone">Телефон</string>
     <string name="address">Адрес</string>
     <string name="sign_up">Регистрация</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="client_name">Koshkinbaev Nurlibay</string>
     <string name="phone_name">IPhone 12 Max Pro</string>
 </resources>

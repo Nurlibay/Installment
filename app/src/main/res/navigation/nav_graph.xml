@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/clientsFragment"
-        android:name="uz.texnopos.installment.clients.ClientsFragment"
+        android:name="uz.texnopos.installment.ui.orders.OrdersFragment"
         android:label="fragment_clients"
-        tools:layout="@layout/fragment_clients" >
+        tools:layout="@layout/fragment_orders" >
         <action
             android:id="@+id/action_clientsFragment_to_fragmentClient"
             app:destination="@id/fragmentClient"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentClient"
-        android:name="uz.texnopos.installment.client.FragmentClient"
+        android:name="uz.texnopos.installment.ui.client.FragmentClient"
         android:label="FragmentAddClient"
         tools:layout="@layout/fragment_client">
         <action
@@ -35,7 +35,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentAddClient"
-        android:name="uz.texnopos.installment.addClient.FragmentAddClient"
+        android:name="uz.texnopos.installment.ui.addClient.FragmentAddClient"
         android:label="FragmentAddClient"
         tools:layout="@layout/fragment_add_client">
         <action
