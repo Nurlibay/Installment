@@ -14,7 +14,6 @@ import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
 
 
