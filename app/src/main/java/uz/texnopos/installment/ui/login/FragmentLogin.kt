@@ -10,7 +10,10 @@ import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.base.BaseFragment
+import uz.texnopos.installment.core.Constants.API_TOKEN
 import uz.texnopos.installment.core.Constants.TAG
+import uz.texnopos.installment.core.getSharedPreferences
+import uz.texnopos.installment.core.isLoggedIn
 import uz.texnopos.installment.core.textToString
 import uz.texnopos.installment.core.toast
 import uz.texnopos.installment.data.LoadingState
@@ -27,6 +30,7 @@ class FragmentLogin : BaseFragment(R.layout.fragment_login){
         bind = FragmentLoginBinding.bind(view)
         setUpObserves()
         navController = Navigation.findNavController(view)
+        updateUI()
         bind.apply {
             btnLogin.setOnClickListener {
                 val login=LoginResponse(etLogin.textToString(),etPassword.textToString())
@@ -40,10 +44,13 @@ class FragmentLogin : BaseFragment(R.layout.fragment_login){
             when(it.status){
                 LoadingState.LOADING-> showProgress()
                 LoadingState.SUCCESS->{
+                    val token=it.data!!.token
                     hideProgress()
-                    toast(it.data!!.token!!)
+                    getSharedPreferences().setValue(API_TOKEN,token)
+                    updateUI()
                 }
                 LoadingState.ERROR->{
+                    hideProgress()
                     toast(it.message!!)
                 }
             }
@@ -51,7 +58,12 @@ class FragmentLogin : BaseFragment(R.layout.fragment_login){
     }
     override fun onStart() {
         super.onStart()
+
         requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.loginFragmentStatusBarColor)
     }
-
+    private fun updateUI(){
+        if (isLoggedIn()){
+            navController.navigate(R.id.action_fragmentLogin_to_clientsFragment)
+        }
+    }
 }

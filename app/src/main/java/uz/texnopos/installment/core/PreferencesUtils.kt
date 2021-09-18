@@ -12,7 +12,7 @@ fun getSharedPreferences(): SharedPrefUtils {
 }
 
 fun getApiToken() = getSharedPreferences().getStringValue(API_TOKEN)
-fun isLoggedIn() = getApiToken().isNotEmpty()
+fun isLoggedIn()= getApiToken().isNotEmpty()
 
 fun clearLoginPref() {
 
