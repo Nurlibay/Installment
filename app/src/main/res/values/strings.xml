@@ -12,4 +12,6 @@
     <string name="sign_up">Регистрация</string>
     <string name="client_name">Koshkinbaev Nurlibay</string>
     <string name="phone_name">IPhone 12 Max Pro</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
 </resources>
