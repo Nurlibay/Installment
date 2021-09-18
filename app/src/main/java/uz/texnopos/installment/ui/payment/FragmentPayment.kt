@@ -1,4 +1,4 @@
-package uz.texnopos.installment.payment
+package uz.texnopos.installment.ui.payment
 
 import android.os.Bundle
 import android.view.View

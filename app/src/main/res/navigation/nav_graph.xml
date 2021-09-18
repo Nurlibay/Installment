@@ -43,7 +43,7 @@
         tools:layout="@layout/fragment_add_client"/>
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="uz.texnopos.installment.login.FragmentLogin"
+        android:name="uz.texnopos.installment.ui.login.FragmentLogin"
         android:label="FragmentLogin" >
         <action
             android:id="@+id/action_fragmentLogin_to_clientsFragment"
@@ -51,7 +51,7 @@
     </fragment>
     <fragment
         android:id="@+id/fragmentPayment"
-        android:name="uz.texnopos.installment.payment.FragmentPayment"
+        android:name="uz.texnopos.installment.ui.payment.FragmentPayment"
         android:label="FragmentPayment" />
 
 </navigation>
