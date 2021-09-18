@@ -2,6 +2,7 @@ package uz.texnopos.installment.data.api
 
 import okhttp3.Interceptor
 import okhttp3.Response
+import uz.texnopos.installment.core.getApiToken
 
 class MyInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
@@ -9,7 +10,7 @@ class MyInterceptor : Interceptor {
             .newBuilder()
             .addHeader("Content-Type", "application/json")
             .addHeader("X-Platform", "Android")
-            .addHeader("X-Auth-Token", "123456789")
+            .addHeader("Authorization", "Bearer ${getApiToken()}")
             .build()
         return chain.proceed(request)
     }

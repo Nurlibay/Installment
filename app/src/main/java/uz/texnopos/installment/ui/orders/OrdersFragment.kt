@@ -57,7 +57,6 @@ class OrdersFragment : BaseFragment(R.layout.fragment_orders) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentOrdersBinding.bind(view)
         navController = Navigation.findNavController(view)
-        setStatusBarColor()
 
         bind.apply {
             rvClients.adapter=adapter
@@ -72,7 +71,6 @@ class OrdersFragment : BaseFragment(R.layout.fragment_orders) {
             }
             floatingCalcButton.setOnClickListener {
                 viewModel.getAllOrders()
-                Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
             }
             viewModel.orders.observe(requireActivity(), {
                 when (it.status) {
@@ -115,11 +113,6 @@ class OrdersFragment : BaseFragment(R.layout.fragment_orders) {
         }
     }
 
-    private fun setStatusBarColor() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(),
-            R.color.clientsFragmentStatusBarColor)
-    }
 
     override fun onStart() {
         super.onStart()
