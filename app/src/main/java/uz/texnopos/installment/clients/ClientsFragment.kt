@@ -62,6 +62,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 navController.navigate(R.id.action_clientsFragment_to_fragmentAddClient)
             }
             floatingCalcButton.setOnClickListener {
+                navController.navigate(R.id.action_clientsFragment_to_fragmentPayment)
                 Toast.makeText(requireContext(), "Click", Toast.LENGTH_SHORT).show()
             }
         }

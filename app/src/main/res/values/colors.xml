@@ -14,5 +14,8 @@
     <color name="clientFragmentStatusBarColor">#303A44</color>
     <color name="addclientFragmentStatusBarColor">#3B4551</color>
     <color name="clientsFragmentStatusBarColor">#3B4551</color>
+    <color name="loginFragmentStatusBarColor">#1E4B62</color>
+    <color name="paymentFragmentStatusBarColor">#434D59</color>
+
 
 </resources>
