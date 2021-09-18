@@ -23,21 +23,27 @@ val repositoryModule = module {
     single { Repository(get()) }
 }
 
+val apiModule = module {
+    fun provideUseApi(retrofit: Retrofit): RestApi {
+        return retrofit.create(RestApi::class.java)
+    }
+    single { provideUseApi(get()) }
+}
+
 val retrofitModule = module {
+    val gson = GsonBuilder()
+        .setLenient()
+        .create()
+    val client = OkHttpClient.Builder().apply {
+        addInterceptor(MyInterceptor())
+    }.build()
 
-    single { GsonBuilder().setLenient().create() }
-    single {
-        OkHttpClient.Builder()
-            .apply { addInterceptor(MyInterceptor()) }
-            .build()
-    }
-
-    single {
-        Retrofit.Builder()
+    fun provideRetrofit(): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(BASE_URL)
-            .client(get())
-            .addConverterFactory(GsonConverterFactory.create(get()))
+            .client(client)
+            .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
     }
-    single { get<Retrofit>().create(RestApi::class.java) }
+    single { provideRetrofit() }
 }

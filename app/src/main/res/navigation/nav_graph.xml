@@ -6,7 +6,7 @@
     app:startDestination="@id/fragmentLogin">
 
     <fragment
-        android:id="@+id/ordersFragment"
+        android:id="@+id/clientsFragment"
         android:name="uz.texnopos.installment.ui.orders.OrdersFragment"
         android:label="fragment_clients"
         tools:layout="@layout/fragment_orders" >
@@ -30,7 +30,12 @@
         android:id="@+id/fragmentClient"
         android:name="uz.texnopos.installment.ui.client.FragmentClient"
         android:label="FragmentAddClient"
-        tools:layout="@layout/fragment_client"/>
+        tools:layout="@layout/fragment_client">
+        <action
+            android:id="@+id/action_fragmentClient_to_clientsFragment"
+            app:destination="@id/clientsFragment"
+            />
+    </fragment>
     <fragment
         android:id="@+id/fragmentAddClient"
         android:name="uz.texnopos.installment.ui.addClient.FragmentAddClient"
@@ -39,20 +44,14 @@
     <fragment
         android:id="@+id/fragmentLogin"
         android:name="uz.texnopos.installment.ui.login.FragmentLogin"
-        android:label="FragmentLogin"
-        tools:layout="@layout/fragment_login">
+        android:label="FragmentLogin" >
         <action
             android:id="@+id/action_fragmentLogin_to_clientsFragment"
-            app:destination="@id/ordersFragment"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph"
-            app:popUpToInclusive="true"
-            />
+            app:destination="@id/clientsFragment" />
     </fragment>
     <fragment
         android:id="@+id/fragmentPayment"
         android:name="uz.texnopos.installment.ui.payment.FragmentPayment"
-        android:label="FragmentPayment"
-        tools:layout="@layout/fragment_payment"/>
+        android:label="FragmentPayment" />
 
 </navigation>

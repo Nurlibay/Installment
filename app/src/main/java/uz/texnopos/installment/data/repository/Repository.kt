@@ -10,6 +10,5 @@ class Repository(private val api: RestApi) {
     fun getClientData()=null
 
     fun getOrders()=api.getAllOrders()
-    fun getAllClients()=api.getAllClients()
     fun login(loginResponse: LoginResponse)=api.login(loginResponse)
 }
