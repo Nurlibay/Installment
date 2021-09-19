@@ -1,4 +1,4 @@
-package uz.texnopos.installment.login
+package uz.texnopos.installment.ui.login
 
 import android.os.Bundle
 import android.view.View

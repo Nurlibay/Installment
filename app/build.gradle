@@ -83,7 +83,6 @@ dependencies {
     // Also declare the dependency for the Google Play services library and specify its version
     implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
-
     //LiveData and ViewModel
     def lifecycle_version = "2.2.0"
 
@@ -105,6 +104,7 @@ dependencies {
     // For ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
+
     // Koin
     implementation "io.insert-koin:koin-core:3.1.2"
     implementation "io.insert-koin:koin-android:3.1.2"

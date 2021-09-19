@@ -45,11 +45,11 @@ class FragmentAddClient: Fragment(R.layout.fragment_add_client) {
 //            }
 //        })
     }
-
+    
     private fun setStatusBarColor() {
         activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         activity?.window?.statusBarColor = ContextCompat.getColor(requireContext(),
-            R.color.addclientFragmentStatusBarColor)
+            R.color.addClientFragmentStatusBarColor)
     }
 
     override fun onStart() {

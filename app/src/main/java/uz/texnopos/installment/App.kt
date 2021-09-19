@@ -27,7 +27,6 @@ class App : MultiDexApplication() {
             androidFileProperties()
             koin.loadModules(modules)
         }
-
     }
 
     override fun attachBaseContext(base: Context) {

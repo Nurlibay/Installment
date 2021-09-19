@@ -26,6 +26,7 @@
             android:id="@+id/action_clientsFragment_to_fragmentPayment"
             app:destination="@id/fragmentPayment" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentClient"
         android:name="uz.texnopos.installment.ui.client.FragmentClient"
@@ -36,22 +37,25 @@
             app:destination="@id/clientsFragment"
             />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentAddClient"
         android:name="uz.texnopos.installment.ui.addClient.FragmentAddClient"
         android:label="FragmentAddClient"
         tools:layout="@layout/fragment_add_client"/>
+
     <fragment
         android:id="@+id/fragmentLogin"
-        android:name="uz.texnopos.installment.login.FragmentLogin"
+        android:name="uz.texnopos.installment.ui.login.FragmentLogin"
         android:label="FragmentLogin" >
         <action
             android:id="@+id/action_fragmentLogin_to_clientsFragment"
             app:destination="@id/clientsFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/fragmentPayment"
-        android:name="uz.texnopos.installment.payment.FragmentPayment"
+        android:name="uz.texnopos.installment.ui.payment.FragmentPayment"
         android:label="FragmentPayment" />
 
 </navigation>
