@@ -8,14 +8,13 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import uz.texnopos.installment.core.SharedPrefUtils
-import uz.texnopos.installment.data.di.apiModule
 import uz.texnopos.installment.data.di.repositoryModule
 import uz.texnopos.installment.data.di.retrofitModule
 import uz.texnopos.installment.data.di.viewModelModule
 
 class App : MultiDexApplication() {
     private val modules = listOf(
-        repositoryModule, viewModelModule, retrofitModule, apiModule
+        repositoryModule, viewModelModule, retrofitModule
     )
 
     override fun onCreate() {
@@ -27,6 +26,7 @@ class App : MultiDexApplication() {
             androidFileProperties()
             koin.loadModules(modules)
         }
+
     }
 
     override fun attachBaseContext(base: Context) {
