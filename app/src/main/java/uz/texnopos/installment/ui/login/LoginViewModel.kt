@@ -13,9 +13,8 @@ class LoginViewModel(private val repo: Repository) : ViewModel() {
     private var _user = MutableLiveData<Resource<LoginResponse>>()
     val user get() = _user
 
-    fun signWithLogin(loginResponse: LoginResponse) {
+    fun signWithLogin(loginResponse: LoginResponse)=viewModelScope.launch {
         _user.value = Resource.loading()
-
             callApi(repo.login(loginResponse),
                 onApiSuccess = {
                     _user.value = Resource.success(it!!.payload)
@@ -24,6 +23,5 @@ class LoginViewModel(private val repo: Repository) : ViewModel() {
                     _user.value = Resource.error(e)
                 }
             )
-
     }
 }

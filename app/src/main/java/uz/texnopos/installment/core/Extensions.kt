@@ -101,16 +101,3 @@ fun <T> callApi(
     })
 }
 
-fun getSharedPreferences(): SharedPrefUtils {
-    return if (App.sharedPrefUtils == null) {
-        App.sharedPrefUtils = SharedPrefUtils()
-        App.sharedPrefUtils!!
-    } else App.sharedPrefUtils!!
-}
-
-fun getApiToken() = getSharedPreferences().getStringValue(Constants.API_TOKEN)
-fun isLoggedIn()= getApiToken().isNotEmpty()
-
-fun clearLoginPref() {
-
-}
