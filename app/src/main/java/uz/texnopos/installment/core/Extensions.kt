@@ -14,7 +14,6 @@ import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
 
 
@@ -33,12 +32,7 @@ fun TextInputEditText.textToString() = this.text.toString()
 fun TextView.textToString() = this.text.toString()
 
 
-fun getSharedPreferences(): SharedPrefUtils {
-    return if (App.sharedPrefUtils == null) {
-        App.sharedPrefUtils = SharedPrefUtils()
-        App.sharedPrefUtils!!
-    } else App.sharedPrefUtils!!
-}
+
 
 fun Fragment.isGPSEnable(): Boolean =
     context!!.getLocationManager().isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -65,9 +59,7 @@ fun TextInputEditText.showError(error: String) {
     this.showSoftKeyboard()
 }
 
-fun clearLoginPref() {
 
-}
 
 @RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
 fun isNetworkAvailable(): Boolean {
@@ -90,7 +82,12 @@ fun <T> callApi(
             when {
                 response.isSuccessful -> onApiSuccess.invoke(response.body())
                 else -> {
-                    onApiError.invoke(response.errorBody().toString())
+                    onApiError.invoke(
+                        when (response.code()) {
+                            401 -> "Unauthorized"
+                            else -> response.errorBody().toString()
+                        }
+                    )
                     Log.d("api-failure", response.errorBody().toString())
                 }
             }
@@ -103,3 +100,4 @@ fun <T> callApi(
 
     })
 }
+
