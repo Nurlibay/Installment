@@ -18,6 +18,7 @@ class App : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        appInstance=this
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val modules = listOf(helperModule, viewModelModule, adapterModule, networkModule)
         startKoin { // use AndroidLogger as Koin Logger - default Level.INFO
@@ -34,18 +35,10 @@ class App : MultiDexApplication() {
         }
 
     }
-
-    /**override fun attachBaseContext(base: Context) {
-        super.attachBaseContext(base)
-        MultiDex.install(this)
-    }*/
-
-    /**companion object {
-        private lateinit var appInstance: App
-        var sharedPrefUtils: SharedPrefUtils? = null
-
+    companion object{
+        private lateinit var appInstance:App
         fun getAppInstance(): App {
             return appInstance
         }
-    }*/
+    }
 }

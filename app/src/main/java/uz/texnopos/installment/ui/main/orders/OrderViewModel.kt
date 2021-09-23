@@ -2,7 +2,7 @@ package uz.texnopos.installment.ui.main.orders
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import uz.texnopos.installment.data.Resource
+import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.data.model.Client
 
 class OrderViewModel() : ViewModel() {

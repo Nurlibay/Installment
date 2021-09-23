@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresPermission
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,11 @@ import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import uz.texnopos.installment.App.Companion.getAppInstance
+import android.net.NetworkInfo
+
+
+
 
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) =
@@ -60,11 +66,7 @@ fun TextInputEditText.showError(error: String) {
 }
 
 fun View.visibility(visibility: Boolean): View {
-    if (visibility) {
-        this.visibility = View.VISIBLE
-    } else {
-        this.visibility = View.GONE
-    }
+    this.isVisible=visibility
     return this
 }
 
@@ -87,11 +89,11 @@ fun RecyclerView.addVertDivider(context: Context?) {
 fun RecyclerView.addHorizDivider(context: Context?) {
     this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
 }
-//@RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-//fun isNetworkAvailable(): Boolean {
-//    val info = getAppInstance().getConnectivityManager().activeNetworkInfo
-//    return info != null && info.isConnected
-//}
+
+fun isNetworkAvailable(): Boolean {
+    val info = getAppInstance().getConnectivityManager().activeNetworkInfo
+    return info != null && info.isConnected
+}
 
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

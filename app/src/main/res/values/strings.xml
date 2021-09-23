@@ -9,6 +9,7 @@
     <string name="phone_ru">Телефон</string>
     <string name="address_ru">Адрес</string>
     <string name="sign_up_ru">Регистрация</string>
+    <string name="product_ru">Продукть</string>
     <string name="client_name">Koshkinbaev Nurlibay</string>
     <string name="phone_name">IPhone 12 Max Pro</string>
     <string name="login_ru">Логин</string>
@@ -21,12 +22,9 @@
     <string name="client_ru">Клиенты</string>
     <string name="category_ru">Категории</string>
     <string name="order_ru">Заказы</string>
-    <string name="etFIO">Ф.И.О</string>
-    <string name="product">Продукт</string>
+    <string name="current_debt_ru">Текущии долг</string>
     <string name="term">Срок</string>
-    <string name="current_debt">Текущии долг</string>
-    <string name="current_debt_value">Текущии долг</string>
-    <string name="add_payment">Добавить оплату</string>
+    <string name="add_payment">Добавит оплату</string>
     <string name="confirm_payment">Подтвердить оплату</string>
 
 </resources>
