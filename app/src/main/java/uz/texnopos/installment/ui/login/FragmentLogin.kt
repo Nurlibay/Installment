@@ -20,7 +20,7 @@ import uz.texnopos.installment.data.LoadingState
 import uz.texnopos.installment.data.model.LoginResponse
 import uz.texnopos.installment.databinding.FragmentLoginBinding
 
-class FragmentLogin : BaseFragment(R.layout.fragment_login){
+class FragmentLogin : BaseFragment(R.layout.fragment_login) {
 
     private lateinit var bind: FragmentLoginBinding
     private lateinit var navController: NavController
@@ -33,36 +33,38 @@ class FragmentLogin : BaseFragment(R.layout.fragment_login){
         updateUI()
         bind.apply {
             btnLogin.setOnClickListener {
-                val login=LoginResponse(etLogin.textToString(),etPassword.textToString())
+                val login = LoginResponse(etLogin.textToString(), etPassword.textToString())
                 viewModel.signWithLogin(login)
             }
         }
     }
 
-    private fun setUpObserves(){
-        viewModel.user.observe(viewLifecycleOwner,{
-            when(it.status){
-                LoadingState.LOADING-> showProgress()
-                LoadingState.SUCCESS->{
-                    val token=it.data!!.token
+    private fun setUpObserves() {
+        viewModel.user.observe(viewLifecycleOwner, {
+            when (it.status) {
+                LoadingState.LOADING -> showProgress()
+                LoadingState.SUCCESS -> {
+                    val token = it.data!!.token
                     hideProgress()
-                    getSharedPreferences().setValue(API_TOKEN,token)
+                    getSharedPreferences().setValue(API_TOKEN, token)
                     updateUI()
                 }
-                LoadingState.ERROR->{
+                LoadingState.ERROR -> {
                     hideProgress()
                     toast(it.message!!)
                 }
             }
         })
     }
+
     override fun onStart() {
         super.onStart()
-
-        requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.loginFragmentStatusBarColor)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.loginFragmentStatusBarColor)
     }
-    private fun updateUI(){
-        if (isLoggedIn()){
+
+    private fun updateUI() {
+        if (isLoggedIn()) {
             navController.navigate(R.id.action_fragmentLogin_to_clientsFragment)
         }
     }
