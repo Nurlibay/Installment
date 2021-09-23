@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.orders
+package uz.texnopos.installment.ui.main.orders
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

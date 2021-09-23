@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="30dp"
                 android:maxLines="1"
-                android:text="@string/add_client"
+                android:text="@string/add_client_ru"
                 android:textColor="#fff"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@id/back"
@@ -79,7 +79,7 @@
             android:theme="@style/TextInputLayoutStyle"
             app:endIconTint="@color/white"
             app:endIconTintMode="@color/white"
-            android:hint="@string/name">
+            android:hint="@string/name_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etName"
                 android:layout_width="match_parent"
@@ -112,7 +112,7 @@
             android:theme="@style/TextInputLayoutStyle"
             app:endIconTint="@color/white"
             app:endIconTintMode="@color/white"
-            android:hint="@string/surname">
+            android:hint="@string/surname_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etSurname"
                 android:layout_width="match_parent"
@@ -145,7 +145,7 @@
             android:theme="@style/TextInputLayoutStyle"
             app:endIconTint="@color/white"
             app:endIconTintMode="@color/white"
-            android:hint="@string/patronymic">
+            android:hint="@string/patronymic_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPatronymic"
                 android:layout_width="match_parent"
@@ -178,7 +178,7 @@
             android:theme="@style/TextInputLayoutStyle"
             app:endIconTint="@color/white"
             app:endIconTintMode="@color/white"
-            android:hint="@string/email">
+            android:hint="@string/email_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
@@ -211,7 +211,7 @@
             android:theme="@style/TextInputLayoutStyle"
             app:endIconTint="@color/white"
             app:endIconTintMode="@color/white"
-            android:hint="@string/passport_series">
+            android:hint="@string/passport_series_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPassportSeries"
                 android:layout_width="match_parent"
@@ -250,7 +250,7 @@
             app:expandedHintEnabled="false"
             app:hintAnimationEnabled="false"
             app:prefixTextColor="@color/white"
-            android:hint="@string/phone">
+            android:hint="@string/phone_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etPhone"
                 android:layout_width="match_parent"
@@ -283,7 +283,7 @@
             android:theme="@style/TextInputLayoutStyle"
             app:endIconTint="@color/white"
             app:endIconTintMode="@color/white"
-            android:hint="@string/address">
+            android:hint="@string/address_ru">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etAddress"
                 android:layout_width="match_parent"
@@ -310,7 +310,7 @@
             app:layout_constraintTop_toBottomOf="@id/tilAddress"
             app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginHorizontal="@dimen/margin_standard"
-            android:text="@string/sign_up"
+            android:text="@string/sign_up_ru"
             android:textAllCaps="false"
             android:backgroundTint="#464D55"
             />

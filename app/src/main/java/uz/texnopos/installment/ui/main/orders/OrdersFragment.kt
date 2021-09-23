@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.orders
+package uz.texnopos.installment.ui.main.orders
 
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.BaseFragment

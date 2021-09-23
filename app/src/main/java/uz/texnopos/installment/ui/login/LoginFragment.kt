@@ -3,12 +3,14 @@ package uz.texnopos.installment.ui.login
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
+import androidx.core.widget.addTextChangedListener
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.BaseFragment
+import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.core.showMessage
 import uz.texnopos.installment.core.textToString
 import uz.texnopos.installment.data.ResourseState
@@ -30,11 +32,17 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         navController = Navigation.findNavController(view)
 
         if (settings.signedIn) {
-            navController.navigate(R.id.action_loginFragment_to_ordersFragment)
+            navController.navigate(R.id.action_loginFragment_to_mainFragment)
         }
 
         binding.apply {
-            btnLogin.setOnClickListener {
+            etLogin.addTextChangedListener {
+                tilLogin.isErrorEnabled = false
+            }
+            etPassword.addTextChangedListener {
+                tilPassword.isErrorEnabled = false
+            }
+            btnLogin.onClick {
                 val login = etLogin.textToString()
                 val password = etPassword.textToString()
                 if (login != "" && password != "") {
@@ -45,6 +53,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 }
             }
         }
+        hintVisible()
     }
 
     private fun setUpObserves() {
@@ -57,7 +66,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     isLoading(false)
                     settings.token = it.data!!.payload.token
                     settings.signedIn = true
-                    navController.navigate(R.id.action_loginFragment_to_ordersFragment)
+                    navController.navigate(R.id.action_loginFragment_to_mainFragment)
                 }
                 ResourseState.ERROR -> {
                     showMessage(it.message)
@@ -70,6 +79,29 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     private fun isLoading(load: Boolean) {
         binding.apply {
             loading.isVisible = load
+        }
+    }
+
+    private fun hintVisible() {
+        binding.apply {
+            tilLogin.hint = getString(R.string.login_ru)
+            tilLogin.setOnFocusChangeListener { _, b ->
+                if (b) {
+                    tilLogin.hint = ""
+                    tilLogin.isErrorEnabled = false
+                } else {
+                    tilLogin.hint = getString(R.string.login_ru)
+                }
+            }
+            tilPassword.hint = getString(R.string.password_ru)
+            tilPassword.setOnFocusChangeListener { _, b ->
+                if (b) {
+                    tilPassword.hint = ""
+                    tilPassword.isErrorEnabled = false
+                } else {
+                    tilPassword.hint = getString(R.string.password_ru)
+                }
+            }
         }
     }
 }
