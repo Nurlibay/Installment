@@ -6,7 +6,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import uz.texnopos.installment.R
 
-class FragmentPayment: Fragment(R.layout.fragment_payment) {
+class PaymentFragment: Fragment(R.layout.fragment_payment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

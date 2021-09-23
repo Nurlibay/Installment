@@ -8,7 +8,7 @@ import uz.texnopos.installment.ui.client.pager.fragments.adapter.FragmentAdapter
 import uz.texnopos.installment.data.model.ModelPhoneList
 import uz.texnopos.installment.databinding.FragmentSecondBinding
 
-class FragmentSecond : Fragment(R.layout.fragment_second) {
+class SecondFragment : Fragment(R.layout.fragment_second) {
 
     private lateinit var binding: FragmentSecondBinding
     private val adapter = FragmentAdapter()

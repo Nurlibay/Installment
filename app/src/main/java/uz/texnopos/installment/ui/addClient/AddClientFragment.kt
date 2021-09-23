@@ -3,19 +3,14 @@ package uz.texnopos.installment.ui.addClient
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
-import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import uz.texnopos.installment.R
-import uz.texnopos.installment.data.api.RestApi
 import uz.texnopos.installment.databinding.FragmentAddClientBinding
-import uz.texnopos.installment.data.repository.Repository
 
-class FragmentAddClient: Fragment(R.layout.fragment_add_client) {
+class AddClientFragment: Fragment(R.layout.fragment_add_client) {
 
     private lateinit var binding: FragmentAddClientBinding
     private lateinit var navController: NavController

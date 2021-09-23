@@ -14,11 +14,8 @@
     <string name="phone_name">IPhone 12 Max Pro</string>
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
-    <string name="etFIO">Ф.И.О</string>
-    <string name="product">Продукт</string>
-    <string name="term">Срок</string>
-    <string name="current_debt">Текущии долг</string>
-    <string name="current_debt_value">Текущии долг</string>
-    <string name="add_payment">Добавить оплату</string>
-    <string name="confirm_payment">Подтвердить оплату</string>
+    <string name="powered_by_texnopos">Powered by TexnoPOS</string>
+    <string name="btn_login_ru">Вход</string>
+    <string name="required_ru">Обязательно</string>
+
 </resources>

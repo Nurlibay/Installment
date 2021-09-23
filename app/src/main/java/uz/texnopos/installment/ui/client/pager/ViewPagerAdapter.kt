@@ -2,25 +2,25 @@ package uz.texnopos.installment.ui.client.pager
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import uz.texnopos.installment.ui.client.pager.fragments.FragmentFirst
-import uz.texnopos.installment.ui.client.pager.fragments.FragmentSecond
-import uz.texnopos.installment.ui.client.pager.fragments.FragmentThird
-import uz.texnopos.installment.ui.client.FragmentClient
+import uz.texnopos.installment.ui.client.pager.fragments.FirstFragment
+import uz.texnopos.installment.ui.client.pager.fragments.SecondFragment
+import uz.texnopos.installment.ui.client.pager.fragments.ThirdFragment
+import uz.texnopos.installment.ui.client.ClientFragment
 
-class ViewPagerAdapter(fragmentClient: FragmentClient) : FragmentStateAdapter(fragmentClient){
+class ViewPagerAdapter(clientFragment: ClientFragment) : FragmentStateAdapter(clientFragment){
 
     override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
         return when(position){
             0 -> {
-                FragmentFirst()
+                FirstFragment()
             }
             1 -> {
-                FragmentSecond()
+                SecondFragment()
             }
             2 -> {
-                FragmentThird()
+                ThirdFragment()
             }
             else -> {
                 Fragment()
