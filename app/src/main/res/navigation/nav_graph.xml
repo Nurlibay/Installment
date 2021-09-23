@@ -11,30 +11,30 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_ordersFragment"
-            app:destination="@id/ordersFragment"
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
             app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true" />
+            app:popUpToInclusive="true"/>
     </fragment>
     <fragment
-        android:id="@+id/ordersFragment"
-        android:name="uz.texnopos.installment.ui.orders.OrdersFragment"
-        android:label="fragment_orders"
-        tools:layout="@layout/fragment_orders" >
+        android:id="@+id/mainFragment"
+        android:name="uz.texnopos.installment.ui.main.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
         <action
-            android:id="@+id/action_ordersFragment_to_loginFragment"
+            android:id="@+id/action_mainFragment_to_loginFragment"
             app:destination="@id/loginFragment"
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
-            app:launchSingleTop="true"
             app:popEnterAnim="@anim/slide_in_right"
             app:popExitAnim="@anim/slide_out_left"
-            app:popUpTo="@id/ordersFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/mainFragment"
             app:popUpToInclusive="true"/>
     </fragment>
 </navigation>

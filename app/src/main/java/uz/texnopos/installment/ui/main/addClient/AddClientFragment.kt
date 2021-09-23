@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.addClient
+package uz.texnopos.installment.ui.main.addClient
 
 import android.os.Bundle
 import android.view.View

@@ -30,7 +30,7 @@ fun Fragment.toast(text: String, duration: Int = Toast.LENGTH_LONG) {
     }
 }
 
-//inline fun <T : View> T.onClick(crossinline func: T.() -> Unit) = setOnClickListener { func() }
+inline fun <T : View> T.onClick(crossinline func: T.() -> Unit) = setOnClickListener { func() }
 
 fun TextInputEditText.textToString() = this.text.toString()
 fun TextView.textToString() = this.text.toString()
@@ -87,11 +87,6 @@ fun RecyclerView.addVertDivider(context: Context?) {
 fun RecyclerView.addHorizDivider(context: Context?) {
     this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
 }
-
-fun View.onClick(onClick: (View) -> Unit) {
-    this.setOnClickListener(onClick)
-}
-
 //@RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
 //fun isNetworkAvailable(): Boolean {
 //    val info = getAppInstance().getConnectivityManager().activeNetworkInfo
@@ -100,34 +95,3 @@ fun View.onClick(onClick: (View) -> Unit) {
 
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-
-fun <T> callApi(
-    call: Call<T>,
-    onApiSuccess: (T?) -> Unit = {},
-    onApiError: (errorMsg: String) -> Unit = {}
-) {
-    Log.d("api_calling", call.request().url.toString())
-    call.enqueue(object : Callback<T> {
-        override fun onResponse(call: Call<T>, response: Response<T>) {
-            when {
-                response.isSuccessful -> onApiSuccess.invoke(response.body())
-                else -> {
-                    onApiError.invoke(
-                        when (response.code()) {
-                            401 -> "Unauthorized"
-                            else -> response.errorBody().toString()
-                        }
-                    )
-                    Log.d("api-failure", response.errorBody().toString())
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<T>, t: Throwable) {
-            onApiError.invoke(t.localizedMessage!!)
-            Log.d("api-failure", t.localizedMessage!!)
-        }
-
-    })
-}

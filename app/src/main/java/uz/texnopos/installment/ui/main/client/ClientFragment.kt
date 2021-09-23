@@ -1,11 +1,11 @@
-package uz.texnopos.installment.ui.client
+package uz.texnopos.installment.ui.main.client
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.google.android.material.tabs.TabLayoutMediator
 import uz.texnopos.installment.R
-import uz.texnopos.installment.ui.client.pager.ViewPagerAdapter
+import uz.texnopos.installment.ui.main.pager.ViewPagerAdapter
 import uz.texnopos.installment.databinding.FragmentClientBinding
 import android.content.Intent
 import android.content.pm.PackageManager

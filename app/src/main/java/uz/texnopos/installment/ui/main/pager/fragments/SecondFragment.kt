@@ -1,22 +1,22 @@
-package uz.texnopos.installment.ui.client.pager.fragments
+package uz.texnopos.installment.ui.main.pager.fragments
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import uz.texnopos.installment.R
-import uz.texnopos.installment.ui.client.pager.fragments.adapter.FragmentAdapter
+import uz.texnopos.installment.ui.main.pager.fragments.adapter.FragmentAdapter
 import uz.texnopos.installment.data.model.ModelPhoneList
-import uz.texnopos.installment.databinding.FragmentFirstBinding
+import uz.texnopos.installment.databinding.FragmentSecondBinding
 
-class FirstFragment : Fragment(R.layout.fragment_first) {
+class SecondFragment : Fragment(R.layout.fragment_second) {
 
-    private lateinit var binding: FragmentFirstBinding
+    private lateinit var binding: FragmentSecondBinding
     private val adapter = FragmentAdapter()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentFirstBinding.bind(view)
-        binding.rvPrevious.adapter = adapter
+        binding = FragmentSecondBinding.bind(view)
+        binding.rvCurrent.adapter = adapter
         setData()
     }
 
