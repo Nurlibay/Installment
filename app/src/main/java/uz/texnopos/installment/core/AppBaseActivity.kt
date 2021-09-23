@@ -1,4 +1,4 @@
-package uz.texnopos.installment.base
+package uz.texnopos.installment.core
 
 import android.app.Dialog
 import android.graphics.drawable.ColorDrawable

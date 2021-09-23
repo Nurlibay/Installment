@@ -15,7 +15,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 
-class FragmentClient : Fragment(R.layout.fragment_client) {
+class ClientFragment : Fragment(R.layout.fragment_client) {
 
     private lateinit var binding: FragmentClientBinding
 

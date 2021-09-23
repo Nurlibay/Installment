@@ -13,8 +13,7 @@
         app:layout_constraintVertical_bias="0.3"
         android:orientation="vertical"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        >
+        android:paddingBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -97,7 +96,7 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:text="Вход"
+            android:text="@string/btn_login_ru"
             android:textAllCaps="false"
             android:textSize="22sp"
             android:layout_marginTop="20dp"
@@ -111,7 +110,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center|bottom"
-        android:text="Powered by TexnoPOS"
+        android:text="@string/powered_by_texnopos"
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -119,5 +118,15 @@
         android:layout_marginBottom="20dp"
         android:textSize="18sp"
         />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
