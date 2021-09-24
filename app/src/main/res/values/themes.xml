@@ -24,4 +24,8 @@
         <item name="textAllCaps">false</item>
     </style>
 
+    <style name="BottomAppBarOverlay">
+        <item name="colorControlNormal">@color/black</item>
+    </style>
+
 </resources>

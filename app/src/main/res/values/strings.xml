@@ -1,19 +1,26 @@
 <resources>
     <string name="app_name">Рассрочка</string>
-    <string name="add_client">Добавление клиента</string>
-    <string name="name">Имя</string>
-    <string name="family">Фамилия</string>
-    <string name="surname">Фамилия</string>
-    <string name="patronymic">Отчество</string>
-    <string name="email">Email-почта</string>
-    <string name="passport_series">Серия папорта</string>
-    <string name="phone">Телефон</string>
-    <string name="address">Адрес</string>
-    <string name="sign_up">Регистрация</string>
+    <string name="add_client_ru">Добавление клиента</string>
+    <string name="name_ru">Имя</string>
+    <string name="surname_ru">Фамилия</string>
+    <string name="patronymic_ru">Отчество</string>
+    <string name="email_ru">Почта</string>
+    <string name="passport_series_ru">Серия папорта</string>
+    <string name="phone_ru">Телефон</string>
+    <string name="address_ru">Адрес</string>
+    <string name="sign_up_ru">Регистрация</string>
     <string name="client_name">Koshkinbaev Nurlibay</string>
     <string name="phone_name">IPhone 12 Max Pro</string>
-    <string name="login">Логин</string>
-    <string name="password">Пароль</string>
+    <string name="login_ru">Логин</string>
+    <string name="password_ru">Пароль</string>
+    <string name="powered_by_texnopos">Powered by TexnoPOS</string>
+    <string name="btn_login_ru">Вход</string>
+    <string name="required_ru">Обязательно</string>
+    <string name="todo">TODO</string>
+    <string name="home_ru">Домой</string>
+    <string name="client_ru">Клиенты</string>
+    <string name="category_ru">Категории</string>
+    <string name="order_ru">Заказы</string>
     <string name="etFIO">Ф.И.О</string>
     <string name="product">Продукт</string>
     <string name="term">Срок</string>
@@ -21,4 +28,5 @@
     <string name="current_debt_value">Текущии долг</string>
     <string name="add_payment">Добавить оплату</string>
     <string name="confirm_payment">Подтвердить оплату</string>
+
 </resources>

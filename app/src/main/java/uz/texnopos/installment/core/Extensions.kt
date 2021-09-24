@@ -4,17 +4,21 @@ import android.content.Context
 import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresPermission
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import uz.texnopos.installment.App.Companion.getAppInstance
 
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) =
@@ -30,10 +34,6 @@ inline fun <T : View> T.onClick(crossinline func: T.() -> Unit) = setOnClickList
 
 fun TextInputEditText.textToString() = this.text.toString()
 fun TextView.textToString() = this.text.toString()
-
-
-
-
 fun Fragment.isGPSEnable(): Boolean =
     context!!.getLocationManager().isProviderEnabled(LocationManager.GPS_PROVIDER)
 
@@ -59,45 +59,39 @@ fun TextInputEditText.showError(error: String) {
     this.showSoftKeyboard()
 }
 
-
-
-@RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
-fun isNetworkAvailable(): Boolean {
-    val info = getAppInstance().getConnectivityManager().activeNetworkInfo
-    return info != null && info.isConnected
+fun View.visibility(visibility: Boolean): View {
+    if (visibility) {
+        this.visibility = View.VISIBLE
+    } else {
+        this.visibility = View.GONE
+    }
+    return this
 }
+
+fun View.enabled(isEnabled: Boolean): View {
+    this.isEnabled = isEnabled
+    return this
+}
+
+fun Fragment.showMessage(msg: String?) {
+    Toast.makeText(this.requireContext(), msg, Toast.LENGTH_LONG).show()
+}
+
+fun ViewGroup.inflate(@LayoutRes id: Int): View =
+    LayoutInflater.from(context).inflate(id, this, false)
+
+fun RecyclerView.addVertDivider(context: Context?) {
+    this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
+}
+
+fun RecyclerView.addHorizDivider(context: Context?) {
+    this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
+}
+//@RequiresPermission(android.Manifest.permission.ACCESS_NETWORK_STATE)
+//fun isNetworkAvailable(): Boolean {
+//    val info = getAppInstance().getConnectivityManager().activeNetworkInfo
+//    return info != null && info.isConnected
+//}
 
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-
-
-fun <T> callApi(
-    call: Call<T>,
-    onApiSuccess: (T?) -> Unit = {},
-    onApiError: (errorMsg: String) -> Unit = {}
-) {
-    Log.d("api_calling", call.request().url.toString())
-    call.enqueue(object : Callback<T> {
-        override fun onResponse(call: Call<T>, response: Response<T>) {
-            when {
-                response.isSuccessful -> onApiSuccess.invoke(response.body())
-                else -> {
-                    onApiError.invoke(
-                        when (response.code()) {
-                            401 -> "Unauthorized"
-                            else -> response.errorBody().toString()
-                        }
-                    )
-                    Log.d("api-failure", response.errorBody().toString())
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<T>, t: Throwable) {
-            onApiError.invoke(t.localizedMessage!!)
-            Log.d("api-failure", t.localizedMessage!!)
-        }
-
-    })
-}
-
