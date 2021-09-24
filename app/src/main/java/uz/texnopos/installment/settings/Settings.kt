@@ -8,6 +8,8 @@ class Settings (context: Context) {
     companion object {
         const val SIGNED_IN = "signedIn"
         const val TOKEN = "accessToken"
+        const val NO_INTERNET = "Интернет не подключен"
+        const val UNAUTHORIZED = "Несанкционированный"
     }
 
     private val preferences: SharedPreferences =

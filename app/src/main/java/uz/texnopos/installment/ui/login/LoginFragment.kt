@@ -9,14 +9,11 @@ import androidx.navigation.Navigation
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
-import uz.texnopos.installment.core.BaseFragment
-import uz.texnopos.installment.core.onClick
-import uz.texnopos.installment.core.showMessage
-import uz.texnopos.installment.core.textToString
-import uz.texnopos.installment.data.ResourseState
+import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.databinding.FragmentLoginBinding
 import uz.texnopos.installment.settings.Settings
+import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
@@ -59,22 +56,27 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
     private fun setUpObserves() {
         viewModel.user.observe(viewLifecycleOwner, {
             when (it.status) {
-                ResourseState.LOADING -> {
+                ResourceState.LOADING -> {
                     showProgress()
                 }
-                ResourseState.SUCCESS -> {
+                ResourceState.SUCCESS -> {
                     hideProgress()
                     settings.token = it.data!!.payload.token
                     settings.signedIn = true
                     navController.navigate(R.id.action_loginFragment_to_mainFragment)
                 }
-                ResourseState.ERROR -> {
+                ResourceState.ERROR -> {
+                    toast(it.message!!)
                     hideProgress()
-                    showMessage(it.message)
+                }
+                ResourceState.NETWORK_ERROR-> {
+                    hideProgress()
+                    toast(NO_INTERNET)
                 }
             }
         })
     }
+
 
     private fun hintVisible() {
         binding.apply {
