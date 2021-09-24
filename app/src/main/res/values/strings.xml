@@ -21,5 +21,12 @@
     <string name="client_ru">Клиенты</string>
     <string name="category_ru">Категории</string>
     <string name="order_ru">Заказы</string>
+    <string name="etFIO">Ф.И.О</string>
+    <string name="product">Продукт</string>
+    <string name="term">Срок</string>
+    <string name="current_debt">Текущии долг</string>
+    <string name="current_debt_value">Текущии долг</string>
+    <string name="add_payment">Добавить оплату</string>
+    <string name="confirm_payment">Подтвердить оплату</string>
 
 </resources>
