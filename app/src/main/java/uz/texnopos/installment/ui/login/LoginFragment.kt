@@ -60,26 +60,20 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         viewModel.user.observe(viewLifecycleOwner, {
             when (it.status) {
                 ResourseState.LOADING -> {
-                    isLoading(true)
+                    showProgress()
                 }
                 ResourseState.SUCCESS -> {
-                    isLoading(false)
+                    hideProgress()
                     settings.token = it.data!!.payload.token
                     settings.signedIn = true
                     navController.navigate(R.id.action_loginFragment_to_mainFragment)
                 }
                 ResourseState.ERROR -> {
+                    hideProgress()
                     showMessage(it.message)
-                    isLoading(false)
                 }
             }
         })
-    }
-
-    private fun isLoading(load: Boolean) {
-        binding.apply {
-            loading.isVisible = load
-        }
     }
 
     private fun hintVisible() {
