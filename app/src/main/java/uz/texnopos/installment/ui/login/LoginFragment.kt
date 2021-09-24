@@ -13,6 +13,7 @@ import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.databinding.FragmentLoginBinding
 import uz.texnopos.installment.settings.Settings
+import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
 class LoginFragment : BaseFragment(R.layout.fragment_login) {
 
@@ -70,7 +71,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                 }
                 ResourceState.NETWORK_ERROR-> {
                     hideProgress()
-                    toast("Интернет не подключен")
+                    toast(NO_INTERNET)
                 }
             }
         })

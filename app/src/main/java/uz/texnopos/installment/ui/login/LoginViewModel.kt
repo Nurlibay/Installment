@@ -12,6 +12,7 @@ import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.data.model.response.GenericResponse
 import uz.texnopos.installment.data.model.response.UserResponse
 import uz.texnopos.installment.data.retrofit.ApiInterface
+import uz.texnopos.installment.settings.Settings.Companion.UNAUTHORIZED
 
 class LoginViewModel(private val api: ApiInterface) : ViewModel() {
     private var _user = MutableLiveData<Resource<GenericResponse<UserResponse>>>()
@@ -36,7 +37,7 @@ class LoginViewModel(private val api: ApiInterface) : ViewModel() {
             } else {
                 _user.value = Resource.error(
                     when (response.code()) {
-                        401 -> "Несанкционированный"
+                        401 -> UNAUTHORIZED
                         else -> response.errorBody()!!.source().toString()
                     }
                 )
