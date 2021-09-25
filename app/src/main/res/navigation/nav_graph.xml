@@ -11,30 +11,44 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_mainFragment"
-            app:destination="@id/mainFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/loginFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_loginFragment_to_clientsFragment"
+            app:destination="@id/clientsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="uz.texnopos.installment.ui.main.MainFragment"
-        android:label="MainFragment"
-        tools:layout="@layout/fragment_main">
+        android:id="@+id/clientFragment"
+        android:name="uz.texnopos.installment.ui.main.client.orders.ClientOrdersFragment"
+        android:label="ClientFragment"
+        tools:layout="@layout/fragment_client_orders"
+        >
         <action
-            android:id="@+id/action_mainFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:enterAnim="@anim/slide_in_left"
-            app:exitAnim="@anim/slide_out_right"
-            app:popEnterAnim="@anim/slide_in_right"
-            app:popExitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/mainFragment"
-            app:popUpToInclusive="true"/>
+            android:id="@+id/action_clientFragment_to_clientTransactionsFragment"
+            app:destination="@id/clientTransactionsFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/paymentFragment"
+        android:name="uz.texnopos.installment.ui.main.payment.PaymentFragment"
+        android:label="PaymentFragment"
+        tools:layout="@layout/fragment_payment"
+        />
+    <fragment
+        android:id="@+id/clientTransactionsFragment"
+        android:name="uz.texnopos.installment.ui.main.client.transactions.ClientTransactionsFragment"
+        android:label="ClientTransactionsFragment"
+        tools:layout="@layout/fragment_client_transactions"
+        >
+        <action
+            android:id="@+id/action_clientTransactionsFragment_to_paymentFragment"
+            app:destination="@id/paymentFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/clientsFragment"
+        android:name="uz.texnopos.installment.ui.main.clients.ClientsFragment"
+        android:label="fragment_clients"
+        tools:layout="@layout/fragment_clients" >
+        <action
+            android:id="@+id/action_clientsFragment_to_clientFragment"
+            app:destination="@id/clientFragment" />
+    </fragment>
+
 </navigation>

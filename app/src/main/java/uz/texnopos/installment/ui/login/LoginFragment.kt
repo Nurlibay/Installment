@@ -29,7 +29,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
         navController = Navigation.findNavController(view)
 
         if (settings.signedIn) {
-            navController.navigate(R.id.action_loginFragment_to_mainFragment)
+            navController.navigate(R.id.action_loginFragment_to_clientsFragment)
         }
 
         binding.apply {
@@ -63,7 +63,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
                     hideProgress()
                     settings.token = it.data!!.payload.token
                     settings.signedIn = true
-                    navController.navigate(R.id.action_loginFragment_to_mainFragment)
+                    navController.navigate(R.id.action_loginFragment_to_clientsFragment)
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)

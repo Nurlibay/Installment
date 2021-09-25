@@ -1,11 +1,11 @@
-package uz.texnopos.installment.ui.main.orders
+package uz.texnopos.installment.ui.main.clients
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.texnopos.installment.databinding.ItemClientBinding
 
-class OrderAdapter : RecyclerView.Adapter<OrderAdapter.ItemViewHolder>() {
+class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
     inner class ItemViewHolder(private val bind:ItemClientBinding) : RecyclerView.ViewHolder(bind.root) {
         fun populateModel(model:Int) {
         bind.cardView.setOnClickListener {

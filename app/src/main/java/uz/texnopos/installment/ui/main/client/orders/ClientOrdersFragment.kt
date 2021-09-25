@@ -1,12 +1,9 @@
-package uz.texnopos.installment.ui.main.client
+package uz.texnopos.installment.ui.main.client.orders
 
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.google.android.material.tabs.TabLayoutMediator
 import uz.texnopos.installment.R
-import uz.texnopos.installment.ui.main.pager.ViewPagerAdapter
-import uz.texnopos.installment.databinding.FragmentClientBinding
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -14,39 +11,27 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import uz.texnopos.installment.databinding.FragmentClientOrdersBinding
 
-class ClientFragment : Fragment(R.layout.fragment_client) {
+class ClientOrdersFragment : Fragment(R.layout.fragment_client_orders) {
 
-    private lateinit var binding: FragmentClientBinding
+    private lateinit var binding: FragmentClientOrdersBinding
+    private lateinit var navController: NavController
 
     companion object {
         const val REQUEST_CALL = 1
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentClientBinding.bind(view)
-        val adapter = ViewPagerAdapter(this)
-        binding.pager.adapter = adapter
-
-        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
-            when (position) {
-                0 -> {
-                    tab.text = "пред месяц"
-                }
-                1 -> {
-                    tab.text = "текущии месяц"
-                }
-                2 -> {
-                    tab.text = "след месяц"
-                }
-            }
-        }.attach()
-
+        binding = FragmentClientOrdersBinding.bind(view)
+        navController = Navigation.findNavController(view)
         setStatusBarColor()
         binding.floatingActionButton.setOnClickListener {
-            makePhoneCall()
+            navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment)
+            //makePhoneCall()
         }
 
     }

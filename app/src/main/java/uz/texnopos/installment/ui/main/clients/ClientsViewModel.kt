@@ -1,11 +1,11 @@
-package uz.texnopos.installment.ui.main.orders
+package uz.texnopos.installment.ui.main.clients
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.data.model.Client
 
-class OrderViewModel() : ViewModel() {
+class ClientsViewModel() : ViewModel() {
     private var _orders: MutableLiveData<Resource<List<Client>>> = MutableLiveData()
     val orders get() = _orders
 
