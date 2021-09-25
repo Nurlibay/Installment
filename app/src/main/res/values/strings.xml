@@ -26,5 +26,7 @@
     <string name="term">Срок</string>
     <string name="add_payment">Добавит оплату</string>
     <string name="confirm_payment">Подтвердить оплату</string>
+    <string name="login">Логин</string>
+    <string name="password">Пароль</string>
 
 </resources>
