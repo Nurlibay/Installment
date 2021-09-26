@@ -9,4 +9,7 @@ import uz.texnopos.installment.data.model.response.UserResponse
 interface ApiInterface {
     @POST("api/login")
     suspend fun login(@Body user: PostUser): Response<GenericResponse<UserResponse>>
+
+    @POST("api/installment/pay_month")
+    suspend fun payment(@Body payment: Payment):Response<GenericResponse<Any>>
 }
