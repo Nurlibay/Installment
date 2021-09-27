@@ -13,12 +13,18 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.core.BaseFragment
+import uz.texnopos.installment.core.ResourceState
+import uz.texnopos.installment.core.toast
 import uz.texnopos.installment.databinding.FragmentClientTransactionsBinding
+import uz.texnopos.installment.settings.Settings
 
 class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transactions) {
 
+    private val adapter = ClientTransactionsAdapter()
     private lateinit var binding: FragmentClientTransactionsBinding
+    private val viewModel: ClientTransactionsViewModel by viewModel()
     private lateinit var navController: NavController
 
     companion object {
@@ -30,17 +36,24 @@ class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transac
         binding = FragmentClientTransactionsBinding.bind(view)
         navController = Navigation.findNavController(view)
 
-        setStatusBarColor()
+        binding.rvOrders.adapter = adapter
+
         binding.floatingActionButton.setOnClickListener {
             navController.navigate(R.id.action_clientTransactionsFragment_to_paymentFragment)
-            //makePhoneCall()
         }
 
+        setStatusBarColor()
+        setUpObservers()
     }
 
     private fun makePhoneCall() {
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
                 arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL
             )
         } else {
@@ -63,16 +76,40 @@ class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transac
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if(requestCode == REQUEST_CALL){
-            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makePhoneCall()
             } else {
                 Toast.makeText(requireContext(), "PERMISSION DENIED", Toast.LENGTH_LONG).show()
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
-        requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.item_background)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.item_background)
+    }
+
+    private fun setUpObservers() {
+        viewModel.transactions.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> {
+                    showProgress()
+                }
+                ResourceState.SUCCESS -> {
+                    toast(it.message!!)
+                    hideProgress()
+                }
+                ResourceState.ERROR -> {
+                    toast(it.message!!)
+                    hideProgress()
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(Settings.NO_INTERNET)
+                }
+            }
+        }
     }
 }
