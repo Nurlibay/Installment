@@ -13,12 +13,16 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import uz.texnopos.installment.core.BaseFragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.texnopos.installment.core.*
 import uz.texnopos.installment.databinding.FragmentClientTransactionsBinding
+import uz.texnopos.installment.settings.Settings
 
-class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transactions) {
+class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transactions) {
 
+    private val adapter = ClientTransactionsAdapter()
     private lateinit var binding: FragmentClientTransactionsBinding
+    private val viewModel: ClientTransactionsViewModel by viewModel()
     private lateinit var navController: NavController
 
     companion object {
@@ -29,18 +33,24 @@ class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transac
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientTransactionsBinding.bind(view)
         navController = Navigation.findNavController(view)
+        setStatusBarColor(R.color.background_blue)
+        binding.rvOrders.adapter = adapter
 
-        setStatusBarColor()
         binding.floatingActionButton.setOnClickListener {
             navController.navigate(R.id.action_clientTransactionsFragment_to_paymentFragment)
-            //makePhoneCall()
         }
 
+        setUpObservers()
     }
 
     private fun makePhoneCall() {
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
                 arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL
             )
         } else {
@@ -50,29 +60,45 @@ class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transac
         }
     }
 
-    private fun setStatusBarColor() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        activity?.window?.statusBarColor = ContextCompat.getColor(
-            requireContext(),
-            R.color.clientFragmentStatusBarColor
-        )
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if(requestCode == REQUEST_CALL){
-            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makePhoneCall()
             } else {
                 Toast.makeText(requireContext(), "PERMISSION DENIED", Toast.LENGTH_LONG).show()
             }
         }
     }
+
     override fun onStart() {
         super.onStart()
-        requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.item_background)
+        requireActivity().window.statusBarColor =
+            ContextCompat.getColor(requireContext(), R.color.item_background)
+    }
+
+    private fun setUpObservers() {
+        viewModel.transactions.observe(viewLifecycleOwner) {
+            when (it.status) {
+                ResourceState.LOADING -> {
+                    showProgress()
+                }
+                ResourceState.SUCCESS -> {
+                    toast(it.message!!)
+                    hideProgress()
+                }
+                ResourceState.ERROR -> {
+                    toast(it.message!!)
+                    hideProgress()
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(Settings.NO_INTERNET)
+                }
+            }
+        }
     }
 }
