@@ -2,8 +2,8 @@ package uz.texnopos.installment.ui.login
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doAfterTextChanged
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.android.ext.android.inject
@@ -36,7 +36,7 @@ class LoginFragment : BaseFragment(R.layout.fragment_login) {
             etLogin.addTextChangedListener {
                 tilLogin.isErrorEnabled = false
             }
-            etPassword.addTextChangedListener {
+            etPassword.doAfterTextChanged {
                 tilPassword.isErrorEnabled = false
             }
             btnLogin.onClick {

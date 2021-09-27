@@ -19,7 +19,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
             notifyDataSetChanged()
         }
     private var onItemClick: () -> Unit = {}
-    override fun getItemCount()=models.size
+    override fun getItemCount()= models.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         val bind= ItemClientBinding.inflate(LayoutInflater.from(parent.context),parent,false)

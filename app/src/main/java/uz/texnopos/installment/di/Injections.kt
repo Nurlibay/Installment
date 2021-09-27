@@ -11,6 +11,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.ui.login.LoginViewModel
+import uz.texnopos.installment.ui.main.client.orders.ClientOrdersViewModel
+import uz.texnopos.installment.ui.main.client.transactions.ClientTransactionsViewModel
 import java.util.concurrent.TimeUnit
 
 
@@ -49,6 +51,8 @@ val helperModule = module {
 
 val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
+    viewModel { ClientOrdersViewModel(get()) }
+    viewModel { ClientTransactionsViewModel(get()) }
 }
 
 val adapterModule = module {
