@@ -10,13 +10,24 @@
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">@color/background_color</item>
+        <item name="android:statusBarColor" tools:targetApi="l">@color/background_blue</item>
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="boxStrokeColor">#fff</item>
-        <item name="boxStrokeWidth">2dp</item>
+    <style name="TextInputLayoutStyle" >
+        <item name="boxStrokeColor">@color/white</item>
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxBackgroundColor">@color/dark_blue</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="startIconTint">@color/white</item>
+        <item name="endIconTint">@color/white</item>
+        <item name="hintTextColor">@color/white</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/margin_middle_standard</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/margin_middle_standard</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/margin_middle_standard</item>
+        <item name="boxCornerRadiusTopStart">@dimen/margin_middle_standard</item>
+
+
     </style>
 
     <style name="MineCustomTabText" parent="TextAppearance.Design.Tab">
@@ -27,5 +38,24 @@
     <style name="BottomAppBarOverlay">
         <item name="colorControlNormal">@color/black</item>
     </style>
+
+    <style name="ShapeAppearanceOverlay.Demo" parent="">
+        <item name="cornerSize">8dp</item>
+        <item name="cornerFamily">rounded</item>
+    </style>
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Demo.BottomSheetDialog</item>
+    </style>
+
+    <style
+        name="ThemeOverlay.Demo.BottomSheetDialog"
+        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet</item>
+    </style>
+
+    <style name="Widget.Demo.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Demo</item>
+    </style>
+
 
 </resources>

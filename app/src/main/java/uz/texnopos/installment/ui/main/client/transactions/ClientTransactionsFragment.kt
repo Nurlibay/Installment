@@ -13,9 +13,10 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import uz.texnopos.installment.core.BaseFragment
 import uz.texnopos.installment.databinding.FragmentClientTransactionsBinding
 
-class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transactions) {
+class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transactions) {
 
     private lateinit var binding: FragmentClientTransactionsBinding
     private lateinit var navController: NavController
