@@ -69,6 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="1 500 000 сум"
+            android:textStyle="bold"
             android:textSize="24sp"
             android:layout_marginTop="@dimen/margin_small"
             />
@@ -103,12 +104,14 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnPay"
-            android:layout_width="250dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:textAllCaps="false"
+            android:paddingVertical="@dimen/margin_middle_standard"
+            android:paddingHorizontal="@dimen/margin_standard"
             android:layout_gravity="center_horizontal"
             android:layout_marginVertical="@dimen/margin_middle"
-            android:backgroundTint="#3B4551"
+            android:backgroundTint="@color/dark_blue"
             android:textSize="18sp"
             app:cornerRadius="25dp"
             android:text="@string/confirm_payment" />

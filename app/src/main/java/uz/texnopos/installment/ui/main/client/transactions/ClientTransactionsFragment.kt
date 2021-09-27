@@ -14,13 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.texnopos.installment.core.BaseFragment
-import uz.texnopos.installment.core.ResourceState
-import uz.texnopos.installment.core.toast
+import uz.texnopos.installment.core.*
 import uz.texnopos.installment.databinding.FragmentClientTransactionsBinding
 import uz.texnopos.installment.settings.Settings
 
-class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transactions) {
+class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transactions) {
 
     private val adapter = ClientTransactionsAdapter()
     private lateinit var binding: FragmentClientTransactionsBinding
@@ -35,14 +33,13 @@ class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transac
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientTransactionsBinding.bind(view)
         navController = Navigation.findNavController(view)
-
+        setStatusBarColor(R.color.background_blue)
         binding.rvOrders.adapter = adapter
 
         binding.floatingActionButton.setOnClickListener {
             navController.navigate(R.id.action_clientTransactionsFragment_to_paymentFragment)
         }
 
-        setStatusBarColor()
         setUpObservers()
     }
 
@@ -61,14 +58,6 @@ class ClientTransactionsFragment : BaseFragment(R.layout.fragment_client_transac
             callIntent.data = Uri.parse("tel:${binding.tvClientPhone.text}")
             startActivity(callIntent)
         }
-    }
-
-    private fun setStatusBarColor() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        activity?.window?.statusBarColor = ContextCompat.getColor(
-            requireContext(),
-            R.color.clientFragmentStatusBarColor
-        )
     }
 
     override fun onRequestPermissionsResult(

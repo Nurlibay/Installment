@@ -2,15 +2,15 @@ package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
-import uz.texnopos.installment.core.BaseFragment
+import uz.texnopos.installment.core.setStatusBarColor
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 
-class ClientsFragment : BaseFragment(R.layout.fragment_clients) {
+class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
     private val viewModel: ClientsViewModel by viewModel()
     private val adapter = ClientsAdapter()
@@ -19,6 +19,7 @@ class ClientsFragment : BaseFragment(R.layout.fragment_clients) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setStatusBarColor(R.color.background_color)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
 
@@ -43,11 +44,5 @@ class ClientsFragment : BaseFragment(R.layout.fragment_clients) {
                 }
             })*/
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.background_color)
     }
 }
