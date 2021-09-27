@@ -15,8 +15,6 @@ import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 import kotlin.random.Random.Default.nextLong
 
 class PaymentDialog : BottomSheetDialogFragment() {
-
-
     private var savedViewInstance: View? = null
     private lateinit var bind: FragmentPaymentBinding
     private val viewModel by viewModel<PaymentViewModel>()

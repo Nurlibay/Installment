@@ -25,6 +25,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
+            android:id="@+id/imgCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -37,7 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Число товаров: 3"
+            android:text="Число товаров:"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
             app:layout_constraintTop_toBottomOf="@id/tv_client_fullName" />
@@ -53,17 +54,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
         <TextView
-            android:id="@+id/tv_duration_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Время :"
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
-            app:layout_constraintTop_toBottomOf="@id/tv_paid_title" />
-
-        <TextView
-            android:id="@+id/tv_product_price"
+            android:id="@+id/tv_product_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="1200$"
@@ -80,15 +71,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_paid_title" />
 
-        <TextView
-            android:id="@+id/tv_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="3 / 6 месяцев"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_duration_title"
-
-            />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </com.google.android.material.card.MaterialCardView>

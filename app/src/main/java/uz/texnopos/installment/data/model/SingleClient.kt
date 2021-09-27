@@ -1,9 +1,14 @@
 package uz.texnopos.installment.data.model
 
-data class Clients(
+data class SingleClient(
+    val all_sum: Int,
     val client_name: String,
-    val end_date: String,
-    val month: Int,
-    val product_name: String,
-    val start_date: String
+    val count: Int,
+    val latter: String,
+    val paid: Int,
+    val pasport_number: String,
+    val pasport_photo: String,
+    val pasport_serial: String,
+    val phone1: String,
+    val phone2: String
 )

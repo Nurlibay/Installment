@@ -12,4 +12,8 @@ interface ApiInterface {
 
     @POST("api/installment/pay_month")
     suspend fun payment(@Body payment: Payment):Response<GenericResponse<Any>>
+
+    @GET("/api/cilents")
+    suspend fun clients(): Response<GenericResponse<List<SingleClient>>>
+
 }

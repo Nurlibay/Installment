@@ -3,6 +3,7 @@ package uz.texnopos.installment.ui.login
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.android.ext.android.inject
@@ -14,7 +15,7 @@ import uz.texnopos.installment.databinding.FragmentLoginBinding
 import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
-class LoginFragment : BaseFragment(R.layout.fragment_login) {
+class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private lateinit var bind: FragmentLoginBinding
     private lateinit var navController: NavController
