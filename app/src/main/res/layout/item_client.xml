@@ -15,7 +15,7 @@
         android:paddingVertical="@dimen/margin_middle_standard">
 
         <TextView
-            android:id="@+id/tv_client_fullname"
+            android:id="@+id/tv_client_fullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Алибек Ембергенов"
@@ -24,15 +24,23 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_round_circle_red"
+            />
+
         <TextView
             android:id="@+id/tv_product_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="iPhone 12 Pro Max"
+            android:text="Число товаров: 3"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_client_fullname"
-            app:layout_constraintTop_toBottomOf="@id/tv_client_fullname" />
+            app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
+            app:layout_constraintTop_toBottomOf="@id/tv_client_fullName" />
 
         <TextView
             android:id="@+id/tv_paid_title"
@@ -41,7 +49,7 @@
             android:layout_marginTop="@dimen/margin_extra_small"
             android:text="Оплачено / Осталось :"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_client_fullname"
+            app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
             app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
         <TextView
@@ -51,7 +59,7 @@
             android:layout_marginTop="@dimen/margin_extra_small"
             android:text="Время :"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_client_fullname"
+            app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
             app:layout_constraintTop_toBottomOf="@id/tv_paid_title" />
 
         <TextView
@@ -76,7 +84,7 @@
             android:id="@+id/tv_duration"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="6 месяцев"
+            android:text="3 / 6 месяцев"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_duration_title"

@@ -26,10 +26,10 @@
         android:layout_marginHorizontal="@dimen/margin_large"
         android:layout_marginTop="12dp"
         app:boxBackgroundMode="outline"
-        app:boxCornerRadiusBottomEnd="6dp"
-        app:boxCornerRadiusBottomStart="6dp"
-        app:boxCornerRadiusTopEnd="6dp"
-        app:boxCornerRadiusTopStart="6dp"
+        app:boxCornerRadiusBottomEnd="8dp"
+        app:boxCornerRadiusBottomStart="8dp"
+        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusTopStart="8dp"
         app:boxStrokeColor="@color/mtrl_textinput_default_box_stroke_color"
         app:hintEnabled="false"
         app:layout_constraintTop_toBottomOf="@id/title">
@@ -39,11 +39,12 @@
             android:layout_height="match_parent"
             android:drawableEnd="@drawable/ic_search"
             android:focusable="true"
-            android:hint="Type to search..."
+            android:hint="Поиск ..."
             android:padding="12dp"
             android:textColor="@color/white"
             android:textColorHint="#96989F"
             android:textSize="18sp"
+            android:layout_marginHorizontal="@dimen/margin_standard"
             app:textInputLayoutFocusedRectEnabled="true"
             />
     </com.google.android.material.textfield.TextInputLayout>
@@ -72,7 +73,7 @@
         android:alpha="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_add"
+        app:srcCompat="@drawable/ic_calculate"
         app:tint="@color/white" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
