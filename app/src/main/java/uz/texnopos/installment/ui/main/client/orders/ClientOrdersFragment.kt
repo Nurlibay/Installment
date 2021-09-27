@@ -14,13 +14,11 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.texnopos.installment.core.BaseFragment
-import uz.texnopos.installment.core.ResourceState
-import uz.texnopos.installment.core.toast
+import uz.texnopos.installment.core.*
 import uz.texnopos.installment.databinding.FragmentClientOrdersBinding
 import uz.texnopos.installment.settings.Settings
 
-class ClientOrdersFragment : BaseFragment(R.layout.fragment_client_orders) {
+class ClientOrdersFragment : Fragment(R.layout.fragment_client_orders) {
 
     private lateinit var binding: FragmentClientOrdersBinding
     private lateinit var navController: NavController
@@ -33,9 +31,9 @@ class ClientOrdersFragment : BaseFragment(R.layout.fragment_client_orders) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setStatusBarColor(R.color.background_blue)
         binding = FragmentClientOrdersBinding.bind(view)
         navController = Navigation.findNavController(view)
-        setStatusBarColor()
         adapter.onItemClick {
             navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment)
 
@@ -56,14 +54,6 @@ class ClientOrdersFragment : BaseFragment(R.layout.fragment_client_orders) {
         }
     }
 
-    private fun setStatusBarColor() {
-        activity?.window?.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        activity?.window?.statusBarColor = ContextCompat.getColor(
-            requireContext(),
-            R.color.clientFragmentStatusBarColor
-        )
-    }
-
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -77,17 +67,11 @@ class ClientOrdersFragment : BaseFragment(R.layout.fragment_client_orders) {
             }
         }
     }
-    override fun onStart() {
-        super.onStart()
-        requireActivity().window.statusBarColor= ContextCompat.getColor(requireContext(),R.color.item_background)
-    }
 
     private fun setUpObservers() {
         viewModel.orders.observe(viewLifecycleOwner) {
             when(it.status) {
-                ResourceState.LOADING -> {
-                    showProgress()
-                }
+                ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
 
                 }

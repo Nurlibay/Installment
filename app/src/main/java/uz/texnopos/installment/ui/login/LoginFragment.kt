@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.constraintlayout.motion.widget.TransitionBuilder.validate
 import androidx.core.widget.addTextChangedListener
+<<<<<<< HEAD
 import androidx.core.widget.doAfterTextChanged
+=======
+>>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -31,6 +34,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         setUpObserves()
         navController = Navigation.findNavController(view)
         updateUI()
+<<<<<<< HEAD
         binding.apply {
 
             if (settings.signedIn) {
@@ -50,6 +54,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         val password = etPassword.textToString()
                         viewModel.login(PostUser(login, password))
                     }
+=======
+        bind.apply {
+            btnLogin.onClick {
+                if (validate()) {
+                    val login = etLogin.textToString()
+                    val password = etPassword.textToString()
+                    viewModel.login(PostUser(login, password))
+>>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
                 }
             }
         }

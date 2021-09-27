@@ -14,7 +14,10 @@ import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.ui.login.LoginViewModel
 import uz.texnopos.installment.ui.main.client.orders.ClientOrdersViewModel
 import uz.texnopos.installment.ui.main.client.transactions.ClientTransactionsViewModel
+<<<<<<< HEAD
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
+=======
+>>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
 import uz.texnopos.installment.ui.main.payment.PaymentViewModel
 import java.util.concurrent.TimeUnit
 
@@ -61,7 +64,10 @@ val helperModule = module {
 val viewModelModule = module {
     viewModel { LoginViewModel(get()) }
     viewModel { PaymentViewModel(get()) }
+<<<<<<< HEAD
     viewModel { ClientsViewModel(get()) }
+=======
+>>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
     viewModel { ClientOrdersViewModel(get()) }
     viewModel { ClientTransactionsViewModel(get()) }
 }
