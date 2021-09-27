@@ -12,6 +12,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.databinding.FragmentClientsBinding
+import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -55,6 +56,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     ResourceState.ERROR -> {
                         hideProgress()
                         toast(it.message!!)
+                    }
+                    ResourceState.NETWORK_ERROR -> {
+                        hideProgress()
+                        toast(NO_INTERNET)
                     }
                 }
             })
