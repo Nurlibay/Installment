@@ -11,6 +11,9 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
             android:id="@+id/action_loginFragment_to_clientsFragment"
             app:destination="@id/clientsFragment" />
     </fragment>
@@ -25,9 +28,9 @@
             app:destination="@id/clientTransactionsFragment" />
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/paymentFragment"
-        android:name="uz.texnopos.installment.ui.main.payment.PaymentFragment"
+        android:name="uz.texnopos.installment.ui.main.payment.PaymentDialog"
         android:label="PaymentFragment"
         tools:layout="@layout/fragment_payment"
         />

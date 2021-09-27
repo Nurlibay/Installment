@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <color name="purple_200">@color/white</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
+    <color name="purple_500">@color/white</color>
+    <color name="purple_700">@color/white</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="background_color">#3B4551</color>
-    <color name="item_background">#303A44</color>
+    <color name="background_color">#1D4A5F</color>
+    <color name="item_background">#0E2D3F</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true" >#6C6C6D</color>
 
     <color name="clientFragmentStatusBarColor">#303A44</color>
@@ -16,5 +16,7 @@
     <color name="clientsFragmentStatusBarColor">#3B4551</color>
     <color name="loginFragmentStatusBarColor">#1E4B62</color>
     <color name="paymentFragmentStatusBarColor">#3B4551</color>
+    <color name="dark_blue">#0E2D3F</color>
+    <color name="background_blue">#1E4B60</color>
 
 </resources>

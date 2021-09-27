@@ -3,7 +3,6 @@ package uz.texnopos.installment.core
 import android.content.Context
 import android.location.LocationManager
 import android.net.ConnectivityManager
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,26 +10,28 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
-import androidx.annotation.RequiresPermission
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
-import android.net.NetworkInfo
+import uz.texnopos.installment.core.preferences.SharedPrefUtils
+import uz.texnopos.installment.settings.Settings.Companion.TOKEN
 
+fun getSharedPreferences(): SharedPrefUtils {
+    return if (App.sharedPrefUtils == null) {
+        App.sharedPrefUtils = SharedPrefUtils()
+        App.sharedPrefUtils!!
+    } else App.sharedPrefUtils!!
+}
 
-
-
-
-fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) =
+fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, text, duration).show()
 
-fun Fragment.toast(text: String, duration: Int = Toast.LENGTH_LONG) {
+fun Fragment.toast(text: String, duration: Int = Toast.LENGTH_SHORT) {
     if (context != null) {
         context!!.toast(text, duration)
     }
@@ -90,6 +91,10 @@ fun RecyclerView.addHorizDivider(context: Context?) {
     this.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.HORIZONTAL))
 }
 
+fun Fragment.setStatusBarColor(colorId: Int) {
+    requireActivity().window.statusBarColor = ContextCompat.getColor(requireContext(), colorId)
+}
+
 fun isNetworkAvailable(): Boolean {
     val info = getAppInstance().getConnectivityManager().activeNetworkInfo
     return info != null && info.isConnected
@@ -97,3 +102,15 @@ fun isNetworkAvailable(): Boolean {
 
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
+var token: String
+    set(value) = getSharedPreferences().setValue(TOKEN, value)
+    get() = getSharedPreferences().getStringValue(TOKEN)
+fun isSignedIn():Boolean= token.isNotEmpty()
+
+fun Fragment.showProgress(){
+    (requireActivity() as AppBaseActivity).showProgress(true)
+}
+fun Fragment.hideProgress(){
+    (requireActivity() as AppBaseActivity).showProgress(false)
+}

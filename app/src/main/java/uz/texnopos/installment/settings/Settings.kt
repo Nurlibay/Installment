@@ -10,10 +10,11 @@ class Settings (context: Context) {
         const val TOKEN = "accessToken"
         const val NO_INTERNET = "Интернет не подключен"
         const val UNAUTHORIZED = "Несанкционированный"
+        const val mySharedPreferences="InstallmentPreferences"
     }
 
     private val preferences: SharedPreferences =
-        context.getSharedPreferences("InstallmentPreferences", Context.MODE_PRIVATE)
+        context.getSharedPreferences(mySharedPreferences, Context.MODE_PRIVATE)
 
     var signedIn: Boolean
         set(value) {

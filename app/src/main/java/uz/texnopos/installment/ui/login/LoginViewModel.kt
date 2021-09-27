@@ -22,12 +22,12 @@ class LoginViewModel(private val api: ApiInterface) : ViewModel() {
         _user.value = Resource.loading()
         if (isNetworkAvailable())
             viewModelScope.launch(Dispatchers.IO) {
-                _login(user)
+                load(user)
             }
         else _user.value = Resource.networkError()
     }
 
-    private suspend fun _login(user: PostUser) {
+    private suspend fun load(user: PostUser) {
         val response = api.login(user)
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
