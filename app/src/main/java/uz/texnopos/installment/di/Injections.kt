@@ -12,6 +12,7 @@ import uz.texnopos.installment.core.token
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.ui.login.LoginViewModel
+import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.client.orders.ClientOrdersViewModel
 import uz.texnopos.installment.ui.main.client.transactions.ClientTransactionsViewModel
 <<<<<<< HEAD
@@ -70,6 +71,7 @@ val viewModelModule = module {
 >>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
     viewModel { ClientOrdersViewModel(get()) }
     viewModel { ClientTransactionsViewModel(get()) }
+    viewModel { ClientsViewModel(get()) }
 }
 
 val adapterModule = module {

@@ -14,13 +14,10 @@ interface ApiInterface {
     @POST("api/installment/pay_month")
     suspend fun payment(@Body payment: Payment):Response<GenericResponse<Any>>
 
-<<<<<<< HEAD
     @GET("/api/cilents")
     suspend fun clients(): Response<GenericResponse<List<SingleClient>>>
 
 
-=======
->>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
     @GET("api/orders")
     fun orders(
         @Header("Authorization") token: String,

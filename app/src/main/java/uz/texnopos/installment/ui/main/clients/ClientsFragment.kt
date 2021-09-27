@@ -4,21 +4,15 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-<<<<<<< HEAD
 import android.view.ViewGroup
-=======
->>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
-<<<<<<< HEAD
 import uz.texnopos.installment.core.*
-=======
-import uz.texnopos.installment.core.setStatusBarColor
->>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
 import uz.texnopos.installment.databinding.FragmentClientsBinding
+import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -37,7 +31,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setStatusBarColor(R.color.background_color)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
         viewModel.getAllOrders()
@@ -63,6 +56,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     ResourceState.ERROR -> {
                         hideProgress()
                         toast(it.message!!)
+                    }
+                    ResourceState.NETWORK_ERROR -> {
+                        hideProgress()
+                        toast(NO_INTERNET)
                     }
                 }
             })
