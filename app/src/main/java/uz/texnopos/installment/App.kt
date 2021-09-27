@@ -13,9 +13,6 @@ import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
 
 class App : MultiDexApplication() {
-    private val modules = listOf(
-        networkModule, viewModelModule, helperModule, adapterModule
-    )
 
     override fun onCreate() {
         super.onCreate()

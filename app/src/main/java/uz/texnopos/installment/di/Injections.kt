@@ -65,7 +65,6 @@ val viewModelModule = module {
     viewModel { ClientsViewModel(get()) }
     viewModel { ClientOrdersViewModel(get()) }
     viewModel { ClientTransactionsViewModel(get()) }
-    viewModel { ClientsViewModel(get()) }
 }
 
 val adapterModule = module {
