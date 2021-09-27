@@ -7,20 +7,15 @@ import uz.texnopos.installment.R
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.view.WindowManager
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
-<<<<<<< HEAD
-import uz.texnopos.installment.core.BaseFragment
 import uz.texnopos.installment.core.ResourceState
 import uz.texnopos.installment.core.toast
-=======
 import uz.texnopos.installment.core.*
->>>>>>> a87bbf84f3fb4778538b62896413999128992b6c
 import uz.texnopos.installment.databinding.FragmentClientTransactionsBinding
 import uz.texnopos.installment.settings.Settings
 
