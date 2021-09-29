@@ -37,6 +37,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/margin_standard"
             android:drawableEnd="@drawable/ic_search"
             android:focusable="true"
             android:hint="Поиск ..."
@@ -44,20 +45,18 @@
             android:textColor="@color/white"
             android:textColorHint="#96989F"
             android:textSize="18sp"
-            android:layout_marginHorizontal="@dimen/margin_standard"
-            app:textInputLayoutFocusedRectEnabled="true"
-            />
+            app:textInputLayoutFocusedRectEnabled="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_clients"
-        app:layout_constraintTop_toBottomOf="@id/input_search"
         android:layout_width="match_parent"
+        android:layout_height="0dp"
         android:layout_marginTop="@dimen/margin_standard_large"
         android:paddingHorizontal="@dimen/margin_standard_large"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_height="0dp"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+        app:layout_constraintTop_toBottomOf="@id/input_search" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floating_button"
@@ -65,12 +64,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_standard_large"
         android:layout_marginBottom="@dimen/margin_standard_large"
+        android:alpha="0.8"
         android:backgroundTintMode="screen"
         android:clickable="true"
         android:focusable="true"
         app:backgroundTint="@color/item_background"
-        app:fabCustomSize="72dp"
-        android:alpha="0.8"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/ic_calculate"

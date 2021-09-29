@@ -4,7 +4,6 @@ import retrofit2.Response
 import retrofit2.http.*
 import uz.texnopos.installment.data.model.*
 import uz.texnopos.installment.data.model.response.GenericResponse
-import uz.texnopos.installment.data.model.response.Transactions
 import uz.texnopos.installment.data.model.response.UserResponse
 
 interface ApiInterface {
@@ -15,16 +14,11 @@ interface ApiInterface {
     suspend fun payment(@Body payment: Payment):Response<GenericResponse<Any>>
 
     @GET("/api/cilents")
-    suspend fun clients(): Response<GenericResponse<List<SingleClient>>>
+    suspend fun clients(): Response<GenericResponse<List<Client>>>
 
+    @GET("api/order/single_client")
+    suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>
 
-    @GET("api/orders")
-    fun orders(
-        @Header("Authorization") token: String,
-        @Query("payload") order : Order) : Response<GenericResponse<UserResponse>>
-
-    @GET("api/transactions")
-    fun transactions(
-        @Header("Authorization") token: String,
-        @Query("payload") transactions : Transactions) : Response<GenericResponse<UserResponse>>
+    @GET("api/transaction/get_tran")
+    suspend fun getAllTransactions(@Query("id") orderId:Int):Response<GenericResponse<List<Transaction>>>
 }

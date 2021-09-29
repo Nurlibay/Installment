@@ -18,14 +18,14 @@
             app:destination="@id/clientsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/clientFragment"
-        android:name="uz.texnopos.installment.ui.main.client.orders.ClientOrdersFragment"
+        android:id="@+id/ordersFragment"
+        android:name="uz.texnopos.installment.ui.main.orders.OrdersFragment"
         android:label="ClientFragment"
-        tools:layout="@layout/fragment_client_orders"
+        tools:layout="@layout/fragment_orders"
         >
         <action
             android:id="@+id/action_clientFragment_to_clientTransactionsFragment"
-            app:destination="@id/clientTransactionsFragment" />
+            app:destination="@id/transactionsFragment" />
     </fragment>
 
     <dialog
@@ -35,10 +35,10 @@
         tools:layout="@layout/fragment_payment"
         />
     <fragment
-        android:id="@+id/clientTransactionsFragment"
-        android:name="uz.texnopos.installment.ui.main.client.transactions.ClientTransactionsFragment"
+        android:id="@+id/transactionsFragment"
+        android:name="uz.texnopos.installment.ui.main.transactions.ClientTransactionsFragment"
         android:label="ClientTransactionsFragment"
-        tools:layout="@layout/fragment_client_transactions"
+        tools:layout="@layout/fragment_transactions"
         >
         <action
             android:id="@+id/action_clientTransactionsFragment_to_paymentFragment"
@@ -51,7 +51,7 @@
         tools:layout="@layout/fragment_clients" >
         <action
             android:id="@+id/action_clientsFragment_to_clientFragment"
-            app:destination="@id/clientFragment" />
+            app:destination="@id/ordersFragment" />
     </fragment>
 
 </navigation>

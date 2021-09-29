@@ -10,11 +10,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
-import uz.texnopos.installment.data.model.SingleClient
+import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.retrofit.ApiInterface
 
 class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
-    private var _clients: MutableLiveData<Resource<List<SingleClient>>> = MutableLiveData()
+    private var _clients: MutableLiveData<Resource<List<Client>>> = MutableLiveData()
     val clients get() = _clients
     fun getAllOrders() {
         _clients.value = Resource.loading()

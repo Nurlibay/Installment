@@ -1,7 +1,8 @@
 package uz.texnopos.installment.data.model
 
-data class SingleClient(
+data class Client(
     val all_sum: Int,
+    val client_id: Int,
     val client_name: String,
     val count: Int,
     val latter: String,

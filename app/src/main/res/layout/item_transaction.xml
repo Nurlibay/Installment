@@ -13,28 +13,19 @@
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvProductName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_standard"
-            android:text="iPhone 12 Pro Max"
-            android:textColor="@color/white"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
-            android:id="@+id/tvData"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:text="13:55, 02.09.2021"
             android:textColor="@color/white"
-            app:layout_constraintTop_toBottomOf="@id/tvProductName"
-            app:layout_constraintStart_toStartOf="@id/tvProductName"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="@dimen/margin_standard"
             />
 
         <TextView
-            android:id="@+id/price"
+            android:id="@+id/tvQuantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"

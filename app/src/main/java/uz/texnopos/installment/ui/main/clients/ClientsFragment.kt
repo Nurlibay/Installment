@@ -11,6 +11,7 @@ import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
@@ -20,6 +21,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private val adapter = ClientsAdapter()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
+    val clients:Client?=null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -29,9 +31,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         setStatusBarColor(R.color.background_color)
         binding.apply {
             rvClients.adapter = adapter
+
             adapter.onItemClick {
+                val bundle=Bundle()
+                bundle.putInt("clientId",it.client_id)
                 try {
-                    navController.navigate(R.id.action_clientsFragment_to_clientFragment)
+                    navController.navigate(R.id.action_clientsFragment_to_clientFragment,bundle)
                 } catch (e: Exception) {
                 }
             }

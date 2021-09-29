@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.main.client.transactions
+package uz.texnopos.installment.ui.main.orders
 
 import android.os.Bundle
 import android.view.View
@@ -13,45 +13,45 @@ import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import uz.texnopos.installment.core.ResourceState
-import uz.texnopos.installment.core.toast
 import uz.texnopos.installment.core.*
-import uz.texnopos.installment.databinding.FragmentClientTransactionsBinding
-import uz.texnopos.installment.settings.Settings
+import uz.texnopos.installment.databinding.FragmentOrdersBinding
+import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
-class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transactions) {
+class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
-    private val adapter = ClientTransactionsAdapter()
-    private lateinit var binding: FragmentClientTransactionsBinding
-    private val viewModel: ClientTransactionsViewModel by viewModel()
+    private lateinit var binding: FragmentOrdersBinding
     private lateinit var navController: NavController
+    private val viewModel: OrdersViewModel by viewModel()
+    private val adapter = OrdersAdapter()
 
     companion object {
         const val REQUEST_CALL = 1
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setUpObservers()
+        val id=arguments?.getInt("clientId")!!
+        viewModel.getOrders(id)
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentClientTransactionsBinding.bind(view)
-        navController = Navigation.findNavController(view)
         setStatusBarColor(R.color.background_blue)
+        binding = FragmentOrdersBinding.bind(view)
+        navController = Navigation.findNavController(view)
+        adapter.onItemClick {
+            val bundle=Bundle()
+            bundle.putInt("orderId",it.order_id)
+            navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment,bundle)
+
+        }
         binding.rvOrders.adapter = adapter
 
-        binding.floatingActionButton.setOnClickListener {
-            navController.navigate(R.id.action_clientTransactionsFragment_to_paymentFragment)
-        }
-
-        setUpObservers()
     }
 
     private fun makePhoneCall() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.CALL_PHONE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
+        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(requireActivity(),
                 arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL
             )
         } else {
@@ -66,8 +66,8 @@ class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transaction
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CALL) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if(requestCode == REQUEST_CALL){
+            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 makePhoneCall()
             } else {
                 Toast.makeText(requireContext(), "PERMISSION DENIED", Toast.LENGTH_LONG).show()
@@ -75,21 +75,13 @@ class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transaction
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        requireActivity().window.statusBarColor =
-            ContextCompat.getColor(requireContext(), R.color.item_background)
-    }
-
     private fun setUpObservers() {
-        viewModel.transactions.observe(viewLifecycleOwner) {
-            when (it.status) {
-                ResourceState.LOADING -> {
-                    showProgress()
-                }
+        viewModel.orders.observe(requireActivity()) {
+            when(it.status) {
+                ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    toast(it.message!!)
                     hideProgress()
+                    adapter.setData(it.data!!)
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
@@ -97,7 +89,7 @@ class ClientTransactionsFragment : Fragment(R.layout.fragment_client_transaction
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
-                    toast(Settings.NO_INTERNET)
+                    toast(NO_INTERNET)
                 }
             }
         }

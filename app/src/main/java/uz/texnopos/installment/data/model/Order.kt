@@ -1,9 +1,10 @@
 package uz.texnopos.installment.data.model
 
 data class Order(
-    val client_name: String,
     val end_date: String,
-    val month: Int,
+    val first_pay: Int,
+    val order_id: Int,
     val product_name: String,
+    val product_price: String,
     val start_date: String
 )

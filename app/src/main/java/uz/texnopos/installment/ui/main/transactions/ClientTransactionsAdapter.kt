@@ -1,24 +1,26 @@
-package uz.texnopos.installment.ui.main.client.transactions
+package uz.texnopos.installment.ui.main.transactions
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import uz.texnopos.installment.databinding.ItemClientTransactionBinding
+import uz.texnopos.installment.data.model.Transaction
+import uz.texnopos.installment.databinding.ItemTransactionBinding
 
 
 class ClientTransactionsAdapter : RecyclerView.Adapter<ClientTransactionsAdapter.ClientTransactionsViewHolder>()  {
 
-    inner class ClientTransactionsViewHolder(private val binding: ItemClientTransactionBinding) :
+    inner class ClientTransactionsViewHolder(private val binding: ItemTransactionBinding) :
         RecyclerView.ViewHolder(binding.root) {
-            fun populateModel(clientTransaction: Int) {
-
+            fun populateModel(clientTransaction: Transaction) {
+                binding.tvDate.text=clientTransaction.pay_date
+                binding.tvQuantity.text=clientTransaction.paid
                 binding.cardView.setOnClickListener{
                     onItemCLick.invoke()
                 }
             }
     }
 
-    var models = mutableListOf(1,2,3,4,5,6,7,8)
+    var models = mutableListOf<Transaction>()
         set(value) {
             field = value
             notifyDataSetChanged()
@@ -30,7 +32,7 @@ class ClientTransactionsAdapter : RecyclerView.Adapter<ClientTransactionsAdapter
         parent: ViewGroup,
         viewType: Int
     ): ClientTransactionsViewHolder {
-        val itemView = ItemClientTransactionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        val itemView = ItemTransactionBinding.inflate(LayoutInflater.from(parent.context),parent,false)
         return ClientTransactionsViewHolder(itemView)
     }
 

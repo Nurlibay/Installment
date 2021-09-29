@@ -37,11 +37,12 @@ class PaymentDialog : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setUpObserver()
+        val orderId=arguments?.getInt("orderId")!!.toLong()
         bind = FragmentPaymentBinding.bind(view).apply {
             btnPay.onClick {
                 if (validate()) {
                     viewModel.payment(
-                        Payment(nextLong(1, 10), etAddPayment.textToString().toLong())
+                        Payment(orderId, etAddPayment.textToString().toLong())
                     )
                 }
             }
