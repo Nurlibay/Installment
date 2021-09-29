@@ -15,7 +15,8 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         fun populateModel(singleClient: SingleClient) {
             binding.tvClientFullName.text = singleClient.client_name
             binding.tvProductCount.text = singleClient.count.toString()
-            binding.tvPaidSum.text = "${singleClient.paid} / ${singleClient.all_sum}"
+            binding.tvPaidSum.text = singleClient.paid.toString()
+            binding.tvAllSum.text = singleClient.all_sum.toString()
             binding.cardView.setOnClickListener {
                 onItemClick.invoke(singleClient)
             }
@@ -43,6 +44,12 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.populateModel(models[position])
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun filteredList(clientsItem: MutableList<SingleClient>) {
+        models = clientsItem
+        notifyDataSetChanged()
     }
 
 }

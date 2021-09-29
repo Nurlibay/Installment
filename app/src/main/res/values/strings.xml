@@ -29,4 +29,27 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
 
+    // calculator
+    <string name="negative_button">Cancel</string>
+    <string name="positive_button">OK</string>
+
+    <string name="division">÷</string>
+    <string name="multiplication">×</string>
+    <string name="subtraction">-</string>
+    <string name="sum">+</string>
+
+    <string name="num00">0</string>
+    <string name="num01">1</string>
+    <string name="num02">2</string>
+    <string name="num03">3</string>
+    <string name="num04">4</string>
+    <string name="num05">5</string>
+    <string name="num06">6</string>
+    <string name="num07">7</string>
+    <string name="num08">8</string>
+    <string name="num09">9</string>
+
+    <string name="numEqual">=</string>
+    <string name="numPoint">.</string>
+
 </resources>
