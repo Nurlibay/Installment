@@ -47,7 +47,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun filteredList(clientsItem: MutableList<SingleClient>) {
+    fun filteredList(clientsItem: MutableList<Client>) {
         models = clientsItem
         notifyDataSetChanged()
     }
