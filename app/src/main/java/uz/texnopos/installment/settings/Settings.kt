@@ -12,6 +12,7 @@ class Settings (context: Context) {
         const val UNAUTHORIZED = "Несанкционированный"
         const val mySharedPreferences="InstallmentPreferences"
         const val CLIENT="client"
+        const val ORDER="order"
     }
 
     private val preferences: SharedPreferences =

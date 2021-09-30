@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.ItemClientBinding
@@ -16,8 +17,8 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         fun populateModel(client: Client) {
             binding.tvClientFullName.text = client.client_name
             binding.tvProductCount.text = client.count.toString()
-            binding.tvPaidSum.text = client.paid.toString()
-            binding.tvAllSum.text = client.all_sum.toString()
+            binding.tvPaidSum.text = client.paid.toInt().toString().changeFormat()
+            binding.tvAllSum.text = client.all_sum.toInt().toString().changeFormat()
             binding.cardView.onClick {
                 onItemClick.invoke(client)
             }
@@ -26,6 +27,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
     var models : MutableList<Client> = mutableListOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
+            models.clear()
             field = value
             notifyDataSetChanged()
         }
@@ -46,9 +48,4 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         holder.populateModel(models[position])
     }
 
-    @SuppressLint("NotifyDataSetChanged")
-    fun filteredList(clientsItem: MutableList<Client>) {
-        models = clientsItem
-        notifyDataSetChanged()
-    }
 }

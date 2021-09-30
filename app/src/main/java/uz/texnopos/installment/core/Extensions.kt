@@ -114,3 +114,13 @@ fun Fragment.showProgress(){
 fun Fragment.hideProgress(){
     (requireActivity() as AppBaseActivity).showProgress(false)
 }
+
+fun String.changeFormat(): String {
+    var s = ""
+    val sz = this.length
+    for (i in 0 until sz) {
+        if (i != 0 && (i - sz % 3) % 3 == 0) s += ' '
+        s += this[i]
+    }
+    return "$s сум"
+}

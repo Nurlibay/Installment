@@ -18,6 +18,7 @@ import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding
 import uz.texnopos.installment.settings.Settings.Companion.CLIENT
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
+import uz.texnopos.installment.settings.Settings.Companion.ORDER
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
@@ -43,7 +44,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         binding = FragmentOrdersBinding.bind(view)
         adapter.onItemClick {
             val bundle=Bundle()
-            bundle.putInt("orderId",it.order_id)
+            bundle.putParcelable(CLIENT,client)
+            bundle.putParcelable(ORDER,it)
             navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment,bundle)
 
         }

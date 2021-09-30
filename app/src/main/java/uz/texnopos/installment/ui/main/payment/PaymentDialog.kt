@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.doOnNextLayout
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -16,9 +18,8 @@ import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
     private var savedViewInstance: View? = null
-    private lateinit var bind: FragmentPaymentBinding
+    lateinit var bind: FragmentPaymentBinding
     private val viewModel by viewModel<PaymentViewModel>()
-    var orderId: Int? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,10 +43,17 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
+            countProduct.text = "Всего товаров: ${mFragment.client!!.count}"
+            tvDebtValue.text = mFragment.client!!.all_sum.toInt().toString().changeFormat()
+
+            etAddPayment.addTextChangedListener {
+                inputPayment.helperText = it.toString().changeFormat()
+            }
+
             btnPay.onClick {
                 if (validate()) {
                     viewModel.payment(
-                        Payment(orderId!!, etAddPayment.textToString().toLong())
+                        Payment(mFragment.order!!.order_id, etAddPayment.textToString().toLong())
                     )
                 }
             }

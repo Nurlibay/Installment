@@ -3,6 +3,7 @@ package uz.texnopos.installment.ui.main.clients
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -23,7 +24,9 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel.getAllClients()
+        showProgress()
+        refresh()
+        setUpObserver()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,6 +35,9 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         navController = Navigation.findNavController(view)
         setStatusBarColor(R.color.background_color)
         binding.apply {
+            container.setOnRefreshListener {
+                refresh()
+            }
             rvClients.adapter = adapter
 
             adapter.onItemClick {
@@ -45,56 +51,49 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             floatingButton.setOnClickListener {
 
             }
-            viewModel.clients.observe(requireActivity(), {
-                when (it.status) {
-                    ResourceState.LOADING -> showProgress()
-                    ResourceState.SUCCESS -> {
-                        adapter.models = it.data!!.toMutableList()
-                        hideProgress()
-                    }
-                    ResourceState.ERROR -> {
-                        hideProgress()
-                        toast(it.message!!)
-                    }
-                    ResourceState.NETWORK_ERROR -> {
-                        hideProgress()
-                        toast(NO_INTERNET)
-                    }
-                }
-            })
+
         }
 
         binding.etSearch.addTextChangedListener {
             filter(it.toString())
         }
     }
+    private fun refresh(){
+        viewModel.getAllClients()
+    }
 
-    private fun filter(s: String){
-        val clientsItem : MutableList<Client> = mutableListOf()
-        viewModel.clients.observe(viewLifecycleOwner, {
-            when(it.status){
-                ResourceState.LOADING ->{
-                    showProgress()
-                }
-                ResourceState.SUCCESS ->{
-                    for(client in it.data!!.toMutableList()){
-                        if(client.client_name.lowercase().contains(s.lowercase())){
-                            clientsItem.add(client)
-                        }
-                    }
-                    adapter.filteredList(clientsItem)
+    private fun setUpObserver(){
+        viewModel.clients.observe(requireActivity(), {
+            when (it.status) {
+                ResourceState.LOADING -> { }
+                ResourceState.SUCCESS -> {
+                    adapter.models = it.data!!.toMutableList()
                     hideProgress()
+                    binding.container.isRefreshing=false
                 }
-                ResourceState.ERROR ->{
+                ResourceState.ERROR -> {
                     hideProgress()
                     toast(it.message!!)
+                    binding.container.isRefreshing=false
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
                     toast(NO_INTERNET)
+                    binding.container.isRefreshing=false
                 }
             }
         })
     }
 
+    private fun filter(s: String){
+        val clientsItem : MutableList<Client> = mutableListOf()
+        viewModel.clients.observe(viewLifecycleOwner, {
+            for(client in it.data!!){
+                if(client.client_name.lowercase().contains(s.lowercase())){
+                    clientsItem.add(client)
+                }
+            }
+            adapter.models=clientsItem
+        })
+    }
 }

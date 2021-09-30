@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Transaction
 import uz.texnopos.installment.databinding.ItemTransactionBinding
@@ -14,11 +15,12 @@ class TransactionsAdapter :
 
     inner class ClientTransactionsViewHolder(private val bind: ItemTransactionBinding) :
         RecyclerView.ViewHolder(bind.root) {
+        @SuppressLint("SetTextI18n")
         fun populateModel(transaction: Transaction) {
             bind.apply {
                 transaction.apply {
                     tvDate.text = pay_date.changeDateFormat()
-                    tvQuantity.text = paid.changeFormat()
+                    tvQuantity.text = "+"+paid.changeFormat()
                 }
                 cardView.onClick {
                     onItemCLick.invoke()
@@ -81,15 +83,4 @@ class TransactionsAdapter :
         s += date[3]
         return s
     }
-
-    fun String.changeFormat(): String {
-        var s = ""
-        val sz = this.length
-        for (i in 0 until sz) {
-            if (i != 0 && (i - sz % 3) % 3 == 0) s += ' '
-            s += this[i]
-        }
-        return "+$s сум"
-    }
-
 }
