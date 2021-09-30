@@ -1,5 +1,9 @@
 package uz.texnopos.installment.data.model
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Client(
     val all_sum: Int,
     val client_id: Int,
@@ -12,4 +16,4 @@ data class Client(
     val pasport_serial: String,
     val phone1: String,
     val phone2: String
-)
+):Parcelable

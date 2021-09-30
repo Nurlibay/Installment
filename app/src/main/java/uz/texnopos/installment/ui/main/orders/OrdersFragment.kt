@@ -14,7 +14,9 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding
+import uz.texnopos.installment.settings.Settings.Companion.CLIENT
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
@@ -23,7 +25,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private lateinit var navController: NavController
     private val viewModel: OrdersViewModel by viewModel()
     private val adapter = OrdersAdapter()
-
+    private var client:Client?=null
     companion object {
         const val REQUEST_CALL = 1
     }
@@ -31,14 +33,14 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpObservers()
-        val id=arguments?.getInt("clientId")!!
-        viewModel.getOrders(id)
+        client=arguments?.getParcelable(CLIENT)
+        viewModel.getOrders(client!!.client_id)
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
-        binding = FragmentOrdersBinding.bind(view)
         navController = Navigation.findNavController(view)
+        binding = FragmentOrdersBinding.bind(view)
         adapter.onItemClick {
             val bundle=Bundle()
             bundle.putInt("orderId",it.order_id)

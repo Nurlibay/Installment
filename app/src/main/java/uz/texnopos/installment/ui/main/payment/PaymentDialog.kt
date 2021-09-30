@@ -12,17 +12,19 @@ import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.databinding.FragmentPaymentBinding
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
-import kotlin.random.Random.Default.nextLong
+import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
 
-class PaymentDialog : BottomSheetDialogFragment() {
+class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
     private var savedViewInstance: View? = null
     private lateinit var bind: FragmentPaymentBinding
     private val viewModel by viewModel<PaymentViewModel>()
+    var orderId: Int? = null
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setUpObserver()
         setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Demo_BottomSheetDialog)
         return if (savedInstanceState != null) {
             savedViewInstance
@@ -31,18 +33,19 @@ class PaymentDialog : BottomSheetDialogFragment() {
                 inflater.inflate(R.layout.fragment_payment, container, true)
             savedViewInstance
         }
+    }
 
+    init {
+        show(mFragment.requireActivity().supportFragmentManager, "tag")
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setUpObserver()
-        val orderId=arguments?.getInt("orderId")!!.toLong()
         bind = FragmentPaymentBinding.bind(view).apply {
             btnPay.onClick {
                 if (validate()) {
                     viewModel.payment(
-                        Payment(orderId, etAddPayment.textToString().toLong())
+                        Payment(orderId!!, etAddPayment.textToString().toLong())
                     )
                 }
             }
@@ -57,12 +60,12 @@ class PaymentDialog : BottomSheetDialogFragment() {
     }
 
     private fun setUpObserver() {
-        viewModel.payment.observe(viewLifecycleOwner, {
+        viewModel.payment.observe(requireActivity(), {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
-                    hideProgress()
                     toast(it.data as String)
+                    mFragment.refresh()
                     dismiss()
                 }
                 ResourceState.ERROR -> {

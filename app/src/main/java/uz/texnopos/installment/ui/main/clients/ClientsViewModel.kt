@@ -1,7 +1,5 @@
 package uz.texnopos.installment.ui.main.clients
 
-import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -16,7 +14,7 @@ import uz.texnopos.installment.data.retrofit.ApiInterface
 class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
     private var _clients: MutableLiveData<Resource<List<Client>>> = MutableLiveData()
     val clients get() = _clients
-    fun getAllOrders() {
+    fun getAllClients() {
         _clients.value = Resource.loading()
         if (isNetworkAvailable())
             viewModelScope.launch {
@@ -26,7 +24,7 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
     }
 
     private suspend fun load() {
-        val response = api.clients()
+        val response = api.getAllClients()
         withContext(Dispatchers.Main) {
             if (response.isSuccessful) {
                 _clients.value = Resource.success(response.body()!!.payload)

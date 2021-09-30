@@ -11,7 +11,7 @@ import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Transaction
 import uz.texnopos.installment.data.retrofit.ApiInterface
 
-class ClientTransactionsViewModel(private val api: ApiInterface) : ViewModel() {
+class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
     private var _transactions : MutableLiveData<Resource<List<Transaction>>> = MutableLiveData()
     val transactions get() = _transactions
 

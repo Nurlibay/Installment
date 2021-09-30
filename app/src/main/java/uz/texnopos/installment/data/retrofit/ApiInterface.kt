@@ -14,7 +14,7 @@ interface ApiInterface {
     suspend fun payment(@Body payment: Payment):Response<GenericResponse<Any>>
 
     @GET("/api/cilents")
-    suspend fun clients(): Response<GenericResponse<List<Client>>>
+    suspend fun getAllClients(): Response<GenericResponse<List<Client>>>
 
     @GET("api/order/single_client")
     suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>

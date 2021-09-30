@@ -11,6 +11,7 @@ class Settings (context: Context) {
         const val NO_INTERNET = "Интернет не подключен"
         const val UNAUTHORIZED = "Несанкционированный"
         const val mySharedPreferences="InstallmentPreferences"
+        const val CLIENT="client"
     }
 
     private val preferences: SharedPreferences =

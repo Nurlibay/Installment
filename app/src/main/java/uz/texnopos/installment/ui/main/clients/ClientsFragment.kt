@@ -11,6 +11,7 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
+import uz.texnopos.installment.settings.Settings.Companion.CLIENT
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
@@ -19,20 +20,23 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private val adapter = ClientsAdapter()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
-    val clients:Client?=null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.getAllClients()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
-        viewModel.getAllOrders()
         setStatusBarColor(R.color.background_color)
         binding.apply {
             rvClients.adapter = adapter
 
             adapter.onItemClick {
                 val bundle=Bundle()
-                bundle.putInt("clientId",it.client_id)
+                bundle.putParcelable(CLIENT,it)
                 try {
                     navController.navigate(R.id.action_clientsFragment_to_clientFragment,bundle)
                 } catch (e: Exception) {
