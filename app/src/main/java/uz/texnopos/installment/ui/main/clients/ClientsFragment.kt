@@ -1,10 +1,8 @@
 package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -61,5 +59,38 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
             })
         }
+
+        binding.etSearch.addTextChangedListener {
+            filter(it.toString())
+        }
     }
+
+    private fun filter(s: String){
+        val clientsItem : MutableList<Client> = mutableListOf()
+        viewModel.clients.observe(viewLifecycleOwner, {
+            when(it.status){
+                ResourceState.LOADING ->{
+                    showProgress()
+                }
+                ResourceState.SUCCESS ->{
+                    for(client in it.data!!.toMutableList()){
+                        if(client.client_name.lowercase().contains(s.lowercase())){
+                            clientsItem.add(client)
+                        }
+                    }
+                    adapter.filteredList(clientsItem)
+                    hideProgress()
+                }
+                ResourceState.ERROR ->{
+                    hideProgress()
+                    toast(it.message!!)
+                }
+                ResourceState.NETWORK_ERROR -> {
+                    hideProgress()
+                    toast(NO_INTERNET)
+                }
+            }
+        })
+    }
+
 }

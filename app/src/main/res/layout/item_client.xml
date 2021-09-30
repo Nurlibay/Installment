@@ -44,20 +44,30 @@
             app:layout_constraintTop_toBottomOf="@id/tv_client_fullName" />
 
         <TextView
-            android:id="@+id/tv_paid_title"
+            android:id="@+id/tvPaidUp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Оплачено / Осталось :"
+            android:text="Оплачено : "
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
             app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
         <TextView
+            android:id="@+id/tvLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_extra_small"
+            android:text="Осталось :"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
+            app:layout_constraintTop_toBottomOf="@id/tvPaidUp" />
+
+        <TextView
             android:id="@+id/tv_product_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1200$"
+            android:text="3"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_product_name" />
@@ -66,11 +76,19 @@
             android:id="@+id/tv_paid_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="400 / 800$"
-            android:textSize="12sp"
+            android:text="400$"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/tv_paid_title" />
+            app:layout_constraintTop_toTopOf="@id/tvPaidUp" />
+
+        <TextView
+            android:id="@+id/tv_all_sum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="800$"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvLeft" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -19,4 +19,26 @@
     <color name="dark_blue">#0E2D3F</color>
     <color name="background_blue">#1E4B60</color>
 
+    <color name="transparentColor">#00000000</color>
+    <color name="pressedColor">#37000000</color>
+
+    <color name="valueOperationColor">#838383</color>
+    <color name="valueTotalColor">#caaeaeae</color>
+    <color name="valueTotalError">#B64D65</color>
+
+    <!-- Default colors -->
+    <color name="numberColor">#ffffff</color>
+    <color name="numberBackgroundColor">#00695C</color>
+    <color name="operatorColor">#ffffff</color>
+    <color name="operatorBackgroundColor">#4DB6AC</color>
+    <color name="okColor">#ffffff</color>
+    <color name="okBackgroundColor">#B64D65</color>
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="color01">#af000000</color>
+    <color name="color02">#ffffff</color>
+
 </resources>
