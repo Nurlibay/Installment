@@ -47,7 +47,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             bundle.putParcelable(CLIENT,client)
             bundle.putParcelable(ORDER,it)
             navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment,bundle)
-
         }
         binding.rvOrders.adapter = adapter
 
