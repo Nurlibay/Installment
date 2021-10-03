@@ -26,7 +26,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private lateinit var navController: NavController
     private val viewModel: OrdersViewModel by viewModel()
     private val adapter = OrdersAdapter()
-    private var client:Client?=null
+    private var client: Client? = null
+
     companion object {
         const val REQUEST_CALL = 1
     }
@@ -34,28 +35,35 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setUpObservers()
-        client=arguments?.getParcelable(CLIENT)
+        client = arguments?.getParcelable(CLIENT)
         viewModel.getOrders(client!!.client_id)
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
         navController = Navigation.findNavController(view)
         binding = FragmentOrdersBinding.bind(view)
         adapter.onItemClick {
-            val bundle=Bundle()
-            bundle.putParcelable(CLIENT,client)
-            bundle.putParcelable(ORDER,it)
-            navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment,bundle)
-
+            val bundle = Bundle()
+            bundle.putParcelable(CLIENT, client)
+            bundle.putParcelable(ORDER, it)
+            navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment, bundle)
         }
         binding.rvOrders.adapter = adapter
-
+        binding.fbCalc.setOnClickListener {
+            makePhoneCall()
+        }
     }
 
     private fun makePhoneCall() {
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(),
+        if (ContextCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.CALL_PHONE
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
                 arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL
             )
         } else {
@@ -70,8 +78,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if(requestCode == REQUEST_CALL){
-            if(grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == REQUEST_CALL) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 makePhoneCall()
             } else {
                 Toast.makeText(requireContext(), "PERMISSION DENIED", Toast.LENGTH_LONG).show()
@@ -81,7 +89,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
-            when(it.status) {
+            when (it.status) {
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     hideProgress()
