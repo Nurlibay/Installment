@@ -24,6 +24,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
 
     private var models = mutableListOf<Order>()
     fun setData(models: List<Order>) {
+        this.models.clear()
         for (model in models) {
             this.models.add(model)
             notifyItemChanged(this.models.lastIndex)

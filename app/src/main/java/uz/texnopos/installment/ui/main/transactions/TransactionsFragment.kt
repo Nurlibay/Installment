@@ -54,6 +54,10 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                 postPayment.onClick {
                     showPaymentDialog()
                 }
+
+                toolbar.setNavigationOnClickListener {
+                    requireActivity().onBackPressed()
+                }
             }
     }
 
