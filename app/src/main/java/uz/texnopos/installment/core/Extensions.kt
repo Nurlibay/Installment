@@ -3,6 +3,7 @@ package uz.texnopos.installment.core
 import android.content.Context
 import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
+import okhttp3.Cache
 import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
@@ -124,3 +126,5 @@ fun String.changeFormat(): String {
     }
     return "$s сум"
 }
+const val cacheSize = (5 * 1024 * 1024) .toLong ()
+val myCache = Cache(getAppInstance().cacheDir, cacheSize)

@@ -3,6 +3,7 @@ package uz.texnopos.installment.ui.main.transactions
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -10,6 +11,7 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.model.Order
+import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.databinding.FragmentTransactionsBinding
 import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.settings.Settings.Companion.CLIENT
@@ -24,7 +26,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private lateinit var navController: NavController
     var client:Client?=null
     var order: Order? = null
-
+    var transaction=MutableLiveData<Transactions?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
@@ -45,10 +47,20 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         navController = Navigation.findNavController(view)
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
-                collapsingToolbar.title=order!!.product_name
-                tvClientName.text=client!!.client_name
-                tvClientPhone.text=client!!.phone1
-                progressBar.max=order!!.product_price.toInt()-order!!.first_pay
+                toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+                transaction.observe(viewLifecycleOwner,{
+                    collapsingToolbar.title=order!!.product_name
+                    tvClientName.text=client!!.client_name
+                    tvClientPhone.text=client!!.phone1
+                    if (it!=null){
+                        progressBar.max=it.all_debt.toInt()
+                        adapter.models = it.transactions
+                        bind.progressBar.progress=it.transactions.sumOf { p->
+                            p.paid.toInt()
+                        }
+                    }
+
+                })
                 container.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter
                 postPayment.onClick {
@@ -66,12 +78,9 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
             when (it.status) {
                 ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
+                    transaction.postValue(it.data)
                     hideProgress()
                     bind.container.isRefreshing = false
-                    adapter.models = it.data!!.toMutableList()
-                    bind.progressBar.progress=it.data.sumOf { p->
-                        p.paid.toInt()
-                    }
                 }
                 ResourceState.ERROR -> {
                     bind.container.isRefreshing = false

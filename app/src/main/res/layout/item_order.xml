@@ -47,6 +47,15 @@
             android:text="+100$"
             android:textColor="@color/white"
             />
+        <ImageView
+            android:id="@+id/imgCheck"
+            android:layout_margin="@dimen/margin_middle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_round_circle_red"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

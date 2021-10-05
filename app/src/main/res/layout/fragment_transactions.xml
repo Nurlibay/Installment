@@ -77,8 +77,6 @@
                         android:layout_height="12dp"
                         android:layout_marginHorizontal="@dimen/margin_standard"
                         android:layout_marginVertical="@dimen/margin_small"
-                        android:max="100"
-                        android:progress="50"
                         android:progressDrawable="@drawable/custom_progress_bar"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"

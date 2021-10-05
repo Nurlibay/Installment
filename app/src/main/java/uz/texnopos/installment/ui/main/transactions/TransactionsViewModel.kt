@@ -9,15 +9,16 @@ import kotlinx.coroutines.withContext
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Transaction
+import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.data.retrofit.ApiInterface
 
 class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
-    private var _transactions: MutableLiveData<Resource<List<Transaction>>> = MutableLiveData()
+    private var _transactions: MutableLiveData<Resource<Transactions>> = MutableLiveData()
     val transactions get() = _transactions
 
     fun getTransactions(orderId: Int) = viewModelScope.launch {
         _transactions.value = Resource.loading()
-        if (isNetworkAvailable()) {
+//        if (isNetworkAvailable()) {
             val response = api.getAllTransactions(orderId)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
@@ -26,6 +27,6 @@ class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
                     else _transactions.value = Resource.error(response.body()!!.message)
                 } else _transactions.value = Resource.error(response.message())
             }
-        } else _transactions.value = Resource.networkError()
+//        } else _transactions.value = Resource.networkError()
     }
 }
