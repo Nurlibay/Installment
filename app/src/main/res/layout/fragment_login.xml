@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,67 +12,63 @@
         android:layout_height="220dp"
         android:layout_gravity="center"
         android:contentDescription="@string/todo"
-        android:src="@drawable/logo"
         android:padding="54dp"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
-        />
+        app:layout_constraintVertical_bias="0.3" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilLogin"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_height"
-        style="@style/TextInputLayoutStyle"
         android:layout_marginHorizontal="@dimen/margin_large"
-        app:endIconMode="clear_text"
-        android:hint="@string/login"
         android:layout_marginVertical="@dimen/margin_extra_small"
+        android:hint="@string/login"
+        android:importantForAutofill="noExcludeDescendants"
+        app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logo"
-        android:importantForAutofill="noExcludeDescendants"
-        app:startIconDrawable="@drawable/ic_baseline_person_24"
-        >
+        app:startIconDrawable="@drawable/ic_baseline_person_24_login">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textEmailAddress"
-            android:textColor="@color/white"
             android:importantForAutofill="noExcludeDescendants"
+            android:inputType="textEmailAddress"
             android:paddingVertical="@dimen/margin_middle"
-            />
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPassword"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/standard_height"
-        android:hint="@string/password"
         android:layout_marginHorizontal="@dimen/margin_large"
-        app:endIconMode="password_toggle"
-        app:startIconDrawable="@drawable/key"
-        android:autofillHints="password"
-        android:importantForAutofill="noExcludeDescendants"
         android:layout_marginVertical="@dimen/margin_extra_small"
+        android:autofillHints="password"
+        android:hint="@string/password"
+        android:importantForAutofill="noExcludeDescendants"
+        app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tilLogin"
-        >
+        app:startIconDrawable="@drawable/key">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="textPassword"
             android:importantForAutofill="noExcludeDescendants"
-            android:textColor="@color/white"
+            android:inputType="textPassword"
             android:paddingVertical="@dimen/margin_middle"
-            />
+            android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
@@ -85,8 +80,8 @@
         android:paddingHorizontal="48dp"
         android:text="@string/btn_login_ru"
         android:textAllCaps="false"
-        app:cornerRadius="8dp"
         android:textSize="@dimen/text_size_standard"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="@id/tilPassword"
         app:layout_constraintTop_toBottomOf="@id/tilPassword"
         tools:ignore="SpUsage" />

@@ -15,7 +15,6 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
             binding.price.text = (order.product_price.toInt() - order.first_pay).toString().changeFormat()
             binding.tvProductName.text = order.product_name
             binding.tvData.text = "${order.start_date} - ${order.end_date}"
-
             binding.cardView.setOnClickListener {
                 onItemCLick.invoke(order)
             }
@@ -24,6 +23,7 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
 
     private var models = mutableListOf<Order>()
     fun setData(models: List<Order>) {
+        this.models.clear()
         for (model in models) {
             this.models.add(model)
             notifyItemChanged(this.models.lastIndex)

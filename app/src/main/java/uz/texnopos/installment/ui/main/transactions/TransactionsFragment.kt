@@ -31,7 +31,6 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
             order = getParcelable(ORDER)
             client = getParcelable(CLIENT)
         }
-        setUpObservers()
     }
 
     override fun onStart() {
@@ -39,27 +38,32 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         showProgress()
         refresh()
     }
-    
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
+        setUpObservers()
         navController = Navigation.findNavController(view)
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
-
-                tvProductName.text = order!!.product_name
+                collapsingToolbar.title = order!!.product_name
                 tvClientName.text = client!!.client_name
+                tvClientPhone.text = client!!.phone1
                 progressBar.max = order!!.product_price.toInt() - order!!.first_pay
                 container.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter
                 postPayment.onClick {
                     showPaymentDialog()
                 }
+
+                toolbar.setNavigationOnClickListener {
+                    requireActivity().onBackPressed()
+                }
             }
     }
 
     private fun setUpObservers() {
-        viewModel.transactions.observe(requireActivity()) {
+        viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
                 ResourceState.LOADING -> {
                 }

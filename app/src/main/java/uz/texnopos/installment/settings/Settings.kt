@@ -13,6 +13,7 @@ class Settings (context: Context) {
         const val mySharedPreferences="InstallmentPreferences"
         const val CLIENT="client"
         const val ORDER="order"
+        const val TAG="tekseriw"
     }
 
     private val preferences: SharedPreferences =

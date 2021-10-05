@@ -1,11 +1,11 @@
 package uz.texnopos.installment.ui.main.payment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.doOnNextLayout
-import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -13,7 +13,9 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.databinding.FragmentPaymentBinding
+import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
+import uz.texnopos.installment.settings.Settings.Companion.TAG
 import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
@@ -46,8 +48,9 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
             countProduct.text = "Всего товаров: ${mFragment.client!!.count}"
             tvDebtValue.text = mFragment.client!!.all_sum.toInt().toString().changeFormat()
 
-            etAddPayment.addTextChangedListener {
-                inputPayment.helperText = it.toString().changeFormat()
+            etAddPayment.doOnTextChanged { text, start, before, count ->
+                Log.d(TAG, "onViewCreated: start=$start, before=$before, count=$count ")
+                inputPayment.helperText = text.toString().changeFormat()
             }
 
             btnPay.onClick {
