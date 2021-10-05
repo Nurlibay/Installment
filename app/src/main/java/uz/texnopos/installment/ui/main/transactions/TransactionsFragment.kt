@@ -22,14 +22,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private lateinit var bind: FragmentTransactionsBinding
     private val viewModel: TransactionsViewModel by viewModel()
     private lateinit var navController: NavController
-    var client:Client?=null
+    var client: Client? = null
     var order: Order? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
-            order=getParcelable(ORDER)
-            client=getParcelable(CLIENT)
+            order = getParcelable(ORDER)
+            client = getParcelable(CLIENT)
         }
     }
 
@@ -38,6 +38,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         showProgress()
         refresh()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
@@ -45,10 +46,10 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         navController = Navigation.findNavController(view)
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
-                collapsingToolbar.title=order!!.product_name
-                tvClientName.text=client!!.client_name
-                tvClientPhone.text=client!!.phone1
-                progressBar.max=order!!.product_price.toInt()-order!!.first_pay
+                collapsingToolbar.title = order!!.product_name
+                tvClientName.text = client!!.client_name
+                tvClientPhone.text = client!!.phone1
+                progressBar.max = order!!.product_price.toInt() - order!!.first_pay
                 container.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter
                 postPayment.onClick {
@@ -64,12 +65,13 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private fun setUpObservers() {
         viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> { }
+                ResourceState.LOADING -> {
+                }
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     bind.container.isRefreshing = false
                     adapter.models = it.data!!.toMutableList()
-                    bind.progressBar.progress=it.data.sumOf { p->
+                    bind.progressBar.progress = it.data.sumOf { p ->
                         p.paid.toInt()
                     }
                 }
@@ -86,10 +88,12 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
             }
         }
     }
-    private fun showPaymentDialog(){
+
+    private fun showPaymentDialog() {
         PaymentDialog(this)
     }
-     fun refresh(){
-         viewModel.getTransactions(order!!.order_id)
+
+    fun refresh() {
+        viewModel.getTransactions(order!!.order_id)
     }
 }

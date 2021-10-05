@@ -45,10 +45,15 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         setStatusBarColor(R.color.background_blue)
         navController = Navigation.findNavController(view)
         binding = FragmentOrdersBinding.bind(view)
-        binding.tvClientName.text = client!!.client_name
-        binding.tvClientPhone.text = client!!.phone1
+        binding.tvClientPhone.text = "Phone: ${client!!.phone1}"
+        binding.tvClientId.text = "client id: ${client!!.client_id}"
+        binding.tvProductCount.text = "Число товаров: ${client!!.count}"
+        binding.collapsingToolbar.title = client!!.client_name
         binding.swipeRefresh.setOnRefreshListener {
             refresh()
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
         }
         adapter.onItemClick {
             val bundle = Bundle()

@@ -15,7 +15,6 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
             binding.price.text = (order.product_price.toInt() - order.first_pay).toString().changeFormat()
             binding.tvProductName.text = order.product_name
             binding.tvData.text = "${order.start_date} - ${order.end_date}"
-
             binding.cardView.setOnClickListener {
                 onItemCLick.invoke(order)
             }

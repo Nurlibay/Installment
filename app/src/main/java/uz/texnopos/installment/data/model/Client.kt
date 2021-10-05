@@ -5,9 +5,10 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Client(
-    val all_sum: Double,
+    val all_sum: Int,
     val client_id: Int,
     val client_name: String,
+    val color: String,
     val count: Int,
     val latter: String,
     val paid: Double,
@@ -16,4 +17,4 @@ data class Client(
     val pasport_serial: String,
     val phone1: String,
     val phone2: String
-):Parcelable
+): Parcelable
