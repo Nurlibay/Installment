@@ -3,7 +3,6 @@ package uz.texnopos.installment.ui.main.orders
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import uz.texnopos.installment.R
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.data.model.Order
 import uz.texnopos.installment.databinding.ItemOrderBinding
@@ -13,14 +12,9 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
     inner class ClientOrdersViewHolder(private val binding: ItemOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(order: Order) {
-            binding.price.text =
-                (order.product_price.toInt() - order.first_pay).toString().changeFormat()
+            binding.price.text = (order.product_price.toInt() - order.first_pay).toString().changeFormat()
             binding.tvProductName.text = order.product_name
             binding.tvData.text = "${order.start_date} - ${order.end_date}"
-            binding.imgCheck.setImageResource(
-                if (order.status == 1) R.drawable.ic_round_circle_green
-                else R.drawable.ic_round_circle_red
-            )
             binding.cardView.setOnClickListener {
                 onItemCLick.invoke(order)
             }
