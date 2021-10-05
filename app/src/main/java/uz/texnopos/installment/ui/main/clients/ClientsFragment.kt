@@ -104,13 +104,4 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         adapter.models = clientsItem
     }
 
-    private fun filterClientId(id: Int) {
-        val clientsItem: MutableList<Client> = mutableListOf()
-        for (client in clients) {
-            if (client.client_id.toString().lowercase().contains(id.toString().lowercase())) {
-                clientsItem.add(client)
-            }
-        }
-        adapter.models = clientsItem
-    }
 }
