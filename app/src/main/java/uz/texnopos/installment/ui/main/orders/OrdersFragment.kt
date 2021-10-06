@@ -37,6 +37,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         showProgress()
         client = arguments?.getParcelable(CLIENT)
         setUpObservers()
+        client = arguments?.getParcelable(CLIENT)
+        viewModel.getOrders(client!!.client_id)
         refresh()
     }
 

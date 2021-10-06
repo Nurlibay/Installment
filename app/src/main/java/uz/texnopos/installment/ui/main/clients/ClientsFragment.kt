@@ -36,7 +36,11 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         setStatusBarColor(R.color.background_color)
         binding.apply {
             container.setOnRefreshListener {
-                refresh()
+                if (binding.etSearch.checkIsEmpty()) {
+                    refresh()
+                } else {
+                    binding.container.isRefreshing = false
+                }
             }
             rvClients.adapter = adapter
 
@@ -70,7 +74,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 ResourceState.SUCCESS -> {
                     clients = it.data!!
-                    adapter.models = it.data!!.toMutableList()
+                    adapter.models = it.data.toMutableList()
                     hideProgress()
                     binding.container.isRefreshing = false
                 }
@@ -98,5 +102,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
         }
         adapter.models = clientsItem
+      }
+   }
     }
 }
