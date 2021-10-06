@@ -3,6 +3,7 @@ package uz.texnopos.installment.ui.main.clients
 import android.os.Bundle
 import android.view.View
 import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -20,7 +21,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private val adapter = ClientsAdapter()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
-    private lateinit var clients: List<Client>
+    private lateinit var clients:List<Client>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,10 +46,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             rvClients.adapter = adapter
 
             adapter.onItemClick {
-                val bundle = Bundle()
-                bundle.putParcelable(CLIENT, it)
+                val bundle=Bundle()
+                bundle.putParcelable(CLIENT,it)
                 try {
-                    navController.navigate(R.id.action_clientsFragment_to_clientFragment, bundle)
+                    navController.navigate(R.id.action_clientsFragment_to_clientFragment,bundle)
                 } catch (e: Exception) {
                 }
             }
@@ -62,31 +63,29 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             filterClientName(it.toString())
         }
     }
-
-    private fun refresh() {
+    private fun refresh(){
         viewModel.getAllClients()
     }
 
-    private fun setUpObserver() {
+    private fun setUpObserver(){
         viewModel.clients.observe(requireActivity(), {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
-                    clients = it.data!!
-                    adapter.models = it.data.toMutableList()
+                    clients=it.data!!
+                    adapter.models = it.data!!.toMutableList()
                     hideProgress()
-                    binding.container.isRefreshing = false
+                    binding.container.isRefreshing=false
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
                     toast(it.message!!)
-                    binding.container.isRefreshing = false
+                    binding.container.isRefreshing=false
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
                     toast(NO_INTERNET)
-                    binding.container.isRefreshing = false
+                    binding.container.isRefreshing=false
                 }
             }
         })
@@ -101,6 +100,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 clientsItem.add(client)
             }
         }
-        adapter.models = clientsItem
+        adapter.models=clientsItem
     }
 }

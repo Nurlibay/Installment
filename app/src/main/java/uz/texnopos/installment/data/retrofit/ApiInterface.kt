@@ -20,5 +20,5 @@ interface ApiInterface {
     suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>
 
     @GET("api/transaction/get_tran")
-    suspend fun getAllTransactions(@Query("id") orderId:Int):Response<GenericResponse<List<Transaction>>>
+    suspend fun getAllTransactions(@Query("id") orderId:Int):Response<GenericResponse<Transactions>>
 }

@@ -45,11 +45,10 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
-            countProduct.text = "Всего товаров: ${mFragment.client!!.count}"
-            tvDebtValue.text = mFragment.client!!.all_sum.toInt().toString().changeFormat()
+            tvCurrentDebtValue.text=mFragment.transaction.value?.amount!!.changeFormat()
+            tvDebtValue.text = mFragment.transaction.value?.all_debt?.toInt().toString().changeFormat()
 
-            etAddPayment.doOnTextChanged { text, start, before, count ->
-                Log.d(TAG, "onViewCreated: start=$start, before=$before, count=$count ")
+            etAddPayment.doOnTextChanged { text, _, _, _ ->
                 inputPayment.helperText = text.toString().changeFormat()
             }
 
@@ -76,6 +75,7 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
                 ResourceState.LOADING -> showProgress()
                 ResourceState.SUCCESS -> {
                     toast(it.data as String)
+                    hideProgress()
                     mFragment.refresh()
                     dismiss()
                 }
