@@ -55,7 +55,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
 
         binding.etSearch.addTextChangedListener {
-            filter(it.toString())
+            filterClientName(it.toString())
         }
     }
 
@@ -88,10 +88,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         })
     }
 
-    private fun filter(s: String) {
+    private fun filterClientName(s: String) {
         val clientsItem: MutableList<Client> = mutableListOf()
         for (client in clients) {
-            if (client.client_name.lowercase().contains(s.lowercase())) {
+            if (client.client_name.lowercase().contains(s.lowercase()) ||
+                client.client_id.toString().lowercase().contains(s.lowercase())
+            ) {
                 clientsItem.add(client)
             }
         }
