@@ -38,6 +38,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         client = arguments?.getParcelable(CLIENT)
         setUpObservers()
         refresh()
+        client = arguments?.getParcelable(CLIENT)
+        viewModel.getOrders(client!!.client_id)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

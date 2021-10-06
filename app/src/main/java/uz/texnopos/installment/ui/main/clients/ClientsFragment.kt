@@ -98,10 +98,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             if (client.client_name.lowercase().contains(s.lowercase()) ||
                 client.client_id.toString().lowercase().contains(s.lowercase())
             ) {
-                clientsItem.add(client)
-            }
-        }
         adapter.models = clientsItem
-    }
-
+      }
+   }
 }

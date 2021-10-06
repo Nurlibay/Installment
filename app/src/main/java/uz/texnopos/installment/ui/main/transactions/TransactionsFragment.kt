@@ -38,7 +38,6 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         showProgress()
         refresh()
     }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
@@ -49,6 +48,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                 collapsingToolbar.title = order!!.product_name
                 tvClientName.text = client!!.client_name
                 tvClientPhone.text = client!!.phone1
+                tvProductName.text = order!!.product_name
                 progressBar.max = order!!.product_price.toInt() - order!!.first_pay
                 container.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter
