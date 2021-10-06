@@ -49,7 +49,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                 collapsingToolbar.title = order!!.product_name
                 tvClientName.text = client!!.client_name
                 tvClientPhone.text = client!!.phone1
-                tvProductName.text = order!!.product_name
+                //tvProductName.text = order!!.product_name
                 progressBar.max = order!!.product_price.toInt() - order!!.first_pay
                 container.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter

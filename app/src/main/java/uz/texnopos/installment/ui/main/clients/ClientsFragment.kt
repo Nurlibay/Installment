@@ -102,7 +102,5 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
         }
         adapter.models = clientsItem
-      }
-   }
     }
 }
