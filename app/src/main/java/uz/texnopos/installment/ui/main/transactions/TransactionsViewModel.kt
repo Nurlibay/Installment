@@ -18,7 +18,7 @@ class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
 
     fun getTransactions(orderId: Int) = viewModelScope.launch {
         _transactions.value = Resource.loading()
-//        if (isNetworkAvailable()) {
+        if (isNetworkAvailable()) {
             val response = api.getAllTransactions(orderId)
             withContext(Dispatchers.Main) {
                 if (response.isSuccessful) {
@@ -27,6 +27,6 @@ class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
                     else _transactions.value = Resource.error(response.body()!!.message)
                 } else _transactions.value = Resource.error(response.message())
             }
-//        } else _transactions.value = Resource.networkError()
+        } else _transactions.value = Resource.networkError()
     }
 }

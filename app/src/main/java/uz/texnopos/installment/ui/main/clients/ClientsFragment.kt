@@ -22,8 +22,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private lateinit var binding: FragmentClientsBinding
     private lateinit var clients: List<Client>
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onStart() {
+        super.onStart()
         showProgress()
         refresh()
         setUpObserver()

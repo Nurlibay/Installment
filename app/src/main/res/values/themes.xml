@@ -1,4 +1,4 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+    <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Installment" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->

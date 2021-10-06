@@ -29,6 +29,6 @@
     <string name="login">Логин</string>
     <string name="password">Пароль</string>
 
-
+   <string name="order_id">Номер заказа: %1$d</string>
 
 </resources>

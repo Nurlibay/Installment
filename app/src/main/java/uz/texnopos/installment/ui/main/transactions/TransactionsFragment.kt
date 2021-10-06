@@ -2,6 +2,7 @@ package uz.texnopos.installment.ui.main.transactions
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -51,13 +52,15 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                 transaction.observe(viewLifecycleOwner,{
                     collapsingToolbar.title=order!!.product_name
                     tvClientName.text=client!!.client_name
-                    tvClientPhone.text=client!!.phone1
+                    tvOrderId.text=getString(R.string.order_id,order!!.order_id)
                     if (it!=null){
-                        progressBar.max=it.all_debt.toInt()
+                        progressBar.max=order!!.product_price.toInt()-order!!.first_pay
                         adapter.models = it.transactions
                         bind.progressBar.progress=it.transactions.sumOf { p->
                             p.paid.toInt()
                         }
+                        tvNotFound.isVisible=it.transactions.isEmpty()
+                        rvOrders.isVisible=it.transactions.isNotEmpty()
                     }
 
                 })

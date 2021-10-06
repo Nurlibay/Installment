@@ -25,7 +25,7 @@
                 app:contentScrim="@color/background_blue"
                 app:expandedTitleGravity="bottom|center_horizontal"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="Samsung">
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -57,15 +57,13 @@
                             android:id="@+id/tvClientName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/client_name"
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
                         <TextView
-                            android:id="@+id/tvClientPhone"
+                            android:id="@+id/tvOrderId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+998(97)220-21-56"
                             android:textColor="@color/white" />
 
                     </LinearLayout>
@@ -83,7 +81,15 @@
                         app:layout_constraintTop_toBottomOf="@id/profile_image" />
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
+                <TextView
+                    android:id="@+id/tvNotFound"
+                    android:text="Пока транзакций нет"
+                    android:layout_width="match_parent"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_gravity="bottom"
+                    app:layout_collapseMode="pin"
+                    android:layout_height="wrap_content"/>
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
@@ -103,14 +109,18 @@
             android:layout_height="match_parent"
             android:background="@color/background_blue"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_orders"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingHorizontal="@dimen/margin_standard_large"
+        android:visibility="visible"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+</RelativeLayout>
 
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_orders"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingHorizontal="@dimen/margin_standard_large"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
