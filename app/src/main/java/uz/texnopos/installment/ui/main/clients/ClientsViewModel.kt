@@ -17,7 +17,7 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
     fun getAllClients() {
         _clients.value = Resource.loading()
         if (isNetworkAvailable())
-            viewModelScope.launch {
+            viewModelScope.launch{
                 load()
             }
         else _clients.value = Resource.networkError()

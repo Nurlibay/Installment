@@ -12,26 +12,20 @@ import uz.texnopos.installment.data.model.Transaction
 import uz.texnopos.installment.data.retrofit.ApiInterface
 
 class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
-    private var _transactions : MutableLiveData<Resource<List<Transaction>>> = MutableLiveData()
+    private var _transactions: MutableLiveData<Resource<List<Transaction>>> = MutableLiveData()
     val transactions get() = _transactions
 
-    fun getTransactions(orderId:Int) {
+    fun getTransactions(orderId: Int) = viewModelScope.launch {
         _transactions.value = Resource.loading()
-        if (isNetworkAvailable())
-            viewModelScope.launch {
-                load(orderId)
+        if (isNetworkAvailable()) {
+            val response = api.getAllTransactions(orderId)
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    if (response.body()!!.successful) _transactions.value =
+                        Resource.success(response.body()!!.payload)
+                    else _transactions.value = Resource.error(response.body()!!.message)
+                } else _transactions.value = Resource.error(response.message())
             }
-        else _transactions.value= Resource.networkError()
-    }
-
-    private suspend fun load(orderId: Int){
-        val response=api.getAllTransactions(orderId)
-        withContext(Dispatchers.Main){
-            if (response.isSuccessful){
-                if (response.body()!!.successful) _transactions.value= Resource.success(response.body()!!.payload)
-                else _transactions.value= Resource.error(response.body()!!.message)
-            }
-            else _transactions.value= Resource.error(response.message())
-        }
+        } else _transactions.value = Resource.networkError()
     }
 }

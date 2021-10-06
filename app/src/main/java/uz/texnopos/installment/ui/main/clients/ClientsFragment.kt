@@ -36,7 +36,11 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         setStatusBarColor(R.color.background_color)
         binding.apply {
             container.setOnRefreshListener {
-                refresh()
+                if (binding.etSearch.checkIsEmpty()) {
+                    refresh()
+                } else {
+                    binding.container.isRefreshing = false
+                }
             }
             rvClients.adapter = adapter
 
@@ -55,7 +59,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
 
         binding.etSearch.addTextChangedListener {
-            filter(it.toString())
+            filterClientName(it.toString())
         }
     }
 
@@ -70,7 +74,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 ResourceState.SUCCESS -> {
                     clients = it.data!!
-                    adapter.models = it.data!!.toMutableList()
+                    adapter.models = it.data.toMutableList()
                     hideProgress()
                     binding.container.isRefreshing = false
                 }
@@ -88,13 +92,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         })
     }
 
-    private fun filter(s: String) {
+    private fun filterClientName(s: String) {
         val clientsItem: MutableList<Client> = mutableListOf()
         for (client in clients) {
-            if (client.client_name.lowercase().contains(s.lowercase())) {
-                clientsItem.add(client)
-            }
-        }
+            if (client.client_name.lowercase().contains(s.lowercase()) ||
+                client.client_id.toString().lowercase().contains(s.lowercase())
+            ) {
         adapter.models = clientsItem
-    }
+      }
+   }
 }

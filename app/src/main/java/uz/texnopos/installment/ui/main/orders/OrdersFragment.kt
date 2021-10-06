@@ -34,7 +34,10 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        showProgress()
+        client = arguments?.getParcelable(CLIENT)
         setUpObservers()
+        refresh()
         client = arguments?.getParcelable(CLIENT)
         viewModel.getOrders(client!!.client_id)
     }
@@ -44,14 +47,26 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         setStatusBarColor(R.color.background_blue)
         navController = Navigation.findNavController(view)
         binding = FragmentOrdersBinding.bind(view)
+        binding.tvClientPhone.text = client!!.phone1
+        binding.tvClientId.text = "client id: ${client!!.client_id}"
+        binding.tvProductCount.text = "Число товаров: ${client!!.count}"
+        binding.collapsingToolbar.title = client!!.client_name
+        binding.swipeRefresh.setOnRefreshListener {
+            refresh()
+        }
+        binding.toolbar.setNavigationOnClickListener {
+            requireActivity().onBackPressed()
+        }
         adapter.onItemClick {
             val bundle = Bundle()
             bundle.putParcelable(CLIENT, client)
             bundle.putParcelable(ORDER, it)
-            navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment, bundle)
+            try {
+                navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment, bundle)
+            } catch (e: Exception) {}
         }
         binding.rvOrders.adapter = adapter
-        binding.fbCalc.setOnClickListener {
+        binding.btnFab.setOnClickListener {
             makePhoneCall()
         }
     }
@@ -73,6 +88,10 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         }
     }
 
+    private fun refresh() {
+        viewModel.getOrders(client!!.client_id)
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -90,18 +109,22 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
             when (it.status) {
-                ResourceState.LOADING -> showProgress()
+                ResourceState.LOADING -> {
+                }
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     adapter.setData(it.data!!)
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
                     hideProgress()
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
                     toast(NO_INTERNET)
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
         }

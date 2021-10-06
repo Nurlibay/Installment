@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import uz.texnopos.installment.R
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Client
@@ -17,13 +18,24 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         fun populateModel(client: Client) {
             binding.tvClientFullName.text = client.client_name
             binding.tvProductCount.text = client.count.toString()
+            //binding.tvClientIdValue.text = client.client_id.toString()
             binding.tvPaidSum.text = client.paid.toInt().toString().changeFormat()
             binding.tvAllSum.text = client.all_sum.toInt().toString().changeFormat()
             binding.cardView.onClick {
                 onItemClick.invoke(client)
             }
+            if(client.color == "green"){
+                binding.imgCheck.setImageResource(R.drawable.ic_round_circle_green)
+            }
+            if(client.color == "red"){
+                binding.imgCheck.setImageResource(R.drawable.ic_round_circle_red)
+            }
+            if(client.color == "yellow"){
+                binding.imgCheck.setImageResource(R.drawable.ic_round_circle_yellow)
+            }
         }
     }
+
     var models : MutableList<Client> = mutableListOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
