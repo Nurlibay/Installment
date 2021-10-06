@@ -57,7 +57,7 @@
                             android:id="@+id/tvClientName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/client_name"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -65,7 +65,7 @@
                             android:id="@+id/tvClientPhone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="+998(97)220-21-56"
+                            android:text=""
                             android:textColor="@color/white" />
 
                     </LinearLayout>

@@ -26,7 +26,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private lateinit var navController: NavController
     var client: Client? = null
     var order: Order? = null
-    var transaction=MutableLiveData<Transactions?>()
+    var transaction = MutableLiveData<Transactions?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
@@ -49,14 +49,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
                 toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-                transaction.observe(viewLifecycleOwner,{
-                    collapsingToolbar.title=order!!.product_name
-                    tvClientName.text=client!!.client_name
-                    tvClientPhone.text=client!!.phone1
-                    if (it!=null){
-                        progressBar.max=it.all_debt.toInt()
+                transaction.observe(viewLifecycleOwner, {
+                    collapsingToolbar.title = order!!.product_name
+                    tvClientName.text = client!!.client_name
+                    tvClientPhone.text = client!!.phone1
+                    if (it != null) {
+                        progressBar.max = it.all_debt.toInt()
                         adapter.models = it.transactions
-                        bind.progressBar.progress=it.transactions.sumOf { p->
+                        bind.progressBar.progress = it.transactions.sumOf { p ->
                             p.paid.toInt()
                         }
                     }
@@ -83,10 +83,6 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                     transaction.postValue(it.data)
                     hideProgress()
                     bind.container.isRefreshing = false
-                    adapter.models = it.data!!.toMutableList()
-                    bind.progressBar.progress = it.data.sumOf { p ->
-                        p.paid.toInt()
-                    }
                 }
                 ResourceState.ERROR -> {
                     bind.container.isRefreshing = false
