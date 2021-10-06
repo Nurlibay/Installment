@@ -13,22 +13,28 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.databinding.FragmentPaymentBinding
-import uz.texnopos.installment.settings.Settings
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 import uz.texnopos.installment.settings.Settings.Companion.TAG
 import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
+import java.lang.Long.min
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
     private var savedViewInstance: View? = null
     lateinit var bind: FragmentPaymentBinding
     private val viewModel by viewModel<PaymentViewModel>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Demo_BottomSheetDialog)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(TAG, "onCreateView: ")
         setUpObserver()
-        setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Demo_BottomSheetDialog)
         return if (savedInstanceState != null) {
             savedViewInstance
         } else {
@@ -45,17 +51,23 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
-            tvCurrentDebtValue.text=mFragment.transaction.value?.amount!!.changeFormat()
-            tvDebtValue.text = mFragment.transaction.value?.all_debt?.toInt().toString().changeFormat()
+            val transactions = mFragment.transaction.value!!
+            tvCurrentDebtValue.text = transactions.amount.changeFormat()
+            tvDebtValue.text = transactions.all_debt.toInt().toString().changeFormat()
 
             etAddPayment.doOnTextChanged { text, _, _, _ ->
                 inputPayment.helperText = text.toString().changeFormat()
             }
-
             btnPay.onClick {
                 if (validate()) {
                     viewModel.payment(
-                        Payment(mFragment.order!!.order_id, etAddPayment.textToString().toLong())
+                        Payment(
+                            mFragment.order!!.order_id,
+                            min(
+                                etAddPayment.textToString().toLong(),
+                                transactions.all_debt.toLong()
+                            )
+                        )
                     )
                 }
             }

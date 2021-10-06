@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.Demo.BottomSheet"
+    app:behavior_hideable="false"
+    app:behavior_skipCollapsed="false"
     app:layout_behavior="@string/bottom_sheet_behavior">
 
     <LinearLayout
@@ -13,6 +15,7 @@
         android:orientation="vertical">
 
         <View
+            android:id="@+id/holder"
             android:layout_width="40dp"
             android:layout_height="4dp"
             android:layout_gravity="center_horizontal"
@@ -112,5 +115,5 @@
     </LinearLayout>
 
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>
 

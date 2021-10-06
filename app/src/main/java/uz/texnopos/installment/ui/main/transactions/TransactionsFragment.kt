@@ -2,6 +2,7 @@ package uz.texnopos.installment.ui.main.transactions
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.NavController
@@ -24,14 +25,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private lateinit var bind: FragmentTransactionsBinding
     private val viewModel: TransactionsViewModel by viewModel()
     private lateinit var navController: NavController
-    var client: Client? = null
+    var client:Client?=null
     var order: Order? = null
     var transaction = MutableLiveData<Transactions?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
-            order = getParcelable(ORDER)
-            client = getParcelable(CLIENT)
+            order=getParcelable(ORDER)
+            client=getParcelable(CLIENT)
         }
     }
 
@@ -49,16 +50,18 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
                 toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-                transaction.observe(viewLifecycleOwner, {
-                    collapsingToolbar.title = order!!.product_name
-                    tvClientName.text = client!!.client_name
-                    tvClientPhone.text = client!!.phone1
-                    if (it != null) {
-                        progressBar.max = it.all_debt.toInt()
+                transaction.observe(viewLifecycleOwner,{
+                    collapsingToolbar.title=order!!.product_name
+                    tvClientName.text=client!!.client_name
+                    tvOrderId.text=getString(R.string.order_id,order!!.order_id)
+                    if (it!=null){
+                        progressBar.max=order!!.product_price.toInt()-order!!.first_pay
                         adapter.models = it.transactions
                         bind.progressBar.progress = it.transactions.sumOf { p ->
                             p.paid.toInt()
                         }
+                        tvNotFound.isVisible=it.transactions.isEmpty()
+                        rvOrders.isVisible=it.transactions.isNotEmpty()
                     }
 
                 })
@@ -77,8 +80,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private fun setUpObservers() {
         viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
                     transaction.postValue(it.data)
                     hideProgress()
@@ -97,12 +99,10 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
             }
         }
     }
-
-    private fun showPaymentDialog() {
+    private fun showPaymentDialog(){
         PaymentDialog(this)
     }
-
-    fun refresh() {
-        viewModel.getTransactions(order!!.order_id)
+     fun refresh(){
+         viewModel.getTransactions(order!!.order_id)
     }
 }
