@@ -118,4 +118,6 @@ dependencies {
 
     //font
     implementation 'com.rhexgomez.typer:typer-roboto:2.0.0'
+    //progress button
+    implementation 'com.github.razir.progressbutton:progressbutton:2.1.0'
 }

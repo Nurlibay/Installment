@@ -1,10 +1,15 @@
 package uz.texnopos.installment.ui.login
 
+import android.graphics.Color
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
+import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import com.github.razir.progressbutton.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
@@ -26,6 +31,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         navController = Navigation.findNavController(view)
         updateUI()
         bind.apply {
+            bindProgressButton(btnLogin)
+            btnLogin.attachTextChangeAnimator {
+                fadeInMills = 300
+                fadeOutMills = 300
+            }
             btnLogin.onClick {
                 if (validate()) {
                     val login = etLogin.textToString()
@@ -39,18 +49,23 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun setUpObserves() {
         viewModel.user.observe(viewLifecycleOwner, {
             when (it.status) {
-                ResourceState.LOADING -> showProgress()
+                ResourceState.LOADING -> bind.btnLogin.showProgress(true)
                 ResourceState.SUCCESS -> {
-                    hideProgress()
+                    bind.btnLogin.hideProgress(getString(R.string.success))
+                    bind.btnLogin.showProgress(false)
                     token = it.data!!.payload.token
-                    updateUI()
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        updateUI()
+                    },2000)
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
-                    hideProgress()
+                    bind.btnLogin.hideProgress(R.string.btn_login_ru)
+                    bind.btnLogin.showProgress(false)
                 }
                 ResourceState.NETWORK_ERROR -> {
-                    hideProgress()
+                    bind.btnLogin.hideProgress(R.string.btn_login_ru)
+                    bind.btnLogin.showProgress(false)
                     toast(NO_INTERNET)
                 }
             }
@@ -75,5 +90,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         if (isSignedIn()) navController.navigate(R.id.action_loginFragment_to_clientsFragment)
     }
 
+    private fun Button.showProgress(isLoading: Boolean) {
+        bind.tilLogin.isEnabled=!isLoading
+        bind.tilPassword.isEnabled=!isLoading
+        this.isEnabled = !isLoading
+        if (isLoading) {
+            this.showProgress {
+                progressColor = Color.WHITE
+                gravity = DrawableButton.GRAVITY_CENTER
+            }
 
+        }
+    }
 }
