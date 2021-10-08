@@ -48,7 +48,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         navController = Navigation.findNavController(view)
         binding = FragmentOrdersBinding.bind(view)
         binding.tvClientPhone.text = client!!.phone1
-        binding.tvClientId.text = "client id: ${client!!.client_id}"
+        binding.tvClientId.text = "Слиент ид: ${client!!.client_id}"
         binding.tvProductCount.text = "Число товаров: ${client!!.count}"
         binding.collapsingToolbar.title = client!!.client_name
         binding.swipeRefresh.setOnRefreshListener {

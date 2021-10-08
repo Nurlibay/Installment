@@ -25,14 +25,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private lateinit var bind: FragmentTransactionsBinding
     private val viewModel: TransactionsViewModel by viewModel()
     private lateinit var navController: NavController
-    var client:Client?=null
+    var client: Client? = null
     var order: Order? = null
     var transaction = MutableLiveData<Transactions?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
-            order=getParcelable(ORDER)
-            client=getParcelable(CLIENT)
+            order = getParcelable(ORDER)
+            client = getParcelable(CLIENT)
         }
     }
 
@@ -50,22 +50,22 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
                 toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-                transaction.observe(viewLifecycleOwner,{
-                    collapsingToolbar.title=order!!.product_name
-                    tvClientName.text=client!!.client_name
-                    tvOrderId.text=getString(R.string.order_id,order!!.order_id)
-                    if (it!=null){
-                        progressBar.max=order!!.product_price.toInt()-order!!.first_pay
+                transaction.observe(viewLifecycleOwner, {
+                    collapsingToolbar.title = order!!.product_name
+                    tvClientName.text = client!!.client_name
+                    tvOrderId.text = getString(R.string.order_id, order!!.order_id)
+                    if (it != null) {
+                        progressBar.max = order!!.product_price.toInt() - order!!.first_pay
                         adapter.models = it.transactions
                         bind.progressBar.progress = it.transactions.sumOf { p ->
                             p.paid.toInt()
                         }
-                        tvNotFound.isVisible=it.transactions.isEmpty()
-                        rvOrders.isVisible=it.transactions.isNotEmpty()
+                        tvNotFound.isVisible = it.transactions.isEmpty()
+                        rvOrders.isVisible = it.transactions.isNotEmpty()
                     }
 
                 })
-                container.setOnRefreshListener { refresh() }
+                swipeRefresh.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter
                 postPayment.onClick {
                     showPaymentDialog()
@@ -80,29 +80,32 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private fun setUpObservers() {
         viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> { }
+                ResourceState.LOADING -> {
+                }
                 ResourceState.SUCCESS -> {
                     transaction.postValue(it.data)
                     hideProgress()
-                    bind.container.isRefreshing = false
+                    bind.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.ERROR -> {
-                    bind.container.isRefreshing = false
+                    bind.swipeRefresh.isRefreshing = false
                     toast(it.message!!)
                     hideProgress()
                 }
                 ResourceState.NETWORK_ERROR -> {
-                    bind.container.isRefreshing = false
+                    bind.swipeRefresh.isRefreshing = false
                     hideProgress()
                     toast(Settings.NO_INTERNET)
                 }
             }
         }
     }
-    private fun showPaymentDialog(){
+
+    private fun showPaymentDialog() {
         PaymentDialog(this)
     }
-     fun refresh(){
-         viewModel.getTransactions(order!!.order_id)
+
+    fun refresh() {
+        viewModel.getTransactions(order!!.order_id)
     }
 }

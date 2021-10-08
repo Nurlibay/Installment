@@ -2,6 +2,7 @@ package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -27,6 +28,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         showProgress()
         refresh()
         setUpObserver()
+        Toast.makeText(requireContext(), "Fragment started !", Toast.LENGTH_SHORT).show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -34,12 +36,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
         setStatusBarColor(R.color.background_color)
+        Toast.makeText(requireContext(), "Fragment views created !", Toast.LENGTH_SHORT).show()
         binding.apply {
-            container.setOnRefreshListener {
+            swipeRefresh.setOnRefreshListener {
                 if (binding.etSearch.checkIsEmpty()) {
                     refresh()
                 } else {
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
             rvClients.adapter = adapter
@@ -55,11 +58,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             floatingButton.setOnClickListener {
 
             }
-
         }
 
         binding.etSearch.addTextChangedListener {
-            filterClientName(it.toString())
+            filterClientNameAndClientId(it.toString())
         }
     }
 
@@ -76,30 +78,31 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     clients = it.data!!
                     adapter.models = it.data.toMutableList()
                     hideProgress()
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
                     toast(it.message!!)
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
                     toast(NO_INTERNET)
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
         })
     }
 
-    private fun filterClientName(s: String) {
-        val clientsItem: MutableList<Client> = mutableListOf()
+    private fun filterClientNameAndClientId(s: String) {
+        val filteredList: MutableList<Client> = mutableListOf()
         for (client in clients) {
             if (client.client_name.lowercase().contains(s.lowercase()) ||
                 client.client_id.toString().lowercase().contains(s.lowercase())
             ) {
-                adapter.models = clientsItem
+                filteredList.add(client)
             }
         }
+        adapter.models = filteredList
     }
 }

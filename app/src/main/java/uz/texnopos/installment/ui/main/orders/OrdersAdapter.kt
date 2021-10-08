@@ -3,6 +3,7 @@ package uz.texnopos.installment.ui.main.orders
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import uz.texnopos.installment.R
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.data.model.Order
 import uz.texnopos.installment.databinding.ItemOrderBinding
