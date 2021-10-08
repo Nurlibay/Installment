@@ -62,7 +62,6 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                         tvNotFound.isVisible=it.transactions.isEmpty()
                         rvOrders.isVisible=it.transactions.isNotEmpty()
                     }
-
                 })
                 container.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter

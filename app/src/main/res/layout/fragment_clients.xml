@@ -6,7 +6,11 @@
     android:layout_height="match_parent"
     android:background="@color/background_blue"
     tools:context=".ui.main.clients.ClientsFragment">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/background_image"/>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">

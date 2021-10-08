@@ -8,7 +8,11 @@
     app:behavior_hideable="false"
     app:behavior_skipCollapsed="false"
     app:layout_behavior="@string/bottom_sheet_behavior">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/background_image"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -92,7 +96,7 @@
                 android:hint="@string/add_payment"
                 android:inputType="number"
                 android:digits="0123456789"
-                android:maxLength="15"
+                android:maxLength="19"
                 android:layout_marginVertical="@dimen/margin_middle"
                 android:padding="@dimen/margin_middle_standard"
                 android:textColor="@color/white" />

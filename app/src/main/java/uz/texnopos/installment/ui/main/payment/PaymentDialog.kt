@@ -50,7 +50,7 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
             val transactions = mFragment.transaction.value!!
-            tvCurrentDebtValue.text = transactions.amount.changeFormat()
+            tvCurrentDebtValue.text = transactions.amount.toDouble().toInt().toString().changeFormat()
             tvDebtValue.text = transactions.all_debt.toInt().toString().changeFormat()
             etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
             btnPay.onClick {

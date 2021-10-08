@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Client(
-    val all_sum: Int,
+    val all_sum: Double,
     val client_id: Int,
     val client_name: String,
     val color: String,
