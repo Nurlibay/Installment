@@ -49,7 +49,7 @@
             />
         <ImageView
             android:id="@+id/imgCheck"
-            android:layout_margin="@dimen/margin_middle"
+            android:layout_margin="@dimen/margin_small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"

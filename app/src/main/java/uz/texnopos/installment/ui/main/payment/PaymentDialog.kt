@@ -5,7 +5,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -16,7 +15,6 @@ import uz.texnopos.installment.databinding.FragmentPaymentBinding
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 import uz.texnopos.installment.settings.Settings.Companion.TAG
 import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
-import java.lang.Long.min
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
     private var savedViewInstance: View? = null
@@ -52,28 +50,25 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
             val transactions = mFragment.transaction.value!!
-            tvCurrentDebtValue.text = transactions.amount.changeFormat()
+            tvCurrentDebtValue.text = transactions.amount.toDouble().toInt().toString().changeFormat()
             tvDebtValue.text = transactions.all_debt.toInt().toString().changeFormat()
-
-            etAddPayment.doOnTextChanged { text, _, _, _ ->
-                inputPayment.helperText = text.toString().changeFormat()
-            }
+            etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
             btnPay.onClick {
+                val inputSum = etAddPayment.textToString().getOnlyDigits().toLong()
+                val allDebt = transactions.all_debt.toLong()
                 if (validate()) {
-                    viewModel.payment(
-                        Payment(
-                            mFragment.order!!.order_id,
-                            min(
-                                etAddPayment.textToString().toLong(),
-                                transactions.all_debt.toLong()
-                            )
-                        )
-                    )
+                    if (inputSum <= allDebt)
+                        viewModel.payment(Payment(mFragment.order!!.order_id, inputSum))
+                    else toast("Неверная сумма!")
                 }
             }
         }
     }
-
+    private fun String.getOnlyDigits():String{
+        var s=""
+        this.forEach { if (it.isDigit()) s+=it }
+        return s
+    }
     private fun validate(): Boolean {
         return if (bind.etAddPayment.checkIsEmpty()) {
             bind.etAddPayment.showError(getString(R.string.required_ru))

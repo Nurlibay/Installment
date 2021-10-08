@@ -1,6 +1,7 @@
 package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
@@ -14,6 +15,7 @@ import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Settings.Companion.CLIENT
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
+import uz.texnopos.installment.settings.Settings.Companion.TAG
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -23,12 +25,20 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private lateinit var binding: FragmentClientsBinding
     private lateinit var clients: List<Client>
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setUpObserver()
+    }
     override fun onStart() {
         super.onStart()
         showProgress()
         refresh()
+<<<<<<< HEAD
         setUpObserver()
         Toast.makeText(requireContext(), "Fragment started !", Toast.LENGTH_SHORT).show()
+=======
+
+>>>>>>> 25ce06d23f46f4ecb1bc9cbc44a348bf6ee0cd84
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -52,8 +62,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 bundle.putParcelable(CLIENT, it)
                 try {
                     navController.navigate(R.id.action_clientsFragment_to_clientFragment, bundle)
-                } catch (e: Exception) {
-                }
+                } catch (e: Exception) { }
             }
             floatingButton.setOnClickListener {
 
@@ -99,10 +108,16 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         for (client in clients) {
             if (client.client_name.lowercase().contains(s.lowercase()) ||
                 client.client_id.toString().lowercase().contains(s.lowercase())
+<<<<<<< HEAD
             ) {
                 filteredList.add(client)
             }
         }
         adapter.models = filteredList
+=======
+            ) clientsItem.add(client)
+        }
+        adapter.models = clientsItem
+>>>>>>> 25ce06d23f46f4ecb1bc9cbc44a348bf6ee0cd84
     }
 }

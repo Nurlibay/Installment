@@ -3,7 +3,7 @@ package uz.texnopos.installment.core
 import android.text.Editable
 import android.text.TextWatcher
 
-class MaskWatcher(private val mask: String) : TextWatcher {
+class MaskWatcherPhone(private val mask: String) : TextWatcher {
     private var isRunning = false
     private var isDeleting = false
     override fun beforeTextChanged(charSequence: CharSequence, start: Int, count: Int, after: Int) {
@@ -28,11 +28,8 @@ class MaskWatcher(private val mask: String) : TextWatcher {
     }
 
     companion object {
-        fun phoneNumber(): MaskWatcher {
-            return MaskWatcher("(##) ###-##-##")
-        }
-        fun sumFormat():MaskWatcher{
-            return MaskWatcher("### ### ### ###")
+        fun phoneNumber(): MaskWatcherPhone {
+            return MaskWatcherPhone("(##) ###-##-##")
         }
     }
 }

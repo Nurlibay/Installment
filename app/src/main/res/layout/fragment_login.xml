@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue">
-
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/background_image"/>
     <ImageView
         android:id="@+id/logo"
         android:layout_width="220dp"
@@ -71,9 +75,10 @@
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
 
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnLogin"
-        android:layout_width="wrap_content"
+        android:layout_width="160dp"
         android:layout_height="@dimen/standard_height"
         android:layout_marginTop="@dimen/margin_standard"
         android:backgroundTint="@color/black"

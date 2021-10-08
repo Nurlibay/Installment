@@ -13,7 +13,8 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
     inner class ClientOrdersViewHolder(private val binding: ItemOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(order: Order) {
-            binding.price.text = (order.product_price.toInt() - order.first_pay).toString().changeFormat()
+            binding.price.text =
+                (order.product_price.toInt() - order.first_pay).toString().changeFormat()
             binding.tvProductName.text = order.product_name
             binding.tvData.text = "${order.start_date} - ${order.end_date}"
             binding.imgCheck.setImageResource(

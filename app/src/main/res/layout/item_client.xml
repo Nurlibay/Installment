@@ -11,16 +11,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingHorizontal="@dimen/margin_standard_large"
-        android:paddingVertical="@dimen/margin_middle_standard">
+        android:paddingBottom="@dimen/margin_middle_standard"
+        >
 
         <TextView
             android:id="@+id/tv_client_fullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Алибек Ембергенов"
+            android:layout_marginStart="@dimen/margin_standard_large"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:layout_marginTop="@dimen/margin_middle_standard"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -28,6 +30,7 @@
             android:id="@+id/imgCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_small"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:src="@drawable/ic_round_circle_red"
@@ -69,6 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3"
+            android:layout_marginEnd="@dimen/margin_standard_large"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_product_name" />
@@ -79,7 +83,7 @@
             android:layout_height="wrap_content"
             android:text="400$"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_product_count"
             app:layout_constraintTop_toTopOf="@id/tvPaidUp" />
 
         <TextView
@@ -88,7 +92,7 @@
             android:layout_height="wrap_content"
             android:text="800$"
             android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/tv_product_count"
             app:layout_constraintTop_toTopOf="@id/tvLeft" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
