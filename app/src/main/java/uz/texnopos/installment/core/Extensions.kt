@@ -69,7 +69,7 @@ fun TextInputEditText.showError(error: String) {
 }
 
 fun View.visibility(visibility: Boolean): View {
-    this.isVisible=visibility
+    this.isVisible = visibility
     return this
 }
 
@@ -108,13 +108,19 @@ fun Context.getConnectivityManager() =
 var token: String
     set(value) = getSharedPreferences().setValue(TOKEN, value)
     get() = getSharedPreferences().getStringValue(TOKEN)
-fun isSignedIn():Boolean= token.isNotEmpty()
 
-fun Fragment.showProgress(){
+fun isSignedIn(): Boolean = token.isNotEmpty()
+
+fun Fragment.showProgress() {
     (requireActivity() as AppBaseActivity).showProgress(true)
 }
-fun Fragment.hideProgress(){
+
+fun Fragment.hideProgress() {
     (requireActivity() as AppBaseActivity).showProgress(false)
+}
+
+fun String.contains2(s: String): Boolean {
+    return this.lowercase().contains(s.lowercase())
 }
 
 fun String.changeFormat(): String {
@@ -126,5 +132,6 @@ fun String.changeFormat(): String {
     }
     return "$s сум"
 }
-const val cacheSize = (5 * 1024 * 1024) .toLong ()
+
+const val cacheSize = (5 * 1024 * 1024).toLong()
 val myCache = Cache(getAppInstance().cacheDir, cacheSize)

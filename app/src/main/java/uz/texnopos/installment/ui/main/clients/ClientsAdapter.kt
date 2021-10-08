@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.changeFormat
+import uz.texnopos.installment.core.contains2
 import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.ItemClientBinding
@@ -60,4 +61,15 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         holder.populateModel(models[position])
     }
 
+    fun filterClientNameAndClientId(s: String, clients: List<Client>) {
+        val filteredList : MutableList<Client> = mutableListOf()
+        for (client in clients) {
+            if (client.client_name.contains2(s) ||
+                client.client_id.toString().contains2(s)
+            ) {
+                filteredList.add(client)
+            }
+        }
+        models = filteredList
+    }
 }
