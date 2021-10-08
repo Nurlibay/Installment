@@ -25,14 +25,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private lateinit var bind: FragmentTransactionsBinding
     private val viewModel: TransactionsViewModel by viewModel()
     private lateinit var navController: NavController
-    var client:Client?=null
+    var client: Client? = null
     var order: Order? = null
-    var transaction=MutableLiveData<Transactions?>()
+    var transaction = MutableLiveData<Transactions?>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.apply {
-            order=getParcelable(ORDER)
-            client=getParcelable(CLIENT)
+            order = getParcelable(ORDER)
+            client = getParcelable(CLIENT)
         }
     }
 
@@ -41,6 +41,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         showProgress()
         refresh()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
@@ -63,7 +64,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                         rvOrders.isVisible=it.transactions.isNotEmpty()
                     }
                 })
-                container.setOnRefreshListener { refresh() }
+                swipeRefresh.setOnRefreshListener { refresh() }
                 rvOrders.adapter = adapter
                 postPayment.onClick {
                     showPaymentDialog()
@@ -78,29 +79,32 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private fun setUpObservers() {
         viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> { }
+                ResourceState.LOADING -> {
+                }
                 ResourceState.SUCCESS -> {
                     transaction.postValue(it.data)
                     hideProgress()
-                    bind.container.isRefreshing = false
+                    bind.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.ERROR -> {
-                    bind.container.isRefreshing = false
+                    bind.swipeRefresh.isRefreshing = false
                     toast(it.message!!)
                     hideProgress()
                 }
                 ResourceState.NETWORK_ERROR -> {
-                    bind.container.isRefreshing = false
+                    bind.swipeRefresh.isRefreshing = false
                     hideProgress()
                     toast(Settings.NO_INTERNET)
                 }
             }
         }
     }
-    private fun showPaymentDialog(){
+
+    private fun showPaymentDialog() {
         PaymentDialog(this)
     }
-     fun refresh(){
-         viewModel.getTransactions(order!!.order_id)
+
+    fun refresh() {
+        viewModel.getTransactions(order!!.order_id)
     }
 }

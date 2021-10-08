@@ -1,8 +1,8 @@
 package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -14,7 +14,6 @@ import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Settings.Companion.CLIENT
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
-import uz.texnopos.installment.settings.Settings.Companion.TAG
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -22,7 +21,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private val adapter = ClientsAdapter()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
-    private  var clients: List<Client>?=null
+    private var clients: List<Client> = emptyList()
 
     override fun onStart() {
         super.onStart()
@@ -37,30 +36,28 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         navController = Navigation.findNavController(view)
         setStatusBarColor(R.color.background_color)
         binding.apply {
-            container.setOnRefreshListener {
+            swipeRefresh.setOnRefreshListener {
                 if (binding.etSearch.checkIsEmpty()) {
                     refresh()
                 } else {
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
             rvClients.adapter = adapter
-
             adapter.onItemClick {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, it)
                 try {
                     navController.navigate(R.id.action_clientsFragment_to_clientFragment, bundle)
-                } catch (e: Exception) { }
+                } catch (e: Exception) {
+                }
             }
             floatingButton.setOnClickListener {
 
             }
-
         }
-
         binding.etSearch.addTextChangedListener {
-
+            adapter.filterClientNameAndClientId(it.toString(), clients)
         }
     }
 
@@ -75,24 +72,21 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 ResourceState.SUCCESS -> {
                     clients = it.data!!
-
+                    adapter.filterClientNameAndClientId(binding.etSearch.textToString(), clients)
                     hideProgress()
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.ERROR -> {
                     hideProgress()
                     toast(it.message!!)
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
                     toast(NO_INTERNET)
-                    binding.container.isRefreshing = false
+                    binding.swipeRefresh.isRefreshing = false
                 }
             }
         })
     }
-
-
-
 }

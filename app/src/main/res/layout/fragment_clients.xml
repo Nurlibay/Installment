@@ -51,10 +51,11 @@
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginHorizontal="@dimen/margin_standard"
                 android:focusable="true"
                 android:hint="Поиск ..."
                 android:padding="12dp"
+                android:maxLines="1"
+                android:minLines="1"
                 android:paddingStart="16dp"
                 android:textColor="@color/white"
                 android:textColorHint="#96989F"
@@ -63,7 +64,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/container"
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin_standard_large"

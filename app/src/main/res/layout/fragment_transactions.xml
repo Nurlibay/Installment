@@ -32,7 +32,7 @@
                 app:contentScrim="@color/background_blue"
                 app:expandedTitleGravity="bottom|center_horizontal"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                >
+                app:title="Samsung">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -63,6 +63,7 @@
                             android:id="@+id/tvClientName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text=""
                             android:textColor="@color/white"
                             android:textSize="18sp" />
 
@@ -70,6 +71,7 @@
                             android:id="@+id/tvOrderId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:text=""
                             android:textColor="@color/white" />
 
                     </LinearLayout>
@@ -110,7 +112,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/container"
+            android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
