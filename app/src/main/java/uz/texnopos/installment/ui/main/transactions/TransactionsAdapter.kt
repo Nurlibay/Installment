@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.onClick
-import uz.texnopos.installment.data.model.Transaction
+import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.databinding.ItemTransactionBinding
 
 
@@ -16,7 +16,7 @@ class TransactionsAdapter :
     inner class ClientTransactionsViewHolder(private val bind: ItemTransactionBinding) :
         RecyclerView.ViewHolder(bind.root) {
         @SuppressLint("SetTextI18n")
-        fun populateModel(transaction: Transaction) {
+        fun populateModel(transaction: Transactions.Transaction) {
             bind.apply {
                 transaction.apply {
                     tvDate.text = pay_date.changeDateFormat()
@@ -29,7 +29,7 @@ class TransactionsAdapter :
         }
     }
 
-     var models = mutableListOf<Transaction>()
+     var models = mutableListOf<Transactions.Transaction>()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             value.sortByDescending { it.created_at }

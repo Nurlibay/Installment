@@ -128,3 +128,7 @@ fun String.changeFormat(): String {
 }
 const val cacheSize = (5 * 1024 * 1024) .toLong ()
 val myCache = Cache(getAppInstance().cacheDir, cacheSize)
+
+fun String.contains2(s:String):Boolean{
+    return this.lowercase().contains(s.lowercase())
+}

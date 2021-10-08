@@ -23,7 +23,7 @@ class MaskWatcherPrice(private val editText: EditText) : TextWatcher {
     override fun afterTextChanged(editable: Editable) {
         try {
             editText.removeTextChangedListener(this)
-            val value: String = editText.text.toString()
+            val value: String = editText.textToString()
             if (value != "") {
                 if (value.startsWith(".")) {
                     editText.setText("0.")
@@ -32,14 +32,14 @@ class MaskWatcherPrice(private val editText: EditText) : TextWatcher {
                     editText.setText("")
                 }
 
-                val str: String = editText.text.toString().replace(" ", "")
+                val str: String = editText.textToString().replace(" ", "")
                 if (str == "сум") editText.setText("")
                 else{
                     var d=""
                     for (i in str) if (i.isDigit()) d+=i
                     editText.setText("${d.toDecimalFormat()} сум")
                 }
-                editText.setSelection(editText.text.toString().length - 4)
+                editText.setSelection(editText.textToString().length - 4)
             }
             editText.addTextChangedListener(this)
             return

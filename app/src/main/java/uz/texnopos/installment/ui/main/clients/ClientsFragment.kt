@@ -22,17 +22,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private val adapter = ClientsAdapter()
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
-    private lateinit var clients: List<Client>
+    private  var clients: List<Client>?=null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setUpObserver()
-    }
     override fun onStart() {
         super.onStart()
         showProgress()
         refresh()
-
+        setUpObserver()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -64,7 +60,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
 
         binding.etSearch.addTextChangedListener {
-            filterClientName(it.toString())
+
         }
     }
 
@@ -79,7 +75,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 ResourceState.SUCCESS -> {
                     clients = it.data!!
-                    adapter.models = it.data.toMutableList()
+
                     hideProgress()
                     binding.container.isRefreshing = false
                 }
@@ -97,13 +93,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         })
     }
 
-    private fun filterClientName(s: String) {
-        val clientsItem: MutableList<Client> = mutableListOf()
-        for (client in clients) {
-            if (client.client_name.lowercase().contains(s.lowercase()) ||
-                client.client_id.toString().lowercase().contains(s.lowercase())
-            ) clientsItem.add(client)
-        }
-        adapter.models = clientsItem
-    }
+
+
 }

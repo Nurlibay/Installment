@@ -91,8 +91,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun Button.showProgress(isLoading: Boolean) {
-        bind.tilLogin.isEnabled=!isLoading
-        bind.tilPassword.isEnabled=!isLoading
+        bind.inputLogin.isEnabled=!isLoading
+        bind.inputPassword.isEnabled=!isLoading
         this.isEnabled = !isLoading
         if (isLoading) {
             this.showProgress {

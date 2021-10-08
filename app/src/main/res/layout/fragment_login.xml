@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilLogin"
+        android:id="@+id/inputLogin"
         style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="@dimen/standard_height"
@@ -50,7 +50,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPassword"
+        android:id="@+id/inputPassword"
         style="@style/TextInputLayoutStyle"
         android:layout_width="0dp"
         android:layout_height="@dimen/standard_height"
@@ -62,7 +62,7 @@
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tilLogin"
+        app:layout_constraintTop_toBottomOf="@id/inputLogin"
         app:startIconDrawable="@drawable/key">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -87,8 +87,8 @@
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_standard"
         app:cornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="@id/tilPassword"
-        app:layout_constraintTop_toBottomOf="@id/tilPassword"
+        app:layout_constraintEnd_toEndOf="@id/inputPassword"
+        app:layout_constraintTop_toBottomOf="@id/inputPassword"
         tools:ignore="SpUsage" />
 
     <TextView

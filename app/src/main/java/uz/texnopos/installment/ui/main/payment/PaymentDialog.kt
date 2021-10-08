@@ -54,9 +54,9 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
             tvDebtValue.text = transactions.all_debt.toInt().toString().changeFormat()
             etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
             btnPay.onClick {
-                val inputSum = etAddPayment.textToString().getOnlyDigits().toLong()
                 val allDebt = transactions.all_debt.toLong()
                 if (validate()) {
+                    val inputSum = etAddPayment.textToString().getOnlyDigits().toLong()
                     if (inputSum <= allDebt)
                         viewModel.payment(Payment(mFragment.order!!.order_id, inputSum))
                     else toast("Неверная сумма!")

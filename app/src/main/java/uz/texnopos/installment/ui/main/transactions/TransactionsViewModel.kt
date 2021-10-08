@@ -8,7 +8,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
-import uz.texnopos.installment.data.model.Transaction
 import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.data.retrofit.ApiInterface
 
