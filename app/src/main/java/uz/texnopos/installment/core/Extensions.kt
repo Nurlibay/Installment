@@ -43,6 +43,7 @@ inline fun <T : View> T.onClick(crossinline func: T.() -> Unit) = setOnClickList
 
 fun TextInputEditText.textToString() = this.text.toString()
 fun TextView.textToString() = this.text.toString()
+
 fun Fragment.isGPSEnable(): Boolean =
     context!!.getLocationManager().isProviderEnabled(LocationManager.GPS_PROVIDER)
 

@@ -79,8 +79,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private fun setUpObservers() {
         viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
                     transaction.postValue(it.data)
                     hideProgress()

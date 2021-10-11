@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,6 +16,7 @@ import uz.texnopos.installment.databinding.FragmentPaymentBinding
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
 import uz.texnopos.installment.settings.Settings.Companion.TAG
 import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
+import kotlin.math.ceil
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
     private var savedViewInstance: View? = null
@@ -50,9 +52,12 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
             val transactions = mFragment.transaction.value!!
-            tvCurrentDebtValue.text = transactions.amount.toDouble().toInt().toString().changeFormat()
+            tvCurrentDebtValue.text = (ceil(transactions.amount.toDouble())+1).toInt().toString().changeFormat()
             tvDebtValue.text = transactions.all_debt.toInt().toString().changeFormat()
             etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
+            tvCurrentDebtValue.onClick {
+                etAddPayment.setText(this.textToString())
+            }
             btnPay.onClick {
                 val allDebt = transactions.all_debt.toLong()
                 if (validate()) {
@@ -96,5 +101,15 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
                 }
             }
         })
+    }
+    fun payItAllOff(quantity:Long){
+        AlertDialog.Builder(requireContext()).apply {
+            setTitle(getString(R.string.confirm_payment))
+            setMessage("Погасить весь имеющийся долг. Расчетная сумма $quantity сумов")
+            setPositiveButton("Платить"){_,_->
+
+            }
+        }
+
     }
 }

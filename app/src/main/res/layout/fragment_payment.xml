@@ -73,6 +73,7 @@
             android:layout_marginTop="@dimen/margin_small"
             />
 
+
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:id="@+id/inputPayment"
@@ -80,7 +81,6 @@
             style="@style/TextInputLayoutStyle"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_standard_large"
-            android:layout_marginTop="@dimen/margin_middle"
             app:helperTextTextColor="@color/white"
             app:endIconMode="clear_text"
             >
@@ -97,6 +97,22 @@
                 android:padding="@dimen/margin_middle_standard"
                 android:textColor="@color/white" />
         </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_gravity="end"
+            app:cardBackgroundColor="@color/black"
+            android:layout_marginEnd="@dimen/margin_standard_large">
+            <TextView
+                android:textColor="@color/white"
+
+                android:text="Заплатить все"
+                android:textSize="12sp"
+                android:layout_margin="@dimen/margin_middle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </com.google.android.material.card.MaterialCardView>
 
 
         <com.google.android.material.button.MaterialButton

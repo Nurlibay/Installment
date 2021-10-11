@@ -52,6 +52,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 } catch (e: Exception) {
                 }
             }
+
             floatingButton.setOnClickListener {
 
             }

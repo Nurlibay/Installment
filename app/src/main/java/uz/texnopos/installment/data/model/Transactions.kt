@@ -3,6 +3,7 @@ package uz.texnopos.installment.data.model
 data class Transactions(
     val all_debt: Double,
     val amount: String,
+    val unprotsent_sum:Double,
     val transactions: MutableList<Transaction>
 ){
     data class Transaction(
