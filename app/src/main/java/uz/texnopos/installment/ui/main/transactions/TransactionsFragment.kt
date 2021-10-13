@@ -50,18 +50,17 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
                 toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-                transaction.observe(viewLifecycleOwner, {
-                    collapsingToolbar.title = order!!.product_name
-                    tvClientName.text = client!!.client_name
-                    tvOrderId.text = getString(R.string.order_id, order!!.order_id)
-                    if (it != null) {
-                        progressBar.max = (order!!.product_price.toInt() - order!!.first_pay) / 100
+                transaction.observe(viewLifecycleOwner,{
+                    collapsingToolbar.title=order!!.product_name
+                    tvClientName.text=client!!.client_name
+                    tvOrderId.text=getString(R.string.order_id,order!!.order_id)
+                    if (it!=null){
+                        progressBar.max=(order!!.product_price.toInt()-order!!.first_pay)/100
                         adapter.models = it.transactions
-                        bind.progressBar.progress = it.transactions.sumOf { p ->
-                            p.paid.toInt()
-                        } / 100
-                        tvNotFound.isVisible = it.transactions.isEmpty()
-                        rvOrders.isVisible = it.transactions.isNotEmpty()
+                        progressBar.progress=it.transactions.sumOf {s->
+                            s.paid.toInt() }/100
+                        tvNotFound.isVisible=it.transactions.isEmpty()
+                        rvOrders.isVisible=it.transactions.isNotEmpty()
                     }
                 })
                 swipeRefresh.setOnRefreshListener { refresh() }
@@ -79,8 +78,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     private fun setUpObservers() {
         viewModel.transactions.observe(viewLifecycleOwner) {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
                     transaction.postValue(it.data)
                     hideProgress()

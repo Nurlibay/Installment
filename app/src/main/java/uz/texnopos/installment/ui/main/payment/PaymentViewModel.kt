@@ -16,36 +16,18 @@ class PaymentViewModel(private val api: ApiInterface) : ViewModel() {
     private var _payment: MutableLiveData<Resource<Any>> = MutableLiveData()
     val payment get() = _payment
 
-//    fun payment(payment: Payment) {
-//        _payment.value = Resource.loading()
-//        if (isNetworkAvailable())
-//            viewModelScope.launch {
-//                load(payment)
-//            }
-//        else _payment.value = Resource.networkError()
-//
-//    }
-
-    fun payment(payment: Payment) = viewModelScope.launch {
+    fun payment(payment: Payment)=viewModelScope.launch {
         _payment.value = Resource.loading()
-        if (isNetworkAvailable()) {
+        if (isNetworkAvailable()){
             val response = api.payment(payment)
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) _payment.value =
-                    Resource.success(response.body()!!.message)
-                else _payment.value = Resource.error(response.message())
+                try {
+                    if (response.isSuccessful) _payment.value = Resource.success(response.body()!!.message)
+                    else _payment.value = Resource.error(response.message())
+                } catch (e:Throwable){ }
             }
-        } else _payment.value = Resource.networkError()
+        }
+        else _payment.value = Resource.networkError()
     }
-
-//    private suspend fun load(payment: Payment) {
-//        val response = api.payment(payment)
-//        withContext(Dispatchers.Main) {
-//            if (response.isSuccessful) {
-//                _payment.value = Resource.success(response.body()!!.message)
-//            } else {
-//                _payment.value = Resource.error(response.message())
-//            }
-//        }
-//    }
 }
+

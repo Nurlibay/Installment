@@ -6,6 +6,7 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Button
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -36,6 +37,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 fadeInMills = 300
                 fadeOutMills = 300
             }
+
             btnLogin.onClick {
                 if (validate()) {
                     val login = etLogin.textToString()

@@ -6,24 +6,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.data.model.Amount
 import uz.texnopos.installment.databinding.CustomDialogFragmentBinding
 
 class CalculatorDialog : DialogFragment() {
 
     private lateinit var binding: CustomDialogFragmentBinding
-
-    var livePrice = MutableLiveData<Long>()
-    var liveFirstPay = MutableLiveData<Long>()
-    var livePercent = MutableLiveData<Long>()
-    var liveMonth = MutableLiveData<Long>()
+    private val viewModel: CalcViewModel by viewModel()
+    val amount = MediatorLiveData<Amount>().apply { value=Amount() }
+    var livePrice = MutableLiveData<Double>()
+    var liveFirstPay = MutableLiveData<Double>()
+    var livePercent = MutableLiveData<Int>()
+    var liveMonth = MutableLiveData<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
         return inflater.inflate(R.layout.custom_dialog_fragment, container, false)
@@ -43,61 +47,58 @@ class CalculatorDialog : DialogFragment() {
         binding.apply {
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             etFirstPay.addTextChangedListener(MaskWatcherPrice(etFirstPay))
-
-            var price: Long = 0
-            var firstPay: Long = 0
-            var percent: Long = 0
-            var month: Long = 0
-
+            var price = 0.0
+            var firstPay = 0.0
+            var percent = 0
+            var month = 0
+            merge()
+            observe()
             etPrice.doOnTextChanged { text, _, _, _ ->
-                livePrice.postValue(text.toString().getOnlyDigits().toLong())
+                livePrice.postValue(text.toString().getOnlyDigits().toDouble())
             }
-
-            etFirstPay.doOnTextChanged { text, _, _, _ ->
-                liveFirstPay.postValue(text.toString().getOnlyDigits().toLong())
+            etFirstPay.doOnTextChanged { text, start, before, count ->
+                liveFirstPay.postValue(text.toString().getOnlyDigits().toDouble())
             }
-
-            etProcent.doOnTextChanged { text, _, _, _ ->
-                livePercent.postValue(text.toString().getOnlyDigits().toLong())
+            etProcent.doOnTextChanged { text, start, before, count ->
+                livePercent.postValue(text.toString().getOnlyDigits().toInt())
             }
-
-            etMonth.doOnTextChanged { text, _, _, _ ->
-                liveMonth.postValue(text.toString().getOnlyDigits().toLong())
+            etMonth.doOnTextChanged { text, start, before, count ->
+                liveMonth.postValue(text.toString().getOnlyDigits().toInt())
             }
-
-            livePrice.postValue(etPrice.textToString().getOnlyDigits().toLong())
-            livePrice.observe(viewLifecycleOwner, {
-                price = it
-            })
-
-            liveFirstPay.postValue(etFirstPay.textToString().getOnlyDigits().toLong())
-            liveFirstPay.observe(viewLifecycleOwner, {
-                firstPay = it
-            })
-
-            livePercent.postValue(etProcent.textToString().getOnlyDigits().toLong())
-            livePercent.observe(viewLifecycleOwner, {
-                percent = it
-            })
-
-            liveMonth.postValue(etMonth.textToString().getOnlyDigits().toLong())
-            liveMonth.observe(viewLifecycleOwner, {
-                month = it
-            })
-
-            toast(price.toString())
-            toast(firstPay.toString())
-            toast(percent.toString())
-            toast(month.toString())
-
-            val result = (((price - firstPay) * ((percent * month).toDouble() / 100 + 1)) / month).toInt()
 
             if (price < firstPay) {
                 toast("Неверная сумма!")
             } else {
-                tvResult.text = result.toLong().toString().changeFormat()
+//                tvResult.text = result.toLong().toString().changeFormat()
             }
         }
+    }
+
+    fun merge() {
+        amount.addSource(livePrice) {
+            val previous = amount.value
+            amount.value = previous?.copy(product_price = it)
+        }
+        amount.addSource(liveFirstPay) {
+            val previous = amount.value
+            amount.value = previous?.copy(first_pay = it)
+        }
+        amount.addSource(livePercent) {
+            val previous = amount.value
+            amount.value = previous?.copy(percent = it)
+        }
+        amount.addSource(liveMonth) {
+            val previous = amount.value
+            amount.value = previous?.copy(month = it)
+        }
+    }
+
+    fun observe() {
+        amount.observe(requireActivity(),{
+            val result = (((it.product_price - it.first_pay) * ((it.percent * it.month).toDouble() / 100 + 1)) / it.month).toInt()
+            if (validate()) binding.tvResult.text=result.toString().changeFormat()
+            else binding.tvResult.text="Неверная сумма!"
+        })
     }
 
     private fun String.getOnlyDigits(): String {

@@ -46,6 +46,7 @@ val networkModule = module {
                 ).build()
                 chain.proceed(request)
             }
+
             .addInterceptor { chain ->
                 val request = chain.request().newBuilder()
                     .addHeader("Authorization", "Bearer $token")
@@ -82,9 +83,5 @@ val viewModelModule = module {
     viewModel { ClientsViewModel(get()) }
     viewModel { OrdersViewModel(get()) }
     viewModel { TransactionsViewModel(get()) }
-}
-
-val adapterModule = module {
-
 }
 

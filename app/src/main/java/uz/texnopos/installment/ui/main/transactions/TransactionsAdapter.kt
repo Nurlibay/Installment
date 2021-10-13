@@ -20,7 +20,7 @@ class TransactionsAdapter :
             bind.apply {
                 transaction.apply {
                     tvDate.text = pay_date.changeDateFormat()
-                    tvQuantity.text = "+"+paid.changeFormat()
+                    tvQuantity.text = "+"+paid.toInt().toString().changeFormat()
                 }
                 cardView.onClick {
                     onItemCLick.invoke()

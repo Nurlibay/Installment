@@ -7,7 +7,6 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
-import uz.texnopos.installment.di.adapterModule
 import uz.texnopos.installment.di.helperModule
 import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
@@ -18,7 +17,7 @@ class App : MultiDexApplication() {
         super.onCreate()
         appInstance=this
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-        val modules = listOf(helperModule, viewModelModule, adapterModule, networkModule)
+        val modules = listOf(helperModule, viewModelModule, networkModule)
         startKoin { // use AndroidLogger as Koin Logger - default Level.INFO
             androidLogger()
 
