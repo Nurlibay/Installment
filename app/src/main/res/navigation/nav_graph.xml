@@ -11,11 +11,12 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
+            android:id="@+id/action_loginFragment_to_clientsFragment"
+            app:destination="@id/clientsFragment"
             app:popUpTo="@id/nav_graph"
             app:popUpToInclusive="true"
             app:launchSingleTop="true"
-            android:id="@+id/action_loginFragment_to_clientsFragment"
-            app:destination="@id/clientsFragment" />
+            />
     </fragment>
     <fragment
         android:id="@+id/ordersFragment"
@@ -52,6 +53,13 @@
         <action
             android:id="@+id/action_clientsFragment_to_clientFragment"
             app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_clientsFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            app:launchSingleTop="true"
+            />
     </fragment>
 
 </navigation>

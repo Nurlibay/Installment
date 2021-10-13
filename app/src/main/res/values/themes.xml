@@ -1,4 +1,4 @@
-    <resources xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Theme.Installment" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Primary brand color. -->
@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="TextInputLayoutStyle" >
+    <style name="TextInputLayoutStyle">
         <item name="boxStrokeColor">@color/white</item>
         <item name="boxBackgroundMode">outline</item>
         <item name="boxBackgroundColor">@color/dark_blue</item>
@@ -43,13 +43,12 @@
         <item name="cornerSize">8dp</item>
         <item name="cornerFamily">rounded</item>
     </style>
+
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Demo.BottomSheetDialog</item>
     </style>
 
-    <style
-        name="ThemeOverlay.Demo.BottomSheetDialog"
-        parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="ThemeOverlay.Demo.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.Demo.BottomSheet</item>
     </style>
 

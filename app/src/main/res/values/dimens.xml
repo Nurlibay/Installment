@@ -19,5 +19,8 @@
     <dimen name="operationTextSize">36sp</dimen>
     <dimen name="valueTextSize">24sp</dimen>
     <dimen name="valueTextError">18sp</dimen>
+    <dimen name="margin_big">64dp</dimen>
+    <dimen name="size_default">10dp</dimen>
+    <dimen name="size_1dp">1dp</dimen>
 
 </resources>

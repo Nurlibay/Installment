@@ -101,7 +101,6 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 progressColor = Color.WHITE
                 gravity = DrawableButton.GRAVITY_CENTER
             }
-
         }
     }
 }

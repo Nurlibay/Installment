@@ -6,26 +6,52 @@
     android:layout_height="match_parent"
     android:background="@color/background_blue"
     tools:context=".ui.main.clients.ClientsFragment">
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/background_image"/>
+        android:src="@drawable/background_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        
+
+        <ImageView
+            android:id="@+id/logout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/baseline_logout_white_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:foreground="?attr/selectableItemBackground"
+            android:layout_marginTop="@dimen/margin_large"
+            android:layout_marginEnd="@dimen/margin_large"
+            android:padding="8dp"
+            />
+
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_large"
             android:text="Клиенты"
             android:textColor="@color/white"
             android:textSize="22sp"
+            android:layout_marginTop="@dimen/margin_standard"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@id/logout" />
+
+        <ImageView
+            android:id="@+id/popupMenuItemSort"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintEnd_toEndOf="@id/input_search"
+            app:layout_constraintTop_toTopOf="@id/title"
+            app:layout_constraintBottom_toBottomOf="@id/title"
+            android:src="@drawable/ic_baseline_more_vert_24"
+            android:padding="8dp"
+            />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_search"
@@ -53,9 +79,9 @@
                 android:layout_height="match_parent"
                 android:focusable="true"
                 android:hint="Поиск ..."
-                android:padding="12dp"
                 android:maxLines="1"
                 android:minLines="1"
+                android:padding="12dp"
                 android:paddingStart="16dp"
                 android:textColor="@color/white"
                 android:textColorHint="#96989F"

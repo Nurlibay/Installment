@@ -1,8 +1,10 @@
 package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
+import android.view.Gravity
+import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import android.widget.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -14,6 +16,8 @@ import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Settings.Companion.CLIENT
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
+import uz.texnopos.installment.settings.Settings.Companion.TOKEN
+import uz.texnopos.installment.ui.main.clients.calc.CalculatorDialog
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -54,11 +58,27 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
 
             floatingButton.setOnClickListener {
-
+                calcCustomDialog(it)
             }
+
+            logout.setOnClickListener {
+                navController.navigate(R.id.action_clientsFragment_to_loginFragment)
+                getSharedPreferences().removeKey(TOKEN)
+            }
+
         }
         binding.etSearch.addTextChangedListener {
-            adapter.filterClientNameAndClientId(it.toString(), clients)
+            if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
+                adapter.filterClientNameAndClientId(it.toString(), clients)
+            } else {
+                val toast = Toast.makeText(requireContext(), "Клиент не найден", Toast.LENGTH_SHORT)
+                toast.setGravity(Gravity.CENTER, 0, 0)
+                toast.show()
+            }
+        }
+
+        binding.popupMenuItemSort.setOnClickListener {
+            showPopup(it)
         }
     }
 
@@ -90,4 +110,31 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
         })
     }
+
+    private fun showPopup(view: View) {
+        val popup = PopupMenu(requireContext(), view)
+        popup.inflate(R.menu.menu_client)
+
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
+
+            when (item!!.itemId) {
+                R.id.sortRed -> {
+
+                }
+                R.id.sortYellow -> {
+
+                }
+                R.id.sortGreen -> {
+
+                }
+            }
+            true
+        }
+        popup.show()
+    }
+
+    private fun calcCustomDialog(view: View) {
+        CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
+    }
+
 }
