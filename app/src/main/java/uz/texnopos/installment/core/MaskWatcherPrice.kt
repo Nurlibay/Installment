@@ -3,12 +3,9 @@ package uz.texnopos.installment.core
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
-import android.widget.EditText
-import uz.texnopos.installment.settings.Settings.Companion.TAG
+import com.google.android.material.textfield.TextInputEditText
 import java.util.*
-
-class MaskWatcherPrice(private val editText: EditText) : TextWatcher {
+class MaskWatcherPrice(private val editText: TextInputEditText) : TextWatcher {
     override fun beforeTextChanged(
         charSequence: CharSequence,
         start: Int,
@@ -34,9 +31,9 @@ class MaskWatcherPrice(private val editText: EditText) : TextWatcher {
 
                 val str: String = editText.textToString().replace(" ", "")
                 if (str == "сум") editText.setText("")
-                else{
-                    var d=""
-                    for (i in str) if (i.isDigit()) d+=i
+                else {
+                    var d = ""
+                    for (i in str) if (i.isDigit()) d += i
                     editText.setText("${d.toDecimalFormat()} сум")
                 }
                 editText.setSelection(editText.textToString().length - 4)

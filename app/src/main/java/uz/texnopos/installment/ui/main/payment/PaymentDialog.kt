@@ -64,11 +64,13 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
             }
         }
     }
-    private fun String.getOnlyDigits():String{
-        var s=""
-        this.forEach { if (it.isDigit()) s+=it }
+
+    private fun String.getOnlyDigits(): String {
+        var s = ""
+        this.forEach { if (it.isDigit()) s += it }
         return s
     }
+
     private fun validate(): Boolean {
         return if (bind.etAddPayment.checkIsEmpty()) {
             bind.etAddPayment.showError(getString(R.string.required_ru))

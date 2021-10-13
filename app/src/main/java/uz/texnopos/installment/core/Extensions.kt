@@ -63,6 +63,7 @@ fun TextInputEditText.checkIsEmpty(): Boolean = text == null ||
         textToString() == "" ||
         textToString().equals("null", ignoreCase = true)
 
+
 fun TextInputEditText.showError(error: String) {
     this.error = error
     this.showSoftKeyboard()
@@ -107,7 +108,7 @@ fun Context.getConnectivityManager() =
 
 var token: String
     set(value) = getSharedPreferences().setValue(TOKEN, value)
-    get() = getSharedPreferences().getStringValue(TOKEN)
+get() = getSharedPreferences().getStringValue(TOKEN)
 
 fun isSignedIn(): Boolean = token.isNotEmpty()
 

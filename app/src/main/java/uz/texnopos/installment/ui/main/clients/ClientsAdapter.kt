@@ -61,7 +61,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         holder.populateModel(models[position])
     }
 
-    fun filterClientNameAndClientId(s: String, clients: List<Client>) {
+    fun filterClientNameAndClientId(s: String, clients: List<Client>): Boolean {
         val filteredList : MutableList<Client> = mutableListOf()
         for (client in clients) {
             if (client.client_name.contains2(s) ||
@@ -71,5 +71,6 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
             }
         }
         models = filteredList
+        return filteredList.isNotEmpty()
     }
 }

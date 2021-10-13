@@ -26,16 +26,16 @@ class PaymentViewModel(private val api: ApiInterface) : ViewModel() {
 //
 //    }
 
-    fun payment(payment: Payment)=viewModelScope.launch {
+    fun payment(payment: Payment) = viewModelScope.launch {
         _payment.value = Resource.loading()
-        if (isNetworkAvailable()){
+        if (isNetworkAvailable()) {
             val response = api.payment(payment)
             withContext(Dispatchers.Main) {
-                if (response.isSuccessful) _payment.value = Resource.success(response.body()!!.message)
+                if (response.isSuccessful) _payment.value =
+                    Resource.success(response.body()!!.message)
                 else _payment.value = Resource.error(response.message())
             }
-        }
-        else _payment.value = Resource.networkError()
+        } else _payment.value = Resource.networkError()
     }
 
 //    private suspend fun load(payment: Payment) {
@@ -49,4 +49,3 @@ class PaymentViewModel(private val api: ApiInterface) : ViewModel() {
 //        }
 //    }
 }
-

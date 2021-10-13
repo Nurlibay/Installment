@@ -89,13 +89,14 @@
                 android:id="@+id/etAddPayment"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginVertical="@dimen/margin_middle"
+                android:digits="0123456789"
                 android:hint="@string/add_payment"
                 android:inputType="number"
-                android:digits="0123456789"
                 android:maxLength="19"
-                android:layout_marginVertical="@dimen/margin_middle"
                 android:padding="@dimen/margin_middle_standard"
                 android:textColor="@color/white" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
 
