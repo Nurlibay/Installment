@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.DialogFragment
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -22,6 +23,7 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     private var savedViewInstance: View? = null
     lateinit var bind: FragmentPaymentBinding
     private val viewModel by viewModel<PaymentViewModel>()
+    var k=false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,19 +53,31 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
-            val transactions = mFragment.transaction.value!!
-            tvCurrentDebtValue.text = (ceil(transactions.amount.toDouble())+1).toInt().toString().changeFormat()
-            tvDebtValue.text = transactions.all_debt.toInt().toString().changeFormat()
+            val transaction = mFragment.transaction.value!!
+            payItOfAll.isVisible=transaction.unprotsent_sum!=0.0
+            tvCurrentDebtValue.text =transaction.amount.toInt().toString().changeFormat()
+            tvDebtValue.text = transaction.all_debt.toInt().toString().changeFormat()
             etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
+
             tvCurrentDebtValue.onClick {
                 etAddPayment.setText(this.textToString())
+                k=true
+            }
+
+            payItOfAll.onClick {
+                payItAllOff(transaction.unprotsent_sum)
             }
             btnPay.onClick {
-                val allDebt = transactions.all_debt.toLong()
+                val allDebt = transaction.all_debt.toLong()
                 if (validate()) {
-                    val inputSum = etAddPayment.textToString().getOnlyDigits().toLong()
-                    if (inputSum <= allDebt)
-                        viewModel.payment(Payment(mFragment.order!!.order_id, inputSum))
+                    val inputSum = etAddPayment.textToString().getOnlyDigits().toDouble()
+                    if (inputSum <= allDebt){
+                        if (inputSum.toInt()==transaction.amount.toInt()){
+                            viewModel.payment(Payment(mFragment.order!!.order_id, transaction.amount))
+                        }
+                        else viewModel.payment(Payment(mFragment.order!!.order_id, inputSum))
+
+                    }
                     else toast("Неверная сумма!")
                 }
             }
@@ -102,14 +116,21 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
             }
         })
     }
-    fun payItAllOff(quantity:Long){
-        AlertDialog.Builder(requireContext()).apply {
+
+    private fun payItAllOff(quantity: Double) {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme).apply {
             setTitle(getString(R.string.confirm_payment))
-            setMessage("Погасить весь имеющийся долг. Расчетная сумма $quantity сумов")
-            setPositiveButton("Платить"){_,_->
-
+            setMessage("Погасить весь имеющийся долг. Расчетная сумма ${
+                quantity.toInt().toString().changeFormat()
+            }ов")
+            setPositiveButton("Платить") { _, _ ->
+                viewModel.payment(Payment(mFragment.order!!.order_id, quantity))
             }
+            setNeutralButton("Отмена") { dialog, _ ->
+                dialog.dismiss()
+            }
+            create()
+            show()
         }
-
     }
 }

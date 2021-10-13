@@ -57,9 +57,8 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                     if (it!=null){
                         progressBar.max=(order!!.product_price.toInt()-order!!.first_pay)/100
                         adapter.models = it.transactions
-                        bind.progressBar.progress=it.transactions.sumOf { p->
-                            p.paid.toInt()
-                        }/100
+                        progressBar.progress=it.transactions.sumOf {s->
+                            s.paid.toInt() }/100
                         tvNotFound.isVisible=it.transactions.isEmpty()
                         rvOrders.isVisible=it.transactions.isNotEmpty()
                     }
