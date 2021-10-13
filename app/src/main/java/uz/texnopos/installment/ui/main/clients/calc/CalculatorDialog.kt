@@ -1,13 +1,12 @@
 package uz.texnopos.installment.ui.main.clients.calc
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MutableLiveData
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.databinding.CustomDialogFragmentBinding
@@ -15,7 +14,6 @@ import uz.texnopos.installment.databinding.CustomDialogFragmentBinding
 class CalculatorDialog : DialogFragment() {
 
     private lateinit var binding: CustomDialogFragmentBinding
-    private val viewModel: CalcViewModel by viewModel()
 
     var livePrice = MutableLiveData<Long>()
     var liveFirstPay = MutableLiveData<Long>()
@@ -51,23 +49,39 @@ class CalculatorDialog : DialogFragment() {
             var percent: Long = 0
             var month: Long = 0
 
-            livePrice.value = etPrice.textToString().getOnlyDigits().toLong()
-            livePrice.observe(requireActivity(), {
+            etPrice.doOnTextChanged { text, _, _, _ ->
+                livePrice.postValue(text.toString().getOnlyDigits().toLong())
+            }
+
+            etFirstPay.doOnTextChanged { text, _, _, _ ->
+                liveFirstPay.postValue(text.toString().getOnlyDigits().toLong())
+            }
+
+            etProcent.doOnTextChanged { text, _, _, _ ->
+                livePercent.postValue(text.toString().getOnlyDigits().toLong())
+            }
+
+            etMonth.doOnTextChanged { text, _, _, _ ->
+                liveMonth.postValue(text.toString().getOnlyDigits().toLong())
+            }
+
+            livePrice.postValue(etPrice.textToString().getOnlyDigits().toLong())
+            livePrice.observe(viewLifecycleOwner, {
                 price = it
             })
 
-            liveFirstPay.value = etFirstPay.textToString().getOnlyDigits().toLong()
-            liveFirstPay.observe(requireActivity(), {
+            liveFirstPay.postValue(etFirstPay.textToString().getOnlyDigits().toLong())
+            liveFirstPay.observe(viewLifecycleOwner, {
                 firstPay = it
             })
 
-            livePercent.value = etProcent.textToString().getOnlyDigits().toLong()
-            livePercent.observe(requireActivity(), {
+            livePercent.postValue(etProcent.textToString().getOnlyDigits().toLong())
+            livePercent.observe(viewLifecycleOwner, {
                 percent = it
             })
 
-            liveMonth.value = etMonth.textToString().getOnlyDigits().toLong()
-            liveMonth.observe(requireActivity(), {
+            liveMonth.postValue(etMonth.textToString().getOnlyDigits().toLong())
+            liveMonth.observe(viewLifecycleOwner, {
                 month = it
             })
 
@@ -76,12 +90,12 @@ class CalculatorDialog : DialogFragment() {
             toast(percent.toString())
             toast(month.toString())
 
-            //val result = (((price - firstPay) * ((percent * month).toDouble() / 100 + 1)) / month).toInt()
+            val result = (((price - firstPay) * ((percent * month).toDouble() / 100 + 1)) / month).toInt()
 
             if (price < firstPay) {
                 toast("Неверная сумма!")
             } else {
-                //tvResult.text = result.toLong().toString().changeFormat()
+                tvResult.text = result.toLong().toString().changeFormat()
             }
         }
     }
