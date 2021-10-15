@@ -27,7 +27,6 @@
             android:hint="Цена продукта"
             android:cursorVisible="true"
             android:inputType="number"
-            android:digits="0123456789"
             android:textCursorDrawable="@color/black"
             android:maxLength="19"
             android:maxLines="1"
@@ -104,7 +103,7 @@
                 android:cursorVisible="true"
                 android:maxLines="1"
                 android:inputType="number"
-                android:maxLength="19"
+                android:maxLength="3"
                 android:padding="@dimen/margin_middle_standard"
                 android:textColor="@color/black" />
 
@@ -135,7 +134,7 @@
                 android:inputType="number"
                 android:textCursorDrawable="@color/black"
                 android:maxLines="1"
-                android:maxLength="19"
+                android:maxLength="2"
                 android:cursorVisible="true"
                 android:layout_marginVertical="@dimen/margin_middle"
                 android:padding="@dimen/margin_middle_standard"

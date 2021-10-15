@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,8 +8,9 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/background_image"/>
+        android:src="@drawable/background_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
@@ -21,8 +21,8 @@
             android:id="@+id/appbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fitsSystemWindows="true"
             android:background="@null"
+            android:fitsSystemWindows="true"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -30,13 +30,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fitsSystemWindows="true"
+                app:collapsedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Collapsed"
                 app:contentScrim="@color/background_blue"
                 app:expandedTitleGravity="bottom|center_horizontal"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="Samsung"
-                app:collapsedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Collapsed"
                 app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
-                >
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                app:title="Samsung">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -106,6 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_orders"
                 android:layout_width="match_parent"

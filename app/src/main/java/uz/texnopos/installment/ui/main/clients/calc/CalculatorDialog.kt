@@ -1,14 +1,15 @@
 package uz.texnopos.installment.ui.main.clients.calc
 
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Amount
@@ -17,8 +18,7 @@ import uz.texnopos.installment.databinding.CustomDialogFragmentBinding
 class CalculatorDialog : DialogFragment() {
 
     private lateinit var binding: CustomDialogFragmentBinding
-    private val viewModel: CalcViewModel by viewModel()
-    val amount = MediatorLiveData<Amount>().apply { value=Amount() }
+    private val amount = MediatorLiveData<Amount>().apply { value = Amount() }
     var livePrice = MutableLiveData<Double>()
     var liveFirstPay = MutableLiveData<Double>()
     var livePercent = MutableLiveData<Int>()
@@ -47,34 +47,44 @@ class CalculatorDialog : DialogFragment() {
         binding.apply {
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             etFirstPay.addTextChangedListener(MaskWatcherPrice(etFirstPay))
-            var price = 0.0
-            var firstPay = 0.0
-            var percent = 0
-            var month = 0
+            etMonth.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
+            etProcent.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
             merge()
             observe()
-            etPrice.doOnTextChanged { text, _, _, _ ->
-                livePrice.postValue(text.toString().getOnlyDigits().toDouble())
+            etPrice.doOnTextChanged { it, _, _, _ ->
+                if (it.isNullOrEmpty()) {
+                    livePrice.postValue(0.0)
+                } else {
+                    livePrice.postValue(it.toString().getOnlyDigits().toDouble())
+                }
             }
-            etFirstPay.doOnTextChanged { text, start, before, count ->
-                liveFirstPay.postValue(text.toString().getOnlyDigits().toDouble())
+            etFirstPay.doOnTextChanged { it, _, _, _ ->
+                if (it.isNullOrEmpty()) {
+                    liveFirstPay.postValue(0.0)
+                } else {
+                    liveFirstPay.postValue(it.toString().getOnlyDigits().toDouble())
+                }
             }
-            etProcent.doOnTextChanged { text, start, before, count ->
-                livePercent.postValue(text.toString().getOnlyDigits().toInt())
+            etProcent.doAfterTextChanged {
+                if (!it.isNullOrEmpty()) {
+                    livePercent.postValue(it.toString().getOnlyDigits().toInt())
+                } else {
+                    livePercent.postValue(0)
+                }
             }
-            etMonth.doOnTextChanged { text, start, before, count ->
-                liveMonth.postValue(text.toString().getOnlyDigits().toInt())
-            }
-
-            if (price < firstPay) {
-                toast("Неверная сумма!")
-            } else {
-//                tvResult.text = result.toLong().toString().changeFormat()
+            etMonth.doAfterTextChanged {
+                if (!it.isNullOrEmpty()) {
+                    if (it.toString().toInt() != 0) {
+                        liveMonth.postValue(it.toString().getOnlyDigits().toInt())
+                    }
+                } else {
+                    liveMonth.postValue(0)
+                }
             }
         }
     }
 
-    fun merge() {
+    private fun merge() {
         amount.addSource(livePrice) {
             val previous = amount.value
             amount.value = previous?.copy(product_price = it)
@@ -93,18 +103,25 @@ class CalculatorDialog : DialogFragment() {
         }
     }
 
-    fun observe() {
-        amount.observe(requireActivity(),{
-            val result = (((it.product_price - it.first_pay) * ((it.percent * it.month).toDouble() / 100 + 1)) / it.month).toInt()
-            if (validate()) binding.tvResult.text=result.toString().changeFormat()
-            else binding.tvResult.text="Неверная сумма!"
+    private fun observe() {
+        amount.observe(requireActivity(), {
+            val result = (((it.product_price - it.first_pay) *
+                    ((it.percent * it.month).toDouble() / 100 + 1)) / it.month).toLong()
+            if (validate() && it.product_price >= it.first_pay) {
+                binding.tvResult.text = result.toString().changeFormat()
+            } else if (it.product_price < it.first_pay) {
+                binding.tvResult.text = "Неверная сумма!"
+            } else {
+                binding.tvResult.text = ""
+            }
         })
     }
 
     private fun String.getOnlyDigits(): String {
         var s = ""
         this.forEach { if (it.isDigit()) s += it }
-        return s
+        return if (s == "") "0"
+        else s
     }
 
     private fun validate(): Boolean {
