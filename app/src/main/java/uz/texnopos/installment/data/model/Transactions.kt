@@ -4,6 +4,7 @@ data class Transactions(
     val all_debt: Double,
     val amount: Double,
     val unprotsent_sum:Double,
+    val status: Int,
     val transactions: MutableList<Transaction>
 ){
     data class Transaction(

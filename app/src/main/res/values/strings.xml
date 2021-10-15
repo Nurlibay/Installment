@@ -30,6 +30,8 @@
     <string name="password">Пароль</string>
 
    <string name="order_id">Номер заказа: %1$d</string>
+    <string name="request_pay">Погасить весь имеющийся долг. Расчетная сумма %1$sов"</string>
     <string name="success">Успех</string>
+    <string name="pay_it_all">Заплатить все</string>
 
 </resources>

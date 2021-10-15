@@ -67,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="1 500 000 сум"
+            android:gravity="center"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="24sp"
@@ -109,7 +110,7 @@
             <TextView
                 android:textColor="@color/white"
 
-                android:text="Заплатить все"
+                android:text="@string/pay_it_all"
                 android:textSize="12sp"
                 android:layout_margin="@dimen/margin_middle"
                 android:layout_width="match_parent"

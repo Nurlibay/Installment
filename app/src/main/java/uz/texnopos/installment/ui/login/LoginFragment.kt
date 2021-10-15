@@ -54,9 +54,10 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 ResourceState.LOADING -> bind.btnLogin.showProgress(true)
                 ResourceState.SUCCESS -> {
                     bind.btnLogin.hideProgress(getString(R.string.success))
-                    bind.btnLogin.showProgress(false)
+
                     token = it.data!!.payload.token
                     Handler(Looper.getMainLooper()).postDelayed({
+                        bind.btnLogin.showProgress(false)
                         updateUI()
                     },2000)
                 }
