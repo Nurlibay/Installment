@@ -1,7 +1,6 @@
 package uz.texnopos.installment.ui.main.payment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,15 +14,13 @@ import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.databinding.FragmentPaymentBinding
 import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
-import uz.texnopos.installment.settings.Settings.Companion.TAG
 import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
-import kotlin.math.ceil
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {
     private var savedViewInstance: View? = null
     lateinit var bind: FragmentPaymentBinding
     private val viewModel by viewModel<PaymentViewModel>()
-    var k=false
+    private val order=mFragment.order!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,15 +30,13 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        Log.d(TAG, "onCreateView: ")
         setUpObserver()
         return if (savedInstanceState != null) {
             savedViewInstance
         } else {
-            savedViewInstance =
-                inflater.inflate(R.layout.fragment_payment, container, true)
+            savedViewInstance = inflater.inflate(R.layout.fragment_payment, container, true)
             savedViewInstance
         }
     }
@@ -54,28 +49,33 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentPaymentBinding.bind(view).apply {
             val transaction = mFragment.transaction.value!!
+            val amount=if (transaction.status!=1) transaction.amount.changeFormat()
+            else {
+                tvCurrentDebt.isVisible=false
+                "В этом месяце\nнет долга"
+            }
             payItOfAll.isVisible=transaction.unprotsent_sum!=0.0
-            tvCurrentDebtValue.text =transaction.amount.toInt().toString().changeFormat()
-            tvDebtValue.text = transaction.all_debt.toInt().toString().changeFormat()
+            tvDebtValue.text=transaction.all_debt.changeFormat()
+            tvCurrentDebtValue.text =amount
             etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
 
             tvCurrentDebtValue.onClick {
+                if (transaction.status!=1)
                 etAddPayment.setText(this.textToString())
-                k=true
             }
 
             payItOfAll.onClick {
                 payItAllOff(transaction.unprotsent_sum)
             }
+
             btnPay.onClick {
-                val allDebt = transaction.all_debt.toLong()
                 if (validate()) {
                     val inputSum = etAddPayment.textToString().getOnlyDigits().toDouble()
-                    if (inputSum <= allDebt){
-                        if (inputSum.toInt()==transaction.amount.toInt()){
-                            viewModel.payment(Payment(mFragment.order!!.order_id, transaction.amount))
-                        }
-                        else viewModel.payment(Payment(mFragment.order!!.order_id, inputSum))
+                    if (inputSum <= transaction.unprotsent_sum){
+                        if (inputSum.toInt() == transaction.amount.toInt())
+                            viewModel.payment(Payment(order.order_id, transaction.amount))
+                        else
+                            viewModel.payment(Payment(order.order_id, inputSum))
 
                     }
                     else toast("Неверная сумма!")
@@ -84,11 +84,7 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
         }
     }
 
-    private fun String.getOnlyDigits(): String {
-        var s = ""
-        this.forEach { if (it.isDigit()) s += it }
-        return s
-    }
+
 
     private fun validate(): Boolean {
         return if (bind.etAddPayment.checkIsEmpty()) {
@@ -120,11 +116,10 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
     }
 
     private fun payItAllOff(quantity: Double) {
+        val q=quantity.changeFormat()
         AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme).apply {
             setTitle(getString(R.string.confirm_payment))
-            setMessage("Погасить весь имеющийся долг. Расчетная сумма ${
-                quantity.toInt().toString().changeFormat()
-            }ов")
+            setMessage(getString(R.string.request_pay,q))
             setPositiveButton("Платить") { _, _ ->
                 viewModel.payment(Payment(mFragment.order!!.order_id, quantity))
             }

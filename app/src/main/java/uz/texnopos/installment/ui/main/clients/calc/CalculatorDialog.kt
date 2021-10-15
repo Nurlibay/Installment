@@ -65,7 +65,6 @@ class CalculatorDialog : DialogFragment() {
             etMonth.doOnTextChanged { text, start, before, count ->
                 liveMonth.postValue(text.toString().getOnlyDigits().toInt())
             }
-
             if (price < firstPay) {
                 toast("Неверная сумма!")
             } else {

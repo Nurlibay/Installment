@@ -3,7 +3,6 @@ package uz.texnopos.installment.core
 import android.content.Context
 import android.location.LocationManager
 import android.net.ConnectivityManager
-import android.net.NetworkInfo
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,6 +10,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
+import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -40,6 +40,9 @@ fun Fragment.toast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 inline fun <T : View> T.onClick(crossinline func: T.() -> Unit) = setOnClickListener { func() }
+
+inline fun <T : Toolbar> T.navOnClick(crossinline func: T.() -> Unit) =
+    setNavigationOnClickListener { func() }
 
 fun TextInputEditText.textToString() = this.text.toString()
 fun TextView.textToString() = this.text.toString()
@@ -133,6 +136,33 @@ fun String.changeFormat(): String {
         s += this[i]
     }
     return "$s сум"
+}
+fun Int.changeFormat(): String {
+    val num=this.toString()
+    var s = ""
+    val sz = num.length
+    for (i in 0 until sz) {
+        if (i != 0 && (i - sz % 3) % 3 == 0) s += ' '
+        s += num[i]
+    }
+    return "$s сум"
+}
+
+fun Double.changeFormat(): String {
+    val num=this.toInt().toString()
+    var s = ""
+    val sz = num.length
+    for (i in 0 until sz) {
+        if (i != 0 && (i - sz % 3) % 3 == 0) s += ' '
+        s += num[i]
+    }
+    return "$s сум"
+}
+
+fun String.getOnlyDigits(): String {
+    var s = ""
+    this.forEach { if (it.isDigit()) s += it }
+    return s
 }
 
 const val cacheSize = (5 * 1024 * 1024).toLong()
