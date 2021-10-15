@@ -19,7 +19,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         fun populateModel(client: Client) {
             binding.tvClientFullName.text = client.client_name
             binding.tvProductCount.text = client.count.toString()
-            //binding.tvClientIdValue.text = client.client_id.toString()
+            binding.tvClientId.text = "Клиент номер: ${client.client_id}"
             binding.tvPaidSum.text = client.paid.toInt().toString().changeFormat()
             binding.tvAllSum.text = client.all_sum.toInt().toString().changeFormat()
             binding.cardView.onClick {

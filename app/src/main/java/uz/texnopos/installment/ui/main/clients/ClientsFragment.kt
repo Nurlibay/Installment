@@ -67,6 +67,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
 
         }
+
         binding.etSearch.addTextChangedListener {
             if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
                 adapter.filterClientNameAndClientId(it.toString(), clients)

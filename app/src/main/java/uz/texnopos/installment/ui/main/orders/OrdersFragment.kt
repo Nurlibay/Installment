@@ -41,6 +41,13 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         refresh()
     }
 
+    override fun onStart() {
+        super.onStart()
+        showProgress()
+        refresh()
+        setUpObservers()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
