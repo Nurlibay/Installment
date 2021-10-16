@@ -10,6 +10,7 @@ import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.data.retrofit.ApiInterface
+import java.net.UnknownHostException
 
 class PaymentViewModel(private val api: ApiInterface) : ViewModel() {
 
@@ -18,16 +19,19 @@ class PaymentViewModel(private val api: ApiInterface) : ViewModel() {
 
     fun payment(payment: Payment)=viewModelScope.launch {
         _payment.value = Resource.loading()
-        if (isNetworkAvailable()){
-            val response = api.payment(payment)
-            withContext(Dispatchers.Main) {
-                try {
-                    if (response.isSuccessful) _payment.value = Resource.success(response.body()!!.message)
+        if (isNetworkAvailable()) {
+            try {
+                val response = api.payment(payment)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) _payment.value =
+                        Resource.success(response.body()!!.message)
                     else _payment.value = Resource.error(response.message())
-                } catch (e:Throwable){ }
+                }
+            } catch (e: Exception) {
+                if (e is UnknownHostException) _payment.value = Resource.networkError()
+                else _payment.value = Resource.error(e.localizedMessage)
             }
-        }
-        else _payment.value = Resource.networkError()
+        } else _payment.value = Resource.networkError()
     }
 }
 
