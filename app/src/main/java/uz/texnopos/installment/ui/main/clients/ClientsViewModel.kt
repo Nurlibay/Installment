@@ -10,6 +10,7 @@ import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.retrofit.ApiInterface
+import java.net.UnknownHostException
 
 class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
     private var _clients: MutableLiveData<Resource<List<Client>>> = MutableLiveData()
@@ -24,13 +25,21 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
     }
 
     private suspend fun load() {
-        val response = api.getAllClients()
-        withContext(Dispatchers.Main) {
-            if (response.isSuccessful) {
-                _clients.value = Resource.success(response.body()!!.payload)
-            } else {
-                _clients.value = Resource.error(response.message())
+        try {
+            val response = api.getAllClients()
+            withContext(Dispatchers.Main) {
+                if (response.isSuccessful) {
+                    _clients.value = Resource.success(response.body()!!.payload)
+                } else {
+                    _clients.value = Resource.error(response.message())
+                }
             }
+        } catch (e: Exception) {
+            if (e is UnknownHostException)
+                _clients.value = Resource.networkError()
+            else _clients.value = Resource.error(e.localizedMessage)
         }
+
+
     }
 }

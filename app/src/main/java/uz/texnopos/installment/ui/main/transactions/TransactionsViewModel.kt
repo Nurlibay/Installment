@@ -10,6 +10,7 @@ import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.data.retrofit.ApiInterface
+import java.net.UnknownHostException
 
 class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
     private var _transactions: MutableLiveData<Resource<Transactions>> = MutableLiveData()
@@ -18,14 +19,21 @@ class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
     fun getTransactions(orderId: Int) = viewModelScope.launch {
         _transactions.value = Resource.loading()
         if (isNetworkAvailable()) {
-            val response = api.getAllTransactions(orderId)
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    if (response.body()!!.successful) _transactions.value =
-                        Resource.success(response.body()!!.payload)
-                    else _transactions.value = Resource.error(response.body()!!.message)
-                } else _transactions.value = Resource.error(response.message())
+            try {
+                val response = api.getAllTransactions(orderId)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.successful) _transactions.value =
+                            Resource.success(response.body()!!.payload)
+                        else _transactions.value = Resource.error(response.body()!!.message)
+                    } else _transactions.value = Resource.error(response.message())
+                }
+            }catch (e:Exception){
+                if (e is UnknownHostException) _transactions.value = Resource.networkError()
+                else  _transactions.value = Resource.error(e.localizedMessage)
             }
+
+
         } else _transactions.value = Resource.networkError()
     }
 }

@@ -76,7 +76,6 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
                             viewModel.payment(Payment(order.order_id, transaction.amount))
                         else
                             viewModel.payment(Payment(order.order_id, inputSum))
-
                     }
                     else toast("Неверная сумма!")
                 }
