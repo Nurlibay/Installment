@@ -39,7 +39,5 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
                 _clients.value = Resource.networkError()
             else _clients.value = Resource.error(e.localizedMessage)
         }
-
-
     }
 }

@@ -2,7 +2,6 @@ package uz.texnopos.installment.ui.main.clients
 
 import android.os.Bundle
 import android.view.Gravity
-import android.view.MenuItem
 import android.view.View
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
@@ -62,10 +61,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
 
             logout.setOnClickListener {
+                deleteCache(requireContext())
                 navController.navigate(R.id.action_clientsFragment_to_loginFragment)
                 getSharedPreferences().removeKey(TOKEN)
             }
-
         }
 
         binding.etSearch.addTextChangedListener {
@@ -78,9 +77,9 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
         }
 
-        binding.popupMenuItemSort.setOnClickListener {
-            showPopup(it)
-        }
+//        binding.popupMenuItemSort.setOnClickListener {
+//            showPopup(it)
+//        }
     }
 
     private fun refresh() {
@@ -112,27 +111,27 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         })
     }
 
-    private fun showPopup(view: View) {
-        val popup = PopupMenu(requireContext(), view)
-        popup.inflate(R.menu.menu_client)
-
-        popup.setOnMenuItemClickListener { item: MenuItem? ->
-
-            when (item!!.itemId) {
-                R.id.sortRed -> {
-
-                }
-                R.id.sortYellow -> {
-
-                }
-                R.id.sortGreen -> {
-
-                }
-            }
-            true
-        }
-        popup.show()
-    }
+//    private fun showPopup(view: View) {
+//        val popup = PopupMenu(requireContext(), view)
+//        popup.inflate(R.menu.menu_client)
+//
+//        popup.setOnMenuItemClickListener { item: MenuItem? ->
+//
+//            when (item!!.itemId) {
+//                R.id.sortRed -> {
+//
+//                }
+//                R.id.sortYellow -> {
+//
+//                }
+//                R.id.sortGreen -> {
+//
+//                }
+//            }
+//            true
+//        }
+//        popup.show()
+//    }
 
     private fun calcCustomDialog(view: View) {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")

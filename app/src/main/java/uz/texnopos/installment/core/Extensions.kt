@@ -22,6 +22,8 @@ import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
 import uz.texnopos.installment.settings.Settings.Companion.TOKEN
+import java.io.File
+import java.lang.Exception
 
 fun getSharedPreferences(): SharedPrefUtils {
     return if (App.sharedPrefUtils == null) {
@@ -112,7 +114,7 @@ fun Context.getConnectivityManager() =
 
 var token: String
     set(value) = getSharedPreferences().setValue(TOKEN, value)
-get() = getSharedPreferences().getStringValue(TOKEN)
+    get() = getSharedPreferences().getStringValue(TOKEN)
 
 fun isSignedIn(): Boolean = token.isNotEmpty()
 
@@ -137,8 +139,9 @@ fun String.changeFormat(): String {
     }
     return "$s сум"
 }
+
 fun Int.changeFormat(): String {
-    val num=this.toString()
+    val num = this.toString()
     var s = ""
     val sz = num.length
     for (i in 0 until sz) {
@@ -149,7 +152,7 @@ fun Int.changeFormat(): String {
 }
 
 fun Double.changeFormat(): String {
-    val num=this.toInt().toString()
+    val num = this.toInt().toString()
     var s = ""
     val sz = num.length
     for (i in 0 until sz) {
@@ -167,3 +170,25 @@ fun String.getOnlyDigits(): String {
 
 const val cacheSize = (5 * 1024 * 1024).toLong()
 val myCache = Cache(getAppInstance().cacheDir, cacheSize)
+
+fun deleteCache(context: Context) {
+    try {
+        val dir: File = context.cacheDir
+        deleteDir(dir)
+    } catch (e: Exception) { }
+}
+
+fun deleteDir(dir: File?): Boolean {
+    return if (dir != null && dir.isDirectory) {
+        val children = dir.list()
+        for (i in children.indices) {
+            val success = deleteDir(File(dir, children[i]))
+            if (!success) {
+                return false
+            }
+        }
+        dir.delete()
+    } else if (dir != null && dir.isFile) dir.delete() else {
+        false
+    }
+}

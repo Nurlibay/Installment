@@ -125,7 +125,7 @@ class CalculatorDialog : DialogFragment() {
     }
 
     private fun validate(): Boolean {
-        return (!binding.etPrice.checkIsEmpty() && !binding.etFirstPay.checkIsEmpty()
+        return (!binding.etPrice.checkIsEmpty()
                 && !binding.etProcent.checkIsEmpty() && !binding.etMonth.checkIsEmpty())
     }
 }
