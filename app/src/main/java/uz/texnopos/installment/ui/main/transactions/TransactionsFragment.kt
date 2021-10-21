@@ -14,9 +14,9 @@ import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.model.Order
 import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.databinding.FragmentTransactionsBinding
-import uz.texnopos.installment.settings.Settings
-import uz.texnopos.installment.settings.Settings.Companion.CLIENT
-import uz.texnopos.installment.settings.Settings.Companion.ORDER
+import uz.texnopos.installment.settings.Constants
+import uz.texnopos.installment.settings.Constants.CLIENT
+import uz.texnopos.installment.settings.Constants.ORDER
 import uz.texnopos.installment.ui.main.payment.PaymentDialog
 
 class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
@@ -91,7 +91,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                 ResourceState.NETWORK_ERROR -> {
                     bind.swipeRefresh.isRefreshing = false
                     hideProgress()
-                    toast(Settings.NO_INTERNET)
+                    toast(Constants.NO_INTERNET)
                 }
             }
         }

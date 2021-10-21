@@ -3,7 +3,7 @@ package uz.texnopos.installment.core.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import uz.texnopos.installment.App.Companion.getAppInstance
-import uz.texnopos.installment.settings.Settings.Companion.mySharedPreferences
+import uz.texnopos.installment.settings.Constants.mySharedPreferences
 
 
 class SharedPrefUtils {

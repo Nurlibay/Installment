@@ -13,8 +13,7 @@ import uz.texnopos.installment.core.myCache
 import uz.texnopos.installment.core.token
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.data.retrofit.CacheInterceptor
-import uz.texnopos.installment.data.retrofit.ForceCacheInterceptor
-import uz.texnopos.installment.settings.Settings
+import uz.texnopos.installment.settings.Constants
 import uz.texnopos.installment.ui.login.LoginViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.orders.OrdersViewModel
@@ -71,10 +70,6 @@ val networkModule = module {
             .build()
     }
     single { get<Retrofit>().create(ApiInterface::class.java) }
-}
-
-val helperModule = module {
-    single { Settings(androidApplication().applicationContext) }
 }
 
 val viewModelModule = module {

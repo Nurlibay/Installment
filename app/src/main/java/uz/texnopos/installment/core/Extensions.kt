@@ -1,8 +1,8 @@
 package uz.texnopos.installment.core
 
 import android.content.Context
-import android.location.LocationManager
 import android.net.ConnectivityManager
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,16 +12,17 @@ import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import okhttp3.Cache
+import retrofit2.Call
+import retrofit2.Response
 import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
-import uz.texnopos.installment.settings.Settings.Companion.TOKEN
+import uz.texnopos.installment.settings.Constants.TOKEN
 
 fun getSharedPreferences(): SharedPrefUtils {
     return if (App.sharedPrefUtils == null) {
@@ -47,11 +48,6 @@ inline fun <T : Toolbar> T.navOnClick(crossinline func: T.() -> Unit) =
 fun TextInputEditText.textToString() = this.text.toString()
 fun TextView.textToString() = this.text.toString()
 
-fun Fragment.isGPSEnable(): Boolean =
-    context!!.getLocationManager().isProviderEnabled(LocationManager.GPS_PROVIDER)
-
-fun Context.getLocationManager() = getSystemService(Context.LOCATION_SERVICE) as LocationManager
-
 fun View.showSoftKeyboard() {
     val imm = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     this.requestFocus()
@@ -71,20 +67,6 @@ fun TextInputEditText.checkIsEmpty(): Boolean = text == null ||
 fun TextInputEditText.showError(error: String) {
     this.error = error
     this.showSoftKeyboard()
-}
-
-fun View.visibility(visibility: Boolean): View {
-    this.isVisible = visibility
-    return this
-}
-
-fun View.enabled(isEnabled: Boolean): View {
-    this.isEnabled = isEnabled
-    return this
-}
-
-fun Fragment.showMessage(msg: String?) {
-    Toast.makeText(this.requireContext(), msg, Toast.LENGTH_LONG).show()
 }
 
 fun ViewGroup.inflate(@LayoutRes id: Int): View =
@@ -167,3 +149,28 @@ fun String.getOnlyDigits(): String {
 
 const val cacheSize = (5 * 1024 * 1024).toLong()
 val myCache = Cache(getAppInstance().cacheDir, cacheSize)
+
+fun <T> callApi(
+    call: Call<T>,
+    onApiSuccess: (T?) -> Unit = {},
+    onApiError: (errorMsg: String) -> Unit = {},
+) {
+    Log.d("api_calling", call.request().url.toString())
+    call.enqueue(object : retrofit2.Callback<T> {
+        override fun onResponse(call: Call<T>, response: Response<T>) {
+            when {
+                response.isSuccessful -> onApiSuccess.invoke(response.body())
+                else -> {
+                    onApiError.invoke(response.errorBody().toString())
+                    Log.d("api-failure", response.errorBody().toString())
+                }
+            }
+        }
+
+        override fun onFailure(call: Call<T>, t: Throwable) {
+            onApiError.invoke(t.localizedMessage!!)
+            Log.d("api-failure", t.localizedMessage!!)
+        }
+
+    })
+}

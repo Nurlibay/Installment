@@ -1,24 +1,24 @@
 package uz.texnopos.installment.ui.main.orders
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import uz.texnopos.installment.R
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding
-import uz.texnopos.installment.settings.Settings.Companion.CLIENT
-import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
-import uz.texnopos.installment.settings.Settings.Companion.ORDER
+import uz.texnopos.installment.settings.Constants.CLIENT
+import uz.texnopos.installment.settings.Constants.NO_INTERNET
+import uz.texnopos.installment.settings.Constants.ORDER
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 

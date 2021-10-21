@@ -13,7 +13,7 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.databinding.FragmentPaymentBinding
-import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
+import uz.texnopos.installment.settings.Constants.NO_INTERNET
 import uz.texnopos.installment.ui.main.transactions.TransactionsFragment
 
 class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDialogFragment() {

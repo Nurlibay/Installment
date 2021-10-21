@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.*
+import android.widget.PopupMenu
+import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -14,9 +15,9 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
-import uz.texnopos.installment.settings.Settings.Companion.CLIENT
-import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
-import uz.texnopos.installment.settings.Settings.Companion.TOKEN
+import uz.texnopos.installment.settings.Constants.CLIENT
+import uz.texnopos.installment.settings.Constants.NO_INTERNET
+import uz.texnopos.installment.settings.Constants.TOKEN
 import uz.texnopos.installment.ui.main.clients.calc.CalculatorDialog
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
