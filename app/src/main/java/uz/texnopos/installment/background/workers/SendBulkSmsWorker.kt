@@ -18,6 +18,7 @@ import timber.log.Timber
 import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.APPLICATION_CHANNEL
 import uz.texnopos.installment.R
+import uz.texnopos.installment.background.data.Client
 import uz.texnopos.installment.background.helper.NotificationIdHelper
 import uz.texnopos.installment.background.roomPersistence.BulkSmsDatabase
 import uz.texnopos.installment.background.util.Constants
@@ -37,7 +38,6 @@ class SendBulkSmsWorker constructor(
 ) : CoroutineWorker(context, workerParameters), KoinComponent {
 
     private val bulkSmsDao = BulkSmsDatabase.getInstance(App.getAppInstance()).bulkSmsDao()
-
     private val sharedPreference =
         App.getAppInstance()
             .getSharedPreferences(uz.texnopos.installment.settings.Constants.mySharedPreferences,
@@ -75,6 +75,7 @@ class SendBulkSmsWorker constructor(
     }
 
     companion object {
+        var clients: List<Client>? = null
         private const val SENDING_BULK_SMS = "Sending Bulk Sms"
         private const val BULK_SMS_ROW_ID =
             "uz.texnopos.installment.background.workers.SendBulkSmsWorker.BULK_SMS_ROW_ID"
@@ -82,11 +83,22 @@ class SendBulkSmsWorker constructor(
             "uz.texnopos.installment.background.workers.SendBulkSmsWorker.NOTIFICATION_ID"
         private const val SMS_CONTENT_LENGTH_LIMIT = 140
 
-        fun constructWorkerParams(rowId: Long, notificationId: Int): Data =
-            Data.Builder()
+        fun constructWorkerParams(rowId: Long, notificationId: Int, clients: List<Client>): Data {
+            this.clients=clients
+            return Data.Builder()
                 .putLong(BULK_SMS_ROW_ID, rowId)
                 .putInt(NOTIFICATION_ID, notificationId)
                 .build()
+        }
+    }
+
+    fun Client.toSmsText(smsText:String):String{
+        return smsText
+            .replace("{first_name}", first_name)
+            .replace("{last_name}", last_name)
+            .replace("{magazin}","2-magazin")
+            .replace("{amount}", amount)
+            .replace("{end_date}", end_date)
     }
 
     override suspend fun doWork(): Result {
@@ -108,9 +120,13 @@ class SendBulkSmsWorker constructor(
         val sourceSmsAddress = sharedPreferenceHelper.getString(BULK_SMS_PREFERRED_CARRIER_NUMBER)
         Timber.e("Source sms address -> $sourceSmsAddress and content -> $smsContent")
         for (smsContact in remainSmsSentNumbers) {
+            val i= clients?.map { it.phone1 }?.indexOf(smsContact.contactNumber!!)!!
+            val j= clients?.map { it.phone2 }?.indexOf(smsContact.contactNumber!!)!!
+            val k=if (i!=-1) i else j
+            val client= clients!![k]
             if (smsContent.length < SMS_CONTENT_LENGTH_LIMIT)
                 smsManager.sendTextMessage(
-                    smsContact.contactNumber, null, smsContent, null, null
+                    smsContact.contactNumber, null, client.toSmsText(smsContent), null, null
                 )
             else
                 smsManager.sendMultipartTextMessage(
@@ -130,5 +146,6 @@ class SendBulkSmsWorker constructor(
         sharedPreferenceHelper.put(BULKS_SMS_PREVIOUS_WORKER_ID, null)
         Timber.e("Worker ends")
         return Result.success()
+
     }
 }

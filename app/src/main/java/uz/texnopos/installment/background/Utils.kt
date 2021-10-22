@@ -28,7 +28,7 @@ object Utils {
                 alarmMgr.setInexactRepeating(
                     AlarmManager.RTC_WAKEUP,
                     timeOfAlarm,
-                    5 * minute,
+                    1 * minute,
                     pIntent
                 )
             }

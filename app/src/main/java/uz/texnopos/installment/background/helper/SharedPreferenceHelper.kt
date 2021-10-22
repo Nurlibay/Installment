@@ -26,19 +26,8 @@ class SharedPreferenceHelper(
             "spartons.com.prosmssenderapp.helper.SharedPreferenceHelper.preferred_multiple_carrier_number_flag"
     }
 
-    fun put(key: String, value: Boolean) {
-        sharedPreferences.edit {
-            putBoolean(key, value)
-        }
-    }
 
     fun getBoolean(key: String): Boolean = sharedPreferences.getBoolean(key, false)
-
-    fun put(key: String, value: Int) {
-        sharedPreferences.edit {
-            putInt(key, value)
-        }
-    }
 
     fun put(key: String, value: String?) {
         sharedPreferences.edit { putString(key, value) }

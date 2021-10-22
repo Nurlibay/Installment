@@ -7,7 +7,9 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.POST
+import uz.texnopos.installment.background.data.ReciversModel
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.core.myCache
 import uz.texnopos.installment.core.token
@@ -20,6 +22,9 @@ interface RestApi {
 
     @POST("api/installment/pay_month")
     fun payment(@Body payment: Payment): Call<GenericResponse<Any>>
+
+    @GET("api/today")
+    fun getReceivers():Call<GenericResponse<ReciversModel>>
 
     companion object {
 

@@ -10,7 +10,6 @@ import uz.texnopos.installment.background.retrofit.RestApi
 import uz.texnopos.installment.background.roomPersistence.BulkSmsDatabase
 import uz.texnopos.installment.background.workers.SendBulkSmsViewModel
 import uz.texnopos.installment.core.callApi
-import uz.texnopos.installment.data.model.Payment
 import uz.texnopos.installment.settings.Constants.mySharedPreferences
 
 class BootCompleteReceiver : BroadcastReceiver() {
@@ -21,11 +20,21 @@ class BootCompleteReceiver : BroadcastReceiver() {
     val viewModel = SendBulkSmsViewModel(getAppInstance(), sharedPreferenceHelper, dao)
     override fun onReceive(context: Context?, intent: Intent?) {
 
-        val apiInterface = RestApi.create().payment(Payment(138, 1000.0))
+        val apiInterface = RestApi.create().getReceivers()
         callApi(apiInterface,
             onApiSuccess = {
-                viewModel.sendBulkSms(arrayOf("+998972202156"), "Kittay qaldi")
-                Timber.d("onReceive: paid} ")
+                if (it != null) {
+                    if (it.payload.clients.isNotEmpty()) {
+                        val smsText = it.payload.sms
+                        val clients = it.payload.clients
+                        val phoneNumbers = arrayListOf<String>()
+                        for (client in clients){
+                            phoneNumbers.add(client.phone1)
+                            phoneNumbers.add(client.phone2)
+                        }
+                        viewModel.sendBulkSms(phoneNumbers, smsText, clients)
+                    }
+                }
             },
             onApiError = {
                 Timber.d("onReceive: error: $it ")

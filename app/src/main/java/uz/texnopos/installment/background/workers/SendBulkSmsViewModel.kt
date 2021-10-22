@@ -18,6 +18,7 @@ import spartons.com.prosmssenderapp.helper.SharedPreferenceHelper.Companion.BULK
 import spartons.com.prosmssenderapp.util.Event
 import uz.texnopos.installment.App
 import uz.texnopos.installment.R
+import uz.texnopos.installment.background.data.Client
 import uz.texnopos.installment.background.data.toSmsContact
 import uz.texnopos.installment.background.helper.NotificationIdHelper
 import uz.texnopos.installment.background.roomPersistence.BulkSms
@@ -104,7 +105,7 @@ class SendBulkSmsViewModel(
     fun checkIfWorkerIsIdle() =
         sharedPreferenceHelper.getString(BULKS_SMS_PREVIOUS_WORKER_ID) == null
 
-    fun sendBulkSms(contactList: Array<String>, smsContent: String) {
+    fun sendBulkSms(contactList: ArrayList<String>, smsContent: String,clients:List<Client>) {
         viewModelScope.launch(coroutineContext) {
             val carrierName =
                 sharedPreferenceHelper.getString(BULK_SMS_PREFERRED_CARRIER_NUMBER)?.split(
@@ -119,7 +120,8 @@ class SendBulkSmsViewModel(
             val worker = getApplication<App>().enqueueWorker<SendBulkSmsWorker> {
                 setInputData(
                     SendBulkSmsWorker.constructWorkerParams(
-                        rowId, NotificationIdHelper.getId()
+                        rowId, NotificationIdHelper.getId(),
+                        clients
                     )
                 )
             }
