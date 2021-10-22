@@ -69,6 +69,7 @@ val networkModule = module {
             .client(get())
             .build()
     }
+
     single { get<Retrofit>().create(ApiInterface::class.java) }
 }
 

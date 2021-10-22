@@ -7,7 +7,7 @@ import uz.texnopos.installment.settings.Constants.mySharedPreferences
 
 
 class SharedPrefUtils {
-    private val mSharedPreferences: SharedPreferences = getAppInstance()
+     private val mSharedPreferences: SharedPreferences = getAppInstance()
         .getSharedPreferences(mySharedPreferences, Context.MODE_PRIVATE)
     private var mSharedPreferencesEditor: SharedPreferences.Editor = mSharedPreferences.edit()
 

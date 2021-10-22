@@ -34,4 +34,8 @@
     <string name="success">Успех</string>
     <string name="pay_it_all">Заплатить все</string>
 
+
+    <string name="the_selected_file_is_empty">The selected file is empty. Please select file of user contacts.</string>
+
+
 </resources>

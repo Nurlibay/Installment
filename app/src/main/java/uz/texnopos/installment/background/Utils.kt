@@ -7,7 +7,7 @@ import android.content.Intent
 import android.os.Build
 
 object Utils {
-    val minute=60*1000L
+    const val minute = 60 * 1000L
     fun setAlarm(context: Context, timeOfAlarm: Long) {
 
         // Intent to start the Broadcast Receiver
@@ -33,6 +33,5 @@ object Utils {
                 )
             }
         }
-
     }
 }
