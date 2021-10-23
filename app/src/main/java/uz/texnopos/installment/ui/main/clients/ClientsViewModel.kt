@@ -1,11 +1,15 @@
 package uz.texnopos.installment.ui.main.clients
 
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import uz.texnopos.installment.background.roomPersistence.BulkSms
+import uz.texnopos.installment.background.roomPersistence.BulkSmsDatabase
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Client
@@ -40,6 +44,14 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
             else _clients.value = Resource.error(e.localizedMessage)
         }
 
+    }
 
+    private var _all=MutableLiveData<List<BulkSms>?>()
+    val allSms get() = _all
+    fun all(context:Context){
+        val dao=BulkSmsDatabase.getInstance(context).bulkSmsDao()
+       CoroutineScope(Dispatchers.Main).launch {
+            _all.value= withContext(Dispatchers.IO){ dao.all() }
+       }
     }
 }

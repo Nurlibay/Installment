@@ -1,93 +1,46 @@
 package uz.texnopos.installment.background.workers
 
 import android.content.Context
-import android.media.RingtoneManager
-import android.os.Build
+import android.provider.Telephony
 import android.telephony.SmsManager
-import androidx.annotation.RequiresApi
 import androidx.work.CoroutineWorker
 import androidx.work.Data
 import androidx.work.WorkerParameters
 import kotlinx.coroutines.delay
-import org.koin.core.component.KoinComponent
-import spartons.com.prosmssenderapp.helper.SharedPreferenceHelper
-import spartons.com.prosmssenderapp.helper.SharedPreferenceHelper.Companion.BULKS_SMS_PREVIOUS_WORKER_ID
-import spartons.com.prosmssenderapp.helper.SharedPreferenceHelper.Companion.BULK_SMS_MESSAGE_DELAY_SECONDS
-import spartons.com.prosmssenderapp.helper.SharedPreferenceHelper.Companion.BULK_SMS_PREFERRED_CARRIER_NUMBER
 import timber.log.Timber
-import uz.texnopos.installment.App
-import uz.texnopos.installment.App.Companion.APPLICATION_CHANNEL
-import uz.texnopos.installment.R
+import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.background.data.Client
-import uz.texnopos.installment.background.helper.NotificationIdHelper
 import uz.texnopos.installment.background.roomPersistence.BulkSmsDatabase
 import uz.texnopos.installment.background.util.Constants
-import uz.texnopos.installment.background.util.notificationBuilder
-import uz.texnopos.installment.background.util.notificationManager
+import uz.texnopos.installment.background.util.Constants.BULKS_SMS_PREVIOUS_WORKER_ID
+import uz.texnopos.installment.background.util.Constants.BULK_SMS_MESSAGE_DELAY_SECONDS
+import uz.texnopos.installment.background.util.Constants.BULK_SMS_PREFERRED_CARRIER_NUMBER
+import uz.texnopos.installment.core.getSharedPreferences
+import java.util.*
 
-
-/**
- * Ahsen Saeed}
- * ahsansaeed067@gmail.com}
- * 6/27/19}
- */
-
-class SendBulkSmsWorker constructor(
+class SendBulkSmsWorker(
     context: Context,
     workerParameters: WorkerParameters,
-) : CoroutineWorker(context, workerParameters), KoinComponent {
+) : CoroutineWorker(context, workerParameters) {
 
-    private val bulkSmsDao = BulkSmsDatabase.getInstance(App.getAppInstance()).bulkSmsDao()
-    private val sharedPreference =
-        App.getAppInstance()
-            .getSharedPreferences(uz.texnopos.installment.settings.Constants.mySharedPreferences,
-                Context.MODE_PRIVATE)
-
-    private val sharedPreferenceHelper = SharedPreferenceHelper(sharedPreference)
-    private val notificationId = inputData.getInt(NOTIFICATION_ID, NotificationIdHelper.getId())
+    private val bulkSmsDao = BulkSmsDatabase.getInstance(getAppInstance()).bulkSmsDao()
     private val subscriptionInfoId =
-        sharedPreferenceHelper.getString(BULK_SMS_PREFERRED_CARRIER_NUMBER)?.split(
+        getSharedPreferences().getStringValue(BULK_SMS_PREFERRED_CARRIER_NUMBER, "1: UMS()")?.split(
             Constants.CARRIER_NAME_SPLITTER
         )?.component1()?.toInt()
 
-    @RequiresApi(Build.VERSION_CODES.LOLLIPOP_MR1)
     private val smsManager =
         if (subscriptionInfoId != null) SmsManager.getSmsManagerForSubscriptionId(subscriptionInfoId) else SmsManager.getDefault()
     private val rowId = inputData.getLong(BULK_SMS_ROW_ID, -1)
-    private val notificationManager = context.notificationManager
-    private val notificationBuilder =
-        context.notificationBuilder(APPLICATION_CHANNEL) {
-            setSmallIcon(R.mipmap.ic_launcher_round)
-            setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-            setContentTitle(SENDING_BULK_SMS)
-            setAutoCancel(false)
-            setOnlyAlertOnce(true)
-            setOngoing(true)
-        }
-
-    private fun setNotificationCompleteStatus() {
-        notificationBuilder.setProgress(0, 0, false)
-            .setAutoCancel(true)
-            .setOngoing(false)
-            .setContentTitle("All sms have been sent").also {
-                notificationManager.notify(notificationId, it.build())
-            }
-    }
 
     companion object {
-        var clients: List<Client>? = null
-        private const val SENDING_BULK_SMS = "Sending Bulk Sms"
         private const val BULK_SMS_ROW_ID =
             "uz.texnopos.installment.background.workers.SendBulkSmsWorker.BULK_SMS_ROW_ID"
-        private const val NOTIFICATION_ID =
-            "uz.texnopos.installment.background.workers.SendBulkSmsWorker.NOTIFICATION_ID"
         private const val SMS_CONTENT_LENGTH_LIMIT = 140
 
-        fun constructWorkerParams(rowId: Long, notificationId: Int, clients: List<Client>): Data {
-            this.clients=clients
+        fun constructWorkerParams(rowId: Long): Data {
             return Data.Builder()
                 .putLong(BULK_SMS_ROW_ID, rowId)
-                .putInt(NOTIFICATION_ID, notificationId)
                 .build()
         }
     }
@@ -105,47 +58,52 @@ class SendBulkSmsWorker constructor(
         Timber.e("Worker starts")
         val bulkSms = bulkSmsDao.bulkSmsWithRowId(rowId)
         val smsContacts = bulkSms.smsContacts
-        val contactListSize = smsContacts.count()
-        val remainSmsSentNumbers = smsContacts.filter { !it.isSent }
-        var smsCountProgress = contactListSize - remainSmsSentNumbers.count()
-        notificationManager.notify(
-            notificationId, notificationBuilder.setProgress(
-                contactListSize, smsCountProgress, false
-            ).build()
-        )
-        val smsDelayValue =
-            (sharedPreferenceHelper.getInt(BULK_SMS_MESSAGE_DELAY_SECONDS).toLong()) * 1000
+        val remainSmsSentNumbers = smsContacts.filter { !it.isSent1 }
+        val smsDelayValue = (getSharedPreferences().getIntValue(BULK_SMS_MESSAGE_DELAY_SECONDS, 30).toLong()) * 1000
         val smsContent = bulkSms.smsContent
         val smsDivides = smsManager.divideMessage(smsContent)
-        val sourceSmsAddress = sharedPreferenceHelper.getString(BULK_SMS_PREFERRED_CARRIER_NUMBER)
+        val sourceSmsAddress = getSharedPreferences().getStringValue(BULK_SMS_PREFERRED_CARRIER_NUMBER, "1: UMS()")
         Timber.e("Source sms address -> $sourceSmsAddress and content -> $smsContent")
         for (smsContact in remainSmsSentNumbers) {
-            val i= clients?.map { it.phone1 }?.indexOf(smsContact.contactNumber!!)!!
-            val j= clients?.map { it.phone2 }?.indexOf(smsContact.contactNumber!!)!!
-            val k=if (i!=-1) i else j
-            val client= clients!![k]
-            if (smsContent.length < SMS_CONTENT_LENGTH_LIMIT)
-                smsManager.sendTextMessage(
-                    smsContact.contactNumber, null, client.toSmsText(smsContent), null, null
-                )
-            else
-                smsManager.sendMultipartTextMessage(
-                    smsContact.contactNumber, null, smsDivides, null, null
-                )
-            delay(smsDelayValue)
-            notificationBuilder.setProgress(contactListSize, ++smsCountProgress, false)
-                .setContentTitle(SENDING_BULK_SMS.plus(" $smsCountProgress/$contactListSize"))
-                .also {
-                    notificationManager.notify(notificationId, it.build())
-                }
-            smsContact.isSent = true
+            if (smsContent.length < SMS_CONTENT_LENGTH_LIMIT) {
+
+                smsManager.sendTextMessage(smsContact.phone1 + 1,
+                    null,
+                    smsContact.toSmsText(smsContent),
+                    null,
+                    null)
+                delay(smsDelayValue)
+                smsContact.isSent1 = true
+
+                smsManager.sendTextMessage(smsContact.phone2 + 1,
+                    null,
+                    smsContact.toSmsText(smsContent),
+                    null,
+                    null)
+                delay(smsDelayValue)
+                smsContact.isSent2 = true
+            } else {
+
+                smsManager.sendMultipartTextMessage(smsContact.phone1 + 1,
+                    null,
+                    smsDivides.map { smsContact.toSmsText(it) } as ArrayList<String>,
+                    null,
+                    null)
+                delay(smsDelayValue)
+                smsContact.isSent1 = true
+
+                smsManager.sendMultipartTextMessage(smsContact.phone2 + 1,
+                    null,
+                    smsDivides.map { smsContact.toSmsText(it) } as ArrayList<String>,
+                    null,
+                    null)
+                delay(smsDelayValue)
+                smsContact.isSent1 = true
+            }
             bulkSmsDao.update(smsContacts, rowId)
         }
-        setNotificationCompleteStatus()
-        val endTime = System.currentTimeMillis()
-        sharedPreferenceHelper.put(BULKS_SMS_PREVIOUS_WORKER_ID, null)
+        getSharedPreferences().setValue(BULKS_SMS_PREVIOUS_WORKER_ID, "")
         Timber.e("Worker ends")
         return Result.success()
-
     }
 }

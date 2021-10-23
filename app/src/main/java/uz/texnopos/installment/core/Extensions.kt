@@ -92,11 +92,11 @@ fun isNetworkAvailable(): Boolean {
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-var token: String
+var token: String?
     set(value) = getSharedPreferences().setValue(TOKEN, value)
 get() = getSharedPreferences().getStringValue(TOKEN)
 
-fun isSignedIn(): Boolean = token.isNotEmpty()
+fun isSignedIn(): Boolean = !token.isNullOrEmpty()
 
 fun Fragment.showProgress() {
     (requireActivity() as AppBaseActivity).showProgress(true)

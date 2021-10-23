@@ -3,7 +3,7 @@ package uz.texnopos.installment.background.roomPersistence
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import uz.texnopos.installment.background.data.SmsContact
+import uz.texnopos.installment.background.data.Client
 
 
 /**
@@ -19,19 +19,15 @@ class BulkSms(
     @ColumnInfo(name = "bulk_sms_id")
     val id: Long = 0,
     @ColumnInfo(name = "sms_contacts")
-    val smsContacts: List<SmsContact>,
+    val smsContacts: List<Client>,
     @ColumnInfo(name = "sms_content")
     val smsContent: String,
-    @ColumnInfo(name = "start_date_time")
-    val startDateTime: Long,
-    @ColumnInfo(name = "end_date_time")
-    val endDateTime: Long? = null,
     @ColumnInfo(name = "carrier_name")
     val carrierName: String,
     @ColumnInfo(name = "status")
     val bulkSmsStatus: BulkSmsStatus = BulkSmsStatus.IN_PROGRESS
 ) {
     override fun toString(): String {
-        return "BulkSms(id=$id, smsContacts=$smsContacts, smsContent='$smsContent', startDateTime=$startDateTime, endDateTime=$endDateTime, carrierName='$carrierName', bulkSmsStatus=$bulkSmsStatus)"
+        return "BulkSms(id=$id, smsContacts=$smsContacts, smsContent='$smsContent', carrierName='$carrierName', bulkSmsStatus=$bulkSmsStatus)"
     }
 }

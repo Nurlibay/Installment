@@ -22,7 +22,7 @@ import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
 
 
-private const val baseUrl: String = "https://back-end.i-plan.uz/"
+const val baseUrl: String = "https://back-end.i-plan.uz/"
 private const val appTimeOut = 50L
 
 val networkModule = module {

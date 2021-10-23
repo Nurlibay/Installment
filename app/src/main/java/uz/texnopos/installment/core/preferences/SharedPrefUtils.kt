@@ -24,7 +24,7 @@ class SharedPrefUtils {
                 mSharedPreferencesEditor.putFloat(key, value!!).apply()
             }
             is String? -> {
-                mSharedPreferencesEditor.putString(key, value!!).apply()
+                mSharedPreferencesEditor.putString(key, value).apply()
             }
             is Long? -> {
                 mSharedPreferencesEditor.putLong(key, value!!).apply()
@@ -38,8 +38,8 @@ class SharedPrefUtils {
         }
     }
 
-    fun getStringValue(key: String, defaultValue: String = ""): String {
-        return mSharedPreferences.getString(key, defaultValue)!!
+    fun getStringValue(key: String, defaultValue: String = ""): String? {
+        return mSharedPreferences.getString(key, defaultValue)
     }
 
     fun getIntValue(key: String, defaultValue: Int): Int {

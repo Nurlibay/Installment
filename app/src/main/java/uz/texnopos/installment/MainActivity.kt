@@ -1,10 +1,10 @@
 package uz.texnopos.installment
 
-import android.Manifest
-import android.content.pm.PackageManager
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import uz.texnopos.installment.background.util.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
-import uz.texnopos.installment.background.util.askPermission
+import android.os.PowerManager
+import android.provider.Settings
 import uz.texnopos.installment.core.AppBaseActivity
 import uz.texnopos.installment.databinding.ActivityMainBinding
 
@@ -15,8 +15,15 @@ class MainActivity : AppBaseActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        openPowerSettings(this)
     }
 
-
-
+    private fun openPowerSettings(context: Context) {
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        if (!powerManager.isIgnoringBatteryOptimizations(context.packageName)){
+            val intent = Intent()
+            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
+            context.startActivity(intent)
+        }
+    }
 }

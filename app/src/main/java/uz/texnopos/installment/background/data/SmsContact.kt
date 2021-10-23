@@ -10,4 +10,5 @@ fun String.toSmsContact() =
 data class SmsContact(
     val contactNumber: String?,
     var isSent: Boolean = false
+
 ):Parcelable

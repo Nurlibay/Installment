@@ -64,13 +64,6 @@ fun FragmentActivity.addFragment(fragment: Fragment, @IdRes containerId: Int) {
     }
 }
 
-fun FragmentActivity.replaceFragment(fragment: Fragment, @IdRes containerId: Int) {
-    supportFragmentManager.beginTransaction().apply {
-        replace(containerId, fragment)
-        commit()
-    }
-}
-
 fun Activity.snackbar(view: View, title: String, duration: Int = Snackbar.LENGTH_LONG) {
     Snackbar.make(view, title, duration).apply {
         getView().setBackgroundColor(applicationContext.getMutedColor(R.color.colorPrimary))
