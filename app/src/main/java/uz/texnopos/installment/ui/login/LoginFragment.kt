@@ -62,11 +62,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
-                    bind.btnLogin.hideProgress(R.string.btn_login_ru)
+                    bind.btnLogin.hideProgress(R.string.btn_login)
                     bind.btnLogin.showProgress(false)
                 }
                 ResourceState.NETWORK_ERROR -> {
-                    bind.btnLogin.hideProgress(R.string.btn_login_ru)
+                    bind.btnLogin.hideProgress(R.string.btn_login)
                     bind.btnLogin.showProgress(false)
                     toast(NO_INTERNET)
                 }
@@ -77,11 +77,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun validate(): Boolean {
         return when {
             bind.etLogin.checkIsEmpty() -> {
-                bind.etLogin.showError(getString(R.string.required_ru))
+                bind.etLogin.showError(getString(R.string.required))
                 false
             }
             bind.etPassword.checkIsEmpty() -> {
-                bind.etPassword.showError(getString(R.string.required_ru))
+                bind.etPassword.showError(getString(R.string.required))
                 false
             }
             else -> true

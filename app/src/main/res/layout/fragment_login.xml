@@ -83,7 +83,7 @@
         android:layout_marginTop="@dimen/margin_standard"
         android:backgroundTint="@color/black"
         android:paddingHorizontal="48dp"
-        android:text="@string/btn_login_ru"
+        android:text="@string/btn_login"
         android:textAllCaps="false"
         android:textSize="@dimen/text_size_standard"
         app:cornerRadius="8dp"

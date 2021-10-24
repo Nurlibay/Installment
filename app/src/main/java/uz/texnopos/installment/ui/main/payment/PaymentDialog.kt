@@ -87,7 +87,7 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
 
     private fun validate(): Boolean {
         return if (bind.etAddPayment.checkIsEmpty()) {
-            bind.etAddPayment.showError(getString(R.string.required_ru))
+            bind.etAddPayment.showError(getString(R.string.required))
             false
         } else true
     }

@@ -124,8 +124,8 @@
         android:id="@+id/rv_orders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginHorizontal="@dimen/margin_standard"
         android:background="@null"
-        android:paddingHorizontal="@dimen/margin_standard_large"
         android:visibility="visible"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 </RelativeLayout>
@@ -144,7 +144,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
         android:backgroundTint="#303A44"
-        android:contentDescription="@string/product_ru"
+        android:contentDescription="@string/product"
         android:foregroundTint="@color/white"
         app:borderWidth="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
