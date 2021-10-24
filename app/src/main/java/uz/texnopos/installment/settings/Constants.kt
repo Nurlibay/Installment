@@ -9,4 +9,10 @@ object Constants {
     const val ORDER = "order"
     const val TAG = "tekseriw"
 
+    const val ASK_SMS_PERMISSION_REQUEST_CODE = 1001
+    const val ASK_PHONE_PERMISSION_REQUEST_CODE=1002
+    const val BULK_SMS_MESSAGE_DELAY_SECONDS = "message_delay_seconds"
+    const val BULKS_SMS_PREVIOUS_WORKER_ID = "previous_worker_id"
+    const val BULK_SMS_ROW_ID = "BULK_SMS_ROW_ID"
+    const val MINUTE = 60 * 1000L
 }

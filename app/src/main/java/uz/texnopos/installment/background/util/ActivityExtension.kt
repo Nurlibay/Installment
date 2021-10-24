@@ -1,10 +1,7 @@
 package uz.texnopos.installment.background.util
 
 import android.app.Activity
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
@@ -18,24 +15,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.google.android.material.snackbar.Snackbar
 import uz.texnopos.installment.R
-
-
-/**
- * Ahsen Saeed}
- * ahsansaeed067@gmail.com}
- * 6/25/19}
- */
-
-fun Activity.launch(
-    requestCode: Int = -1,
-    options: Bundle? = null,
-    intent: Intent,
-) {
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN)
-        startActivityForResult(intent, requestCode, options)
-    else
-        startActivityForResult(intent, requestCode)
-}
 
 fun Activity.getMutedColor(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 

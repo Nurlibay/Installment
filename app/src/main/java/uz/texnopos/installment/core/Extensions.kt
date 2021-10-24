@@ -21,7 +21,9 @@ import retrofit2.Call
 import retrofit2.Response
 import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
+import uz.texnopos.installment.background.data.Client
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
+import uz.texnopos.installment.settings.Constants.BULK_SMS_MESSAGE_DELAY_SECONDS
 import uz.texnopos.installment.settings.Constants.TOKEN
 
 fun getSharedPreferences(): SharedPrefUtils {
@@ -94,7 +96,20 @@ fun Context.getConnectivityManager() =
 
 var token: String?
     set(value) = getSharedPreferences().setValue(TOKEN, value)
-get() = getSharedPreferences().getStringValue(TOKEN)
+    get() = getSharedPreferences().getStringValue(TOKEN)
+
+var smsDelayValue: Long
+    set(value) = getSharedPreferences().setValue(BULK_SMS_MESSAGE_DELAY_SECONDS, value)
+    get() = getSharedPreferences().getLongValue(BULK_SMS_MESSAGE_DELAY_SECONDS, 4000L)
+
+fun Client.toSmsText(smsText: String): String {
+    return smsText
+        .replace("{first_name}", first_name)
+        .replace("{last_name}", last_name)
+        .replace("{magazin}", "2-magazin")
+        .replace("{amount}", amount)
+        .replace("{end_date}", end_date)
+}
 
 fun isSignedIn(): Boolean = !token.isNullOrEmpty()
 
@@ -174,3 +189,5 @@ fun <T> callApi(
 
     })
 }
+
+fun Client.toSmsContact() = Client(amount, end_date, first_name, last_name, phone1, phone2)

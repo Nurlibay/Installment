@@ -7,11 +7,10 @@ import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import uz.texnopos.installment.background.Utils
-import uz.texnopos.installment.background.Utils.minute
-import uz.texnopos.installment.core.isSignedIn
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
 import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
+import uz.texnopos.installment.settings.Constants.MINUTE
 
 class App : MultiDexApplication() {
 
@@ -33,7 +32,7 @@ class App : MultiDexApplication() {
             // module list
             koin.loadModules(modules)
         }
-        if (isSignedIn()) Utils.setAlarm(this, System.currentTimeMillis() + minute)
+        Utils.setAlarm(this, System.currentTimeMillis() + 5 * MINUTE)
     }
 
     companion object {

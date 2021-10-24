@@ -15,14 +15,13 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
-import uz.texnopos.installment.MainActivity
 import uz.texnopos.installment.R
-import uz.texnopos.installment.background.util.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.background.util.askPermission
 import uz.texnopos.installment.background.util.isHasPermission
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
+import uz.texnopos.installment.settings.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.settings.Constants.CLIENT
 import uz.texnopos.installment.settings.Constants.NO_INTERNET
 import uz.texnopos.installment.settings.Constants.TAG
@@ -50,9 +49,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         navController = Navigation.findNavController(view)
         setStatusBarColor(R.color.background_color)
 
-        if (!isHasPermission(Manifest.permission.SEND_SMS)) {
+        if (!isHasPermission(Manifest.permission.SEND_SMS) ||
+            !isHasPermission(Manifest.permission.CALL_PHONE)
+        ) {
             askPermission(
-                arrayOf(Manifest.permission.SEND_SMS),
+                arrayOf(Manifest.permission.SEND_SMS,
+                    Manifest.permission.CALL_PHONE),
                 ASK_SMS_PERMISSION_REQUEST_CODE
             )
         }
@@ -73,8 +75,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 } catch (e: Exception) { }
             }
 
-            floatingButton.setOnClickListener {
-                calcCustomDialog(it)
+            floatingButton.onClick {
+                calcCustomDialog()
             }
 
             logout.setOnClickListener {
@@ -159,18 +161,17 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     override fun onRequestPermissionsResult(
         requestCode: Int, permissions: Array<out String>, grantResults: IntArray,
     ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-
         if (requestCode == ASK_SMS_PERMISSION_REQUEST_CODE) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
                 askPermission(
-                    arrayOf(Manifest.permission.SEND_SMS),
+                    arrayOf(Manifest.permission.SEND_SMS,
+                        Manifest.permission.CALL_PHONE),
                     ASK_SMS_PERMISSION_REQUEST_CODE
                 )
         }
     }
 
-    private fun calcCustomDialog(view: View) {
+    private fun calcCustomDialog() {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
 

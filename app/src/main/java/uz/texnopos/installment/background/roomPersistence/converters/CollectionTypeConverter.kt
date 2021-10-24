@@ -5,13 +5,6 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import kotlinx.serialization.UnstableDefault
 import uz.texnopos.installment.background.data.Client
-import uz.texnopos.installment.background.data.SmsContact
-
-/**
- * Ahsen Saeed}
- * ahsansaeed067@gmail.com}
- * 6/28/19}
- */
 
 @UnstableDefault
 object CollectionTypeConverter {

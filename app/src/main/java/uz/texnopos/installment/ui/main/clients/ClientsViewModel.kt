@@ -19,31 +19,24 @@ import java.net.UnknownHostException
 class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
     private var _clients: MutableLiveData<Resource<List<Client>>> = MutableLiveData()
     val clients get() = _clients
-    fun getAllClients() {
+
+    fun getAllClients() = viewModelScope.launch {
         _clients.value = Resource.loading()
-        if (isNetworkAvailable())
-            viewModelScope.launch{
-                load()
-            }
-        else _clients.value = Resource.networkError()
-    }
-
-    private suspend fun load() {
-        try {
-            val response = api.getAllClients()
-            withContext(Dispatchers.Main) {
-                if (response.isSuccessful) {
-                    _clients.value = Resource.success(response.body()!!.payload)
-                } else {
-                    _clients.value = Resource.error(response.message())
+        if (isNetworkAvailable()) {
+            try {
+                val response = api.getAllClients()
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        _clients.value = Resource.success(response.body()!!.payload)
+                    } else {
+                        _clients.value = Resource.error(response.message())
+                    }
                 }
+            } catch (e: Exception) {
+                if (e is UnknownHostException) _clients.value = Resource.networkError()
+                else _clients.value = Resource.error(e.localizedMessage)
             }
-        } catch (e: Exception) {
-            if (e is UnknownHostException)
-                _clients.value = Resource.networkError()
-            else _clients.value = Resource.error(e.localizedMessage)
-        }
-
+        } else _clients.value = Resource.networkError()
     }
 
     private var _all=MutableLiveData<List<BulkSms>?>()

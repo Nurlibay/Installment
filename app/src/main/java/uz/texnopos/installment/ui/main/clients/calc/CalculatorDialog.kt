@@ -29,7 +29,7 @@ class CalculatorDialog : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
-        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner);
+        dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner)
         return inflater.inflate(R.layout.custom_dialog_fragment, container, false)
     }
 

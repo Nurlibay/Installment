@@ -22,12 +22,10 @@ class BulkSms(
     val smsContacts: List<Client>,
     @ColumnInfo(name = "sms_content")
     val smsContent: String,
-    @ColumnInfo(name = "carrier_name")
-    val carrierName: String,
     @ColumnInfo(name = "status")
     val bulkSmsStatus: BulkSmsStatus = BulkSmsStatus.IN_PROGRESS
 ) {
     override fun toString(): String {
-        return "BulkSms(id=$id, smsContacts=$smsContacts, smsContent='$smsContent', carrierName='$carrierName', bulkSmsStatus=$bulkSmsStatus)"
+        return "BulkSms(id=$id, smsContacts=$smsContacts, smsContent='$smsContent', bulkSmsStatus=$bulkSmsStatus)"
     }
 }

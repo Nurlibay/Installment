@@ -20,7 +20,7 @@ class MainActivity : AppBaseActivity() {
 
     private fun openPowerSettings(context: Context) {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (!powerManager.isIgnoringBatteryOptimizations(context.packageName)){
+        if (powerManager.isIgnoringBatteryOptimizations(context.packageName)){
             val intent = Intent()
             intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
             context.startActivity(intent)

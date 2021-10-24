@@ -20,13 +20,6 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
 import java.util.*
 
-
-/**
- * Ahsen Saeed}
- * ahsansaeed067@gmail.com}
- * 10/27/19}
- */
-
 fun Context.launch(
     options: Bundle? = null, intent: Intent,
 ) {

@@ -28,4 +28,5 @@ interface BulkSmsDao {
     @Query(value = "select * from bulk_sms")
     fun all(): List<BulkSms>
 
+
 }

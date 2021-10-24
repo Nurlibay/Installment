@@ -23,8 +23,9 @@ class PaymentViewModel(private val api: ApiInterface) : ViewModel() {
             try {
                 val response = api.payment(payment)
                 withContext(Dispatchers.Main) {
+                    val body = response.body()!!
                     if (response.isSuccessful) _payment.value =
-                        Resource.success(response.body()!!.message)
+                        Resource.success(body.message)
                     else _payment.value = Resource.error(response.message())
                 }
             } catch (e: Exception) {

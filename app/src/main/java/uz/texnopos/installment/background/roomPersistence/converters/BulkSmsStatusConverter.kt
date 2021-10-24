@@ -1,14 +1,8 @@
-package spartons.com.prosmssenderapp.roomPersistence.converters
+package uz.texnopos.installment.background.roomPersistence.converters
 
 import androidx.room.TypeConverter
 import uz.texnopos.installment.background.roomPersistence.BulkSmsStatus
 
-
-/**
- * Ahsen Saeed}
- * ahsansaeed067@gmail.com}
- * 10/29/19}
- */
 
 object BulkSmsStatusConverter {
 

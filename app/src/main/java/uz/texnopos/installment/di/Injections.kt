@@ -53,7 +53,6 @@ val networkModule = module {
                 return@addInterceptor chain.proceed(request)
             }
             .addNetworkInterceptor(CacheInterceptor())
-//            .addInterceptor(ForceCacheInterceptor())
             .addInterceptor(loggingInterceptor)
             .connectTimeout(appTimeOut, TimeUnit.SECONDS)
             .readTimeout(appTimeOut, TimeUnit.SECONDS)

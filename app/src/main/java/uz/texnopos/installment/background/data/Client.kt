@@ -3,8 +3,6 @@ package uz.texnopos.installment.background.data
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
-fun Client.toSmsContact() = Client(amount, end_date, first_name, last_name, phone1, phone2)
-
 @Parcelize
 data class Client(
     val amount: String,
