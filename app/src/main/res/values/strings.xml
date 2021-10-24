@@ -33,5 +33,12 @@
     <string name="request_pay">Погасить весь имеющийся долг. Расчетная сумма %1$sов"</string>
     <string name="success">Успех</string>
     <string name="pay_it_all">Заплатить все</string>
+    <string name="toolbar_title">Клиенты</string>
+    <string name="logout">Logout</string>
+    <string name="content_description_logout">logout</string>
+    <string name="btn_logout">выйти</string>
+    <string name="logout_title">Выход из системы</string>
+    <string name="supporting_text">Вы уверены ?</string>
+    <string name="cancel">Отмена</string>
 
 </resources>

@@ -8,6 +8,31 @@
     android:background="@color/background_blue"
     tools:context=".ui.main.clients.ClientsFragment">
 
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/background_blue"
+        >
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:title="@string/toolbar_title"
+            app:menu="@menu/top_app_bar"
+            app:contentInsetStartWithNavigation="0dp"
+            app:titleMarginStart="@dimen/margin_large"
+            android:background="@color/background_blue"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,52 +41,12 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/logout"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:foreground="?attr/selectableItemBackground"
-            android:layout_marginEnd="@dimen/margin_standard"
-            android:layout_marginTop="@dimen/margin_standard"
-            android:backgroundTint="@color/background_logout_icon"
-            app:cardCornerRadius="8dp"
-            >
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/baseline_logout_24"
-                android:padding="8dp"
-                />
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Клиенты"
-            android:textColor="@color/white"
-            android:textSize="22sp"
-            android:layout_marginTop="@dimen/margin_middle"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/logout" />
-
-<!--        <ImageView-->
-<!--            android:id="@+id/popupMenuItemSort"-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            app:layout_constraintEnd_toEndOf="@id/input_search"-->
-<!--            app:layout_constraintTop_toTopOf="@id/title"-->
-<!--            app:layout_constraintBottom_toBottomOf="@id/title"-->
-<!--            android:src="@drawable/ic_baseline_more_vert_24"-->
-<!--            android:padding="8dp"-->
-<!--            />-->
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/topAppBar"
+        >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/input_search"
@@ -79,7 +64,9 @@
             app:endIconTint="@color/white"
             app:endIconTintMode="multiply"
             app:hintEnabled="false"
-            app:layout_constraintTop_toBottomOf="@id/title"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:startIconDrawable="@drawable/ic_search"
             app:startIconTint="@color/white">
 
@@ -99,21 +86,39 @@
                 app:textInputLayoutFocusedRectEnabled="true" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/clientNotFound"
+            android:text="Клиент не найден"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="bottom"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            app:layout_collapseMode="pin"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@id/swipeRefresh"
+            app:layout_constraintEnd_toEndOf="@id/swipeRefresh"
+            app:layout_constraintTop_toTopOf="@id/swipeRefresh"
+            app:layout_constraintBottom_toBottomOf="@id/swipeRefresh"
+            />
+
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin_standard_large"
+            android:layout_marginTop="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_search"
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp">
 
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_clients"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_standard_large"
+                android:layout_marginTop="12dp"
                 android:paddingHorizontal="@dimen/margin_standard_large"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="parent"

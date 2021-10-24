@@ -4,10 +4,13 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import kotlinx.android.synthetic.main.fragment_clients.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
@@ -60,10 +63,27 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 calcCustomDialog(it)
             }
 
-            logout.setOnClickListener {
-                deleteCache(requireContext())
-                navController.navigate(R.id.action_clientsFragment_to_loginFragment)
-                getSharedPreferences().removeKey(TOKEN)
+            toolbar.setOnMenuItemClickListener  { menuItem ->
+                when (menuItem.itemId) {
+                    R.id.itemLogout -> {
+                        AlertDialog.Builder(requireContext(), R.style.LogoutAlertDialogTheme).apply {
+                            setTitle(getString(R.string.logout_title))
+                            setMessage(getString(R.string.supporting_text))
+                            setPositiveButton("выйти") { _, _ ->
+                                deleteCache(requireContext())
+                                navController.navigate(R.id.action_clientsFragment_to_loginFragment)
+                                getSharedPreferences().removeKey(TOKEN)
+                            }
+                            setNeutralButton("Отмена") { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            create()
+                            show()
+                        }
+                        true
+                    }
+                    else -> false
+                }
             }
         }
 
@@ -71,9 +91,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
                 adapter.filterClientNameAndClientId(it.toString(), clients)
             } else {
-                val toast = Toast.makeText(requireContext(), "Клиент не найден", Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-                toast.show()
+                clientNotFound.isVisible = adapter.models.isEmpty()
+//                val toast = Toast.makeText(requireContext(), "Клиент не найден", Toast.LENGTH_SHORT)
+//                toast.setGravity(Gravity.CENTER, 0, 0)
+//                toast.show()
             }
         }
 
