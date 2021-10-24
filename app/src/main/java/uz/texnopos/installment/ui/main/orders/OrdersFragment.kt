@@ -1,6 +1,7 @@
 package uz.texnopos.installment.ui.main.orders
 
 import android.Manifest.permission.CALL_PHONE
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -41,6 +42,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         refresh()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
@@ -48,9 +50,9 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         binding = FragmentOrdersBinding.bind(view).apply {
 
             tvClientPhone.text = client!!.phone1
-            tvClientId.text = "Клиент ид: ${client!!.client_id}"
+            tvClientId.text = "Клиент ид: ${client!!.clientId}"
             tvProductCount.text = "Число товаров: ${client!!.count}"
-            collapsingToolbar.title = client!!.client_name
+            collapsingToolbar.title = client!!.clientName
             swipeRefresh.setOnRefreshListener {
                 refresh()
             }
@@ -86,7 +88,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     }
 
     private fun refresh() {
-        viewModel.getOrders(client!!.client_id)
+        viewModel.getOrders(client!!.clientId)
     }
 
     override fun onRequestPermissionsResult(

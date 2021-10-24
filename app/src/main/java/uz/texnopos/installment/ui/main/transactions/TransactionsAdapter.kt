@@ -19,7 +19,7 @@ class TransactionsAdapter :
         fun populateModel(transaction: Transactions.Transaction) {
             bind.apply {
                 transaction.apply {
-                    tvDate.text = pay_date.changeDateFormat()
+                    tvDate.text = payDate.changeDateFormat()
                     tvQuantity.text = "+"+paid.changeFormat()
                 }
                 cardView.onClick {
@@ -32,7 +32,7 @@ class TransactionsAdapter :
      var models = mutableListOf<Transactions.Transaction>()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
-            value.sortByDescending { it.created_at }
+            value.sortByDescending { it.createdAt }
             field = value
             notifyDataSetChanged()
         }

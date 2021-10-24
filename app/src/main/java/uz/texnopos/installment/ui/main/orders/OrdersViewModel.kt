@@ -25,9 +25,7 @@ class OrdersViewModel(private val api: ApiInterface) : ViewModel() {
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
                         val body = response.body()!!
-                        if (body.successful) _orders.value =
-                            Resource.success(body.payload)
-                        else _orders.value = Resource.error(body.message)
+                         _orders.value = Resource.success(body.payload)
                     } else _orders.value = Resource.error(response.message())
                 }
             } catch (e: Exception) {

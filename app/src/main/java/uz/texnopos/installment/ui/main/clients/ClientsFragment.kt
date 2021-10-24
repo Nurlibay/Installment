@@ -49,6 +49,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         navController = Navigation.findNavController(view)
         setStatusBarColor(R.color.background_color)
 
+        if (!isSignedIn()) logOut()
+
         if (!isHasPermission(Manifest.permission.SEND_SMS) ||
             !isHasPermission(Manifest.permission.CALL_PHONE)
         ) {
@@ -72,33 +74,38 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 bundle.putParcelable(CLIENT, it)
                 try {
                     navController.navigate(R.id.action_clientsFragment_to_clientFragment, bundle)
-                } catch (e: Exception) { }
+                } catch (e: Exception) {
+                }
             }
 
             floatingButton.onClick {
                 calcCustomDialog()
             }
 
-            logout.setOnClickListener {
-                navController.navigate(R.id.action_clientsFragment_to_loginFragment)
-                getSharedPreferences().removeKey(TOKEN)
+            logout.onClick {
+                logOut()
             }
 
-        }
+            etSearch.addTextChangedListener {
+                if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
+                    adapter.filterClientNameAndClientId(it.toString(), clients)
+                } else {
+                    val toast =
+                        Toast.makeText(requireContext(), "Клиент не найден", Toast.LENGTH_SHORT)
+                    toast.setGravity(Gravity.CENTER, 0, 0)
+                    toast.show()
+                }
+            }
 
-        binding.etSearch.addTextChangedListener {
-            if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
-                adapter.filterClientNameAndClientId(it.toString(), clients)
-            } else {
-                val toast = Toast.makeText(requireContext(), "Клиент не найден", Toast.LENGTH_SHORT)
-                toast.setGravity(Gravity.CENTER, 0, 0)
-                toast.show()
+            popupMenuItemSort.setOnClickListener {
+                showPopup(it)
             }
         }
+    }
 
-        binding.popupMenuItemSort.setOnClickListener {
-            showPopup(it)
-        }
+    fun logOut(){
+        navController.navigate(R.id.action_clientsFragment_to_loginFragment)
+        getSharedPreferences().removeKey(TOKEN)
     }
 
     private fun refresh() {

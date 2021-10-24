@@ -54,8 +54,8 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
                 tvCurrentDebt.isVisible=false
                 "В этом месяце\nнет долга"
             }
-            payItOfAll.isVisible=transaction.unprotsent_sum!=0.0
-            tvDebtValue.text=transaction.all_debt.changeFormat()
+            payItOfAll.isVisible=transaction.withoutRate!=0.0
+            tvDebtValue.text=transaction.allDebt.changeFormat()
             tvCurrentDebtValue.text =amount
             etAddPayment.addTextChangedListener(MaskWatcherPrice(etAddPayment))
 
@@ -65,17 +65,17 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
             }
 
             payItOfAll.onClick {
-                payItAllOff(transaction.unprotsent_sum)
+                payItAllOff(transaction.withoutRate)
             }
 
             btnPay.onClick {
                 if (validate()) {
                     val inputSum = etAddPayment.textToString().getOnlyDigits().toDouble()
-                    if (inputSum <= transaction.unprotsent_sum){
+                    if (inputSum <= transaction.withoutRate){
                         if (inputSum.toInt() == transaction.amount.toInt())
-                            viewModel.payment(Payment(order.order_id, transaction.amount))
+                            viewModel.payment(Payment(order.orderId, transaction.amount))
                         else
-                            viewModel.payment(Payment(order.order_id, inputSum))
+                            viewModel.payment(Payment(order.orderId, inputSum))
                     }
                     else toast("Неверная сумма!")
                 }
@@ -120,7 +120,7 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
             setTitle(getString(R.string.confirm_payment))
             setMessage(getString(R.string.request_pay,q))
             setPositiveButton("Платить") { _, _ ->
-                viewModel.payment(Payment(mFragment.order!!.order_id, quantity))
+                viewModel.payment(Payment(mFragment.order!!.orderId, quantity))
             }
             setNeutralButton("Отмена") { dialog, _ ->
                 dialog.dismiss()

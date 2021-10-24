@@ -51,11 +51,11 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
             .apply {
                 toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
                 transaction.observe(viewLifecycleOwner, {
-                    collapsingToolbar.title = order!!.product_name
-                    tvClientName.text = client!!.client_name
-                    tvOrderId.text = getString(R.string.order_id, order!!.order_id)
+                    collapsingToolbar.title = order!!.productName
+                    tvClientName.text = client!!.clientName
+                    tvOrderId.text = getString(R.string.order_id, order!!.orderId)
                     if (it != null) {
-                        progressBar.max = (order!!.product_price.toInt() - order!!.first_pay) / 100
+                        progressBar.max = (order!!.productPrice.toInt() - order!!.firstPay) / 100
                         adapter.models = it.transactions
                         progressBar.progress = it.transactions.sumOf { s ->
                             s.paid.toInt()
@@ -102,6 +102,6 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
     }
 
     fun refresh() {
-        viewModel.getTransactions(order!!.order_id)
+        viewModel.getTransactions(order!!.orderId)
     }
 }

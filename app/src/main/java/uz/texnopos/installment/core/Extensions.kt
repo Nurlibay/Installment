@@ -104,11 +104,11 @@ var smsDelayValue: Long
 
 fun Client.toSmsText(smsText: String): String {
     return smsText
-        .replace("{first_name}", first_name)
-        .replace("{last_name}", last_name)
+        .replace("{first_name}", firstName)
+        .replace("{last_name}", lastName)
         .replace("{magazin}", "2-magazin")
         .replace("{amount}", amount)
-        .replace("{end_date}", end_date)
+        .replace("{end_date}", endDate)
 }
 
 fun isSignedIn(): Boolean = !token.isNullOrEmpty()
@@ -190,4 +190,4 @@ fun <T> callApi(
     })
 }
 
-fun Client.toSmsContact() = Client(amount, end_date, first_name, last_name, phone1, phone2)
+fun Client.toSmsContact() = Client(amount, endDate, firstName, lastName, phone1, phone2)

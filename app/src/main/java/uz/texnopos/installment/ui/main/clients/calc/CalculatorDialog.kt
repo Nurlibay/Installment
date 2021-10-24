@@ -87,11 +87,11 @@ class CalculatorDialog : DialogFragment() {
     private fun merge() {
         amount.addSource(livePrice) {
             val previous = amount.value
-            amount.value = previous?.copy(product_price = it)
+            amount.value = previous?.copy(productPrice = it)
         }
         amount.addSource(liveFirstPay) {
             val previous = amount.value
-            amount.value = previous?.copy(first_pay = it)
+            amount.value = previous?.copy(firstPay = it)
         }
         amount.addSource(livePercent) {
             val previous = amount.value
@@ -105,11 +105,11 @@ class CalculatorDialog : DialogFragment() {
 
     private fun observe() {
         amount.observe(requireActivity(), {
-            val result = (((it.product_price - it.first_pay) *
+            val result = (((it.productPrice - it.firstPay) *
                     ((it.percent * it.month).toDouble() / 100 + 1)) / it.month).toLong()
-            if (validate() && it.product_price >= it.first_pay) {
+            if (validate() && it.productPrice >= it.firstPay) {
                 binding.tvResult.text = result.toString().changeFormat()
-            } else if (it.product_price < it.first_pay) {
+            } else if (it.productPrice < it.firstPay) {
                 binding.tvResult.text = "Неверная сумма!"
             } else {
                 binding.tvResult.text = ""
