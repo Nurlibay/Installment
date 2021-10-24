@@ -132,27 +132,27 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         })
     }
 
-//    private fun showPopup(view: View) {
-//        val popup = PopupMenu(requireContext(), view)
-//        popup.inflate(R.menu.menu_client)
-//
-//        popup.setOnMenuItemClickListener { item: MenuItem? ->
-//
-//            when (item!!.itemId) {
-//                R.id.sortRed -> {
-//
-//                }
-//                R.id.sortYellow -> {
-//
-//                }
-//                R.id.sortGreen -> {
-//
-//                }
-//            }
-//            true
-//        }
-//        popup.show()
-//    }
+    private fun showPopup(view: View) {
+        val popup = PopupMenu(requireContext(), view)
+        popup.inflate(R.menu.menu_client)
+
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
+
+            when (item!!.itemId) {
+                R.id.sortRed -> {
+
+                }
+                R.id.sortYellow -> {
+
+                }
+                R.id.sortGreen -> {
+
+                }
+            }
+            true
+        }
+        popup.show()
+    }
 
     private fun calcCustomDialog(view: View) {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")

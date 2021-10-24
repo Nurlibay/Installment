@@ -8,7 +8,6 @@
     android:background="@color/background_blue"
     tools:context=".ui.main.clients.ClientsFragment">
 
-
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
