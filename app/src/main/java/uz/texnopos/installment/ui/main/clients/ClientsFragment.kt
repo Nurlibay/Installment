@@ -1,20 +1,23 @@
 package uz.texnopos.installment.ui.main.clients
 
-import android.Manifest
+import android.Manifest.permission.CALL_PHONE
+import android.Manifest.permission.SEND_SMS
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import android.widget.PopupMenu
-import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.view.menu.MenuPopupHelper
+import androidx.appcompat.widget.PopupMenu
+import androidx.core.view.isVisible
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.texnopos.installment.R
 import uz.texnopos.installment.background.util.askPermission
 import uz.texnopos.installment.background.util.isHasPermission
@@ -24,9 +27,9 @@ import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.settings.Constants.CLIENT
 import uz.texnopos.installment.settings.Constants.NO_INTERNET
-import uz.texnopos.installment.settings.Constants.TAG
 import uz.texnopos.installment.settings.Constants.TOKEN
 import uz.texnopos.installment.ui.main.clients.calc.CalculatorDialog
+
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -47,16 +50,16 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
+        setHasOptionsMenu(true)
         setStatusBarColor(R.color.background_color)
 
-        if (!isSignedIn()) logOut()
 
-        if (!isHasPermission(Manifest.permission.SEND_SMS) ||
-            !isHasPermission(Manifest.permission.CALL_PHONE)
+        if (!isHasPermission(SEND_SMS) ||
+            !isHasPermission(CALL_PHONE)
         ) {
             askPermission(
-                arrayOf(Manifest.permission.SEND_SMS,
-                    Manifest.permission.CALL_PHONE),
+                arrayOf(SEND_SMS,
+                    CALL_PHONE),
                 ASK_SMS_PERMISSION_REQUEST_CODE
             )
         }
@@ -82,35 +85,50 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 calcCustomDialog()
             }
 
-            logout.onClick {
-                logOut()
-            }
+            toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.itemLogout -> {
+                        AlertDialog.Builder(requireContext(), R.style.LogoutAlertDialogTheme)
+                            .apply {
+                                setTitle(getString(R.string.logout_title))
+                                setMessage(getString(R.string.supporting_text))
+                                setPositiveButton("Выйти") { _, _ ->
+                                    logOut()
+                                }
+                                setNeutralButton("Отмена") { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                                create()
+                                show()
+                            }
+                        true
+                    }
+                    R.id.itemSort -> {
+                        showPopup(toolbar.findViewById(R.id.itemLogout))
+                        true
+                    }
+                    else -> false
 
+                }
+
+            }
             etSearch.addTextChangedListener {
                 if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
                     adapter.filterClientNameAndClientId(it.toString(), clients)
-                } else {
-                    val toast =
-                        Toast.makeText(requireContext(), "Клиент не найден", Toast.LENGTH_SHORT)
-                    toast.setGravity(Gravity.CENTER, 0, 0)
-                    toast.show()
                 }
-            }
-
-            popupMenuItemSort.setOnClickListener {
-                showPopup(it)
+                clientNotFound.isVisible = adapter.models.isEmpty()
             }
         }
     }
 
-    fun logOut(){
+    private fun logOut() {
+        deleteCache(requireContext())
         navController.navigate(R.id.action_clientsFragment_to_loginFragment)
         getSharedPreferences().removeKey(TOKEN)
     }
 
     private fun refresh() {
         viewModel.getAllClients()
-        viewModel.all(requireActivity().applicationContext)
     }
 
     private fun setUpObserver() {
@@ -136,33 +154,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
             }
         })
-
-        viewModel.allSms.observe(viewLifecycleOwner,{
-            Log.d(TAG, "setUpObserver: $it")
-            Timber.d("$it")
-        })
-    }
-
-    private fun showPopup(view: View) {
-        val popup = PopupMenu(requireContext(), view)
-        popup.inflate(R.menu.menu_client)
-
-        popup.setOnMenuItemClickListener { item: MenuItem? ->
-
-            when (item!!.itemId) {
-                R.id.sortRed -> {
-
-                }
-                R.id.sortYellow -> {
-
-                }
-                R.id.sortGreen -> {
-
-                }
-            }
-            true
-        }
-        popup.show()
     }
 
     override fun onRequestPermissionsResult(
@@ -171,8 +162,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         if (requestCode == ASK_SMS_PERMISSION_REQUEST_CODE) {
             if (grantResults[0] != PackageManager.PERMISSION_GRANTED)
                 askPermission(
-                    arrayOf(Manifest.permission.SEND_SMS,
-                        Manifest.permission.CALL_PHONE),
+                    arrayOf(SEND_SMS,
+                        CALL_PHONE),
                     ASK_SMS_PERMISSION_REQUEST_CODE
                 )
         }
@@ -182,4 +173,31 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
 
+
+    @SuppressLint("RestrictedApi")
+    private fun showPopup(view: View) {
+        val popup = PopupMenu(requireContext(), view)
+        popup.inflate(R.menu.item_menu_sort)
+        popup.gravity=Gravity.CENTER
+        val menuHelper = MenuPopupHelper(requireContext(),
+            (popup.menu as MenuBuilder?)!!, view)
+        menuHelper.setForceShowIcon(true)
+        popup.setOnMenuItemClickListener { item: MenuItem? ->
+
+            when (item!!.itemId) {
+                R.id.sortRed -> {
+                adapter.sortByColor("red",clients)
+                }
+                R.id.sortYellow -> {
+                    adapter.sortByColor("yellow",clients)
+                }
+                R.id.sortGreen -> {
+                    adapter.sortByColor("green",clients)
+                }
+            }
+            true
+        }
+        popup.show()
+        menuHelper.show()
+    }
 }

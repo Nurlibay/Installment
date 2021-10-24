@@ -35,7 +35,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         }
     }
 
-    private var models : MutableList<Client> = mutableListOf()
+    var models : MutableList<Client> = mutableListOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             models.clear()
@@ -70,5 +70,12 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         }
         models = filteredList
         return filteredList.isNotEmpty()
+    }
+    fun sortByColor(color:String,clients: List<Client>){
+        when(color){
+            "red"-> models=clients.filter { it.color==color }.toMutableList()
+            "yellow"-> models=clients.filter { it.color==color }.toMutableList()
+            "green"-> models=clients.filter { it.color==color }.toMutableList()
+        }
     }
 }

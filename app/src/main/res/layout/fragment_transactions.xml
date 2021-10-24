@@ -98,8 +98,9 @@
                     android:layout_gravity="bottom"
                     app:layout_collapseMode="pin"
                     android:layout_height="wrap_content"/>
-                <androidx.appcompat.widget.Toolbar
+                <com.google.android.material.appbar.MaterialToolbar
                     android:id="@+id/toolbar"
+                    android:layout_marginStart="@dimen/margin_middle"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/background_blue"

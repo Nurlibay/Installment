@@ -25,6 +25,8 @@ import uz.texnopos.installment.background.data.Client
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
 import uz.texnopos.installment.settings.Constants.BULK_SMS_MESSAGE_DELAY_SECONDS
 import uz.texnopos.installment.settings.Constants.TOKEN
+import java.io.File
+import java.lang.Exception
 
 fun getSharedPreferences(): SharedPrefUtils {
     return if (App.sharedPrefUtils == null) {
@@ -134,8 +136,9 @@ fun String.changeFormat(): String {
     }
     return "$s сум"
 }
+
 fun Int.changeFormat(): String {
-    val num=this.toString()
+    val num = this.toString()
     var s = ""
     val sz = num.length
     for (i in 0 until sz) {
@@ -146,7 +149,7 @@ fun Int.changeFormat(): String {
 }
 
 fun Double.changeFormat(): String {
-    val num=this.toInt().toString()
+    val num = this.toInt().toString()
     var s = ""
     val sz = num.length
     for (i in 0 until sz) {
@@ -191,3 +194,26 @@ fun <T> callApi(
 }
 
 fun Client.toSmsContact() = Client(amount, endDate, firstName, lastName, phone1, phone2)
+
+
+fun deleteCache(context: Context) {
+    try {
+        val dir: File = context.cacheDir
+        deleteDir(dir)
+    } catch (e: Exception) { }
+}
+
+fun deleteDir(dir: File?): Boolean {
+    return if (dir != null && dir.isDirectory) {
+        val children = dir.list()
+        for (i in children.indices) {
+            val success = deleteDir(File(dir, children[i]))
+            if (!success) {
+                return false
+            }
+        }
+        dir.delete()
+    } else if (dir != null && dir.isFile) dir.delete() else {
+        false
+    }
+}

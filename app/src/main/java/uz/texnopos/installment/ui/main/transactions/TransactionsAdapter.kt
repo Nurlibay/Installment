@@ -9,7 +9,6 @@ import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.databinding.ItemTransactionBinding
 
-
 class TransactionsAdapter :
     RecyclerView.Adapter<TransactionsAdapter.ClientTransactionsViewHolder>() {
 

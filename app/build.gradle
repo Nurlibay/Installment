@@ -58,6 +58,7 @@ android {
     }
 
 }
+
 ext{
     retrofit_version = "2.9.0"
 }
@@ -94,14 +95,14 @@ dependencies {
 
     /* Jetpack Navigation end library */
 
-    def material_version = "1.1.0-alpha07"
+    def material_version = '1.5.0-alpha04'
     implementation "com.google.android.material:material:$material_version"
 
     //LiveData and ViewModel
     def lifecycle_version = "2.2.0"
 
     // lottie for splash
-    implementation 'com.airbnb.android:lottie:3.7.0'
+    implementation 'com.airbnb.android:lottie:4.2.0'
 
     // circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
@@ -113,7 +114,7 @@ dependencies {
     //retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.9.1"
+    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.2'
 
     // For ViewModel
     implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
@@ -124,7 +125,7 @@ dependencies {
     implementation "io.insert-koin:koin-android:3.1.2"
 
     //RxJava
-    implementation 'io.reactivex.rxjava3:rxjava:3.0.0'
+    implementation 'io.reactivex.rxjava3:rxjava:3.1.2'
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     //font

@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -114,7 +115,10 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     adapter.setData(it.data!!)
-                    binding.swipeRefresh.isRefreshing = false
+                    binding.apply {
+                        tvNotFound.isVisible=it.data.isEmpty()
+                        swipeRefresh.isRefreshing = false
+                    }
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
