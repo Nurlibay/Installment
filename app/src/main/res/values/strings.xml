@@ -53,5 +53,6 @@
     <string name="result_general">Общий: %1$s</string>
     <string name="incorrect_amount">Неверная сумма!</string>
     <string name="order_paid">Оплачено: %1$s</string>
+    <string name="all_sum">Вся сумма</string>
 
 </resources>

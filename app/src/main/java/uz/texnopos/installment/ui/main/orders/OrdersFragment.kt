@@ -93,7 +93,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
-        grantResults: IntArray
+        grantResults: IntArray,
     ) {
         if (requestCode == ASK_PHONE_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -109,12 +109,13 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
             when (it.status) {
-                ResourceState.LOADING -> { }
+                ResourceState.LOADING -> {
+                }
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     adapter.setData(it.data!!)
                     binding.apply {
-                        tvNotFound.isVisible=it.data.isEmpty()
+                        tvNotFound.isVisible = it.data.isEmpty()
                         swipeRefresh.isRefreshing = false
                     }
                 }

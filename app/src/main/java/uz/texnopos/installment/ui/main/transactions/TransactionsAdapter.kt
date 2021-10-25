@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import uz.texnopos.installment.core.changeDateFormat
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Transactions
@@ -56,30 +57,5 @@ class TransactionsAdapter :
 
     fun onItemClick(onItemClick: () -> Unit) {
         this.onItemCLick = onItemClick
-
-    }
-
-    fun String.changeDateFormat(): String {
-        var s = ""
-        val date = this.dropLast(3).split(' ', '-')
-        s += "${date[2]} "
-        s += when (date[1]) {
-            "01" -> "Январь "
-            "02" -> "Февраль "
-            "03" -> "Март "
-            "04" -> "Апрель "
-            "05" -> "Май "
-            "06" -> "Июнь "
-            "07" -> "Июль "
-            "08" -> "Август "
-            "09" -> "Сентябрь "
-            "10" -> "Октябрь "
-            "11" -> "Ноябрь "
-            "12" -> "Декабрь "
-            else -> ""
-        }
-        s += "${date[0]} "
-        s += date[3]
-        return s
     }
 }

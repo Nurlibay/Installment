@@ -17,6 +17,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.background.util.askPermission
@@ -30,7 +31,6 @@ import uz.texnopos.installment.settings.Constants.NO_INTERNET
 import uz.texnopos.installment.settings.Constants.TOKEN
 import uz.texnopos.installment.settings.Constants.UNAUTHORIZED
 import uz.texnopos.installment.ui.main.calc.CalculatorDialog
-
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -61,6 +61,17 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             askPermission(arrayOf(SEND_SMS, CALL_PHONE), ASK_SMS_PERMISSION_REQUEST_CODE)
         }
         binding.apply {
+            rvClients.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0 && floatingButton.isVisible) {
+                        floatingButton.hide()
+                    } else if (dy < 0 && floatingButton.visibility != View.VISIBLE) {
+                        floatingButton.show()
+                    }
+                }
+            })
+
             swipeRefresh.setOnRefreshListener {
                 if (etSearch.checkIsEmpty()) refresh()
                 else swipeRefresh.isRefreshing = false
@@ -90,7 +101,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                         true
                     }
                     else -> false
-
                 }
 
             }

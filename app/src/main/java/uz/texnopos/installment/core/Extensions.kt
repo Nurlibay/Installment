@@ -200,7 +200,8 @@ fun deleteCache(context: Context) {
     try {
         val dir: File = context.cacheDir
         deleteDir(dir)
-    } catch (e: Exception) { }
+    } catch (e: Exception) {
+    }
 }
 
 fun deleteDir(dir: File?): Boolean {
@@ -216,4 +217,51 @@ fun deleteDir(dir: File?): Boolean {
     } else if (dir != null && dir.isFile) dir.delete() else {
         false
     }
+}
+
+fun String.changeDateFormat(): String {
+    var s = ""
+    val date = this.dropLast(3).split(' ', '-')
+    s += "${date[2]} "
+    s += when (date[1]) {
+        "01" -> "Январь "
+        "02" -> "Февраль "
+        "03" -> "Март "
+        "04" -> "Апрель "
+        "05" -> "Май "
+        "06" -> "Июнь "
+        "07" -> "Июль "
+        "08" -> "Август "
+        "09" -> "Сентябрь "
+        "10" -> "Октябрь "
+        "11" -> "Ноябрь "
+        "12" -> "Декабрь "
+        else -> ""
+    }
+    s += "${date[0]} "
+    s += date[3]
+    return s
+}
+
+fun String.changeDateFormat2(): String {
+    var s = ""
+    val date = this.split('-')
+    s += "${date[2]} "
+    s += when (date[1]) {
+        "01" -> "Январь "
+        "02" -> "Февраль "
+        "03" -> "Март "
+        "04" -> "Апрель "
+        "05" -> "Май "
+        "06" -> "Июнь "
+        "07" -> "Июль "
+        "08" -> "Август "
+        "09" -> "Сентябрь "
+        "10" -> "Октябрь "
+        "11" -> "Ноябрь "
+        "12" -> "Декабрь "
+        else -> ""
+    }
+    s += "${date[0]} "
+    return s
 }
