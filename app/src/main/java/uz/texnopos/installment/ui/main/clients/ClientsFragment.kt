@@ -172,8 +172,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private fun calcCustomDialog() {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
-
-
+    
     @SuppressLint("RestrictedApi")
     private fun showPopup(view: View) {
         val popup = PopupMenu(requireContext(), view)
