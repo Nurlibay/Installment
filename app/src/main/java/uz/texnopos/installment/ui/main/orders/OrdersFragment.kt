@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.background.util.askPermission
@@ -74,6 +75,18 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                     makePhoneCall(client!!.phone1)
                 }
             }
+
+            rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    if (dy > 0 && btnFab.isVisible) {
+                        btnFab.hide()
+                    } else if (dy < 0 && btnFab.visibility != View.VISIBLE) {
+                        btnFab.show()
+                    }
+                }
+            })
+
         }
     }
 
