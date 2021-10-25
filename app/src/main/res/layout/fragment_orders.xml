@@ -35,12 +35,12 @@
                 app:expandedTitleGravity="bottom|center_horizontal"
                 app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="Samsung">
+                app:title="@string/name">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="?attr/actionBarSize"
+                    android:layout_marginTop="64dp"
                     android:paddingBottom="64dp"
                     app:layout_collapseMode="parallax">
 
