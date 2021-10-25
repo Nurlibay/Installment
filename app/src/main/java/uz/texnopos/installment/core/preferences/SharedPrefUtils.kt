@@ -3,11 +3,11 @@ package uz.texnopos.installment.core.preferences
 import android.content.Context
 import android.content.SharedPreferences
 import uz.texnopos.installment.App.Companion.getAppInstance
-import uz.texnopos.installment.settings.Settings.Companion.mySharedPreferences
+import uz.texnopos.installment.settings.Constants.mySharedPreferences
 
 
 class SharedPrefUtils {
-    private val mSharedPreferences: SharedPreferences = getAppInstance()
+     private val mSharedPreferences: SharedPreferences = getAppInstance()
         .getSharedPreferences(mySharedPreferences, Context.MODE_PRIVATE)
     private var mSharedPreferencesEditor: SharedPreferences.Editor = mSharedPreferences.edit()
 
@@ -24,7 +24,7 @@ class SharedPrefUtils {
                 mSharedPreferencesEditor.putFloat(key, value!!).apply()
             }
             is String? -> {
-                mSharedPreferencesEditor.putString(key, value!!).apply()
+                mSharedPreferencesEditor.putString(key, value).apply()
             }
             is Long? -> {
                 mSharedPreferencesEditor.putLong(key, value!!).apply()
@@ -38,8 +38,8 @@ class SharedPrefUtils {
         }
     }
 
-    fun getStringValue(key: String, defaultValue: String = ""): String {
-        return mSharedPreferences.getString(key, defaultValue)!!
+    fun getStringValue(key: String, defaultValue: String = ""): String? {
+        return mSharedPreferences.getString(key, defaultValue)
     }
 
     fun getIntValue(key: String, defaultValue: Int): Int {

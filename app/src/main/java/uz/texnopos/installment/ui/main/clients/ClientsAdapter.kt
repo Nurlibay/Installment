@@ -17,22 +17,20 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         @SuppressLint("SetTextI18n")
         fun populateModel(client: Client) {
-            binding.tvClientFullName.text = client.client_name
-            binding.tvProductCount.text = client.count.toString()
-            binding.tvClientId.text = "Клиент номер: ${client.client_id}"
-            binding.tvPaidSum.text = client.paid.toInt().toString().changeFormat()
-            binding.tvAllSum.text = client.all_sum.toInt().toString().changeFormat()
-            binding.cardView.onClick {
-                onItemClick.invoke(client)
-            }
-            if(client.color == "green"){
-                binding.imgCheck.setImageResource(R.drawable.ic_round_circle_green)
-            }
-            if(client.color == "red"){
-                binding.imgCheck.setImageResource(R.drawable.ic_round_circle_red)
-            }
-            if(client.color == "yellow"){
-                binding.imgCheck.setImageResource(R.drawable.ic_round_circle_yellow)
+            binding.apply {
+                client.apply {
+                    tvClientFullName.text = clientName
+                    tvProductCount.text = count.toString()
+                    tvClientId.text = "Клиент номер: $clientId"
+                    tvPaidSum.text = paid.toInt().toString().changeFormat()
+                    tvAllSum.text = allSum.toInt().toString().changeFormat()
+                    cardView.onClick {
+                        onItemClick.invoke(client)
+                    }
+                    if (color == "green") imgCheck.setImageResource(R.drawable.ic_round_circle_green)
+                    if (color == "red") imgCheck.setImageResource(R.drawable.ic_round_circle_red)
+                    if (color == "yellow") imgCheck.setImageResource(R.drawable.ic_round_circle_yellow)
+                }
             }
         }
     }
@@ -64,13 +62,20 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
     fun filterClientNameAndClientId(s: String, clients: List<Client>): Boolean {
         val filteredList : MutableList<Client> = mutableListOf()
         for (client in clients) {
-            if (client.client_name.contains2(s) ||
-                client.client_id.toString().contains2(s)
+            if (client.clientName.contains2(s) ||
+                client.clientId.toString().contains2(s)
             ) {
                 filteredList.add(client)
             }
         }
         models = filteredList
         return filteredList.isNotEmpty()
+    }
+    fun sortByColor(color:String,clients: List<Client>){
+        when(color){
+            "red"-> models=clients.filter { it.color==color }.toMutableList()
+            "yellow"-> models=clients.filter { it.color==color }.toMutableList()
+            "green"-> models=clients.filter { it.color==color }.toMutableList()
+        }
     }
 }

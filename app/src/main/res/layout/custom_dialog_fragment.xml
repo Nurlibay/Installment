@@ -1,22 +1,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="280dp"
     android:layout_height="wrap_content"
+    android:background="@color/background_blue"
     android:padding="@dimen/margin_middle">
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPrice"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_middle"
-        app:endIconMode="clear_text"
-        app:hintTextColor="@color/black"
-        app:boxStrokeColor="@color/black"
-        android:textColorHint="@color/black"
         app:counterMaxLength="20"
-        app:errorTextColor="@android:color/holo_red_dark"
+        app:endIconMode="clear_text"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -25,29 +21,23 @@
             android:layout_height="50dp"
             android:layout_marginVertical="@dimen/margin_middle"
             android:hint="Цена продукта"
-            android:cursorVisible="true"
             android:inputType="number"
-            android:textCursorDrawable="@color/black"
             android:maxLength="19"
             android:maxLines="1"
             android:padding="@dimen/margin_middle_standard"
-            android:textColor="@color/black"
-            android:textColorHint="@color/black" />
+            android:textColor="@color/white"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilFirstPay"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/TextInputLayoutStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_middle"
-        app:boxStrokeColor="@color/black"
-        android:textColorHint="@color/black"
         app:counterMaxLength="20"
         app:endIconMode="clear_text"
-        app:hintTextColor="@color/black"
-        app:errorTextColor="@android:color/holo_red_dark"
         app:layout_constraintTop_toBottomOf="@id/tilPrice">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -55,14 +45,14 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginVertical="@dimen/margin_middle"
-            android:hint="Первая выплата"
-            android:maxLines="1"
             android:cursorVisible="true"
+            android:hint="Первая выплата"
             android:inputType="number"
-            android:textCursorDrawable="@color/black"
             android:maxLength="19"
+            android:maxLines="1"
             android:padding="@dimen/margin_middle_standard"
-            android:textColor="@color/black" />
+            android:textColor="@color/white"
+            />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -77,68 +67,54 @@
         app:layout_constraintTop_toBottomOf="@id/tilFirstPay">
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
             android:id="@+id/tilProcent"
-            app:helperTextEnabled="true"
-            android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_middle"
-            app:endIconMode="clear_text"
-            android:textColorHint="@color/black"
-            app:boxStrokeColor="@color/black"
-            app:counterMaxLength="5"
-            app:hintTextColor="@color/black"
             android:layout_marginEnd="4dp"
-            app:errorTextColor="@android:color/holo_red_dark"
-            >
+            android:layout_weight="1"
+            app:counterMaxLength="5"
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProcent"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:textCursorDrawable="@color/black"
                 android:layout_marginVertical="@dimen/margin_middle"
                 android:hint="Процентов"
-                android:cursorVisible="true"
-                android:maxLines="1"
                 android:inputType="number"
                 android:maxLength="3"
+                android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/black" />
+                android:textColor="@color/white"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="0dp"
             android:id="@+id/tilMonth"
-            app:helperTextEnabled="true"
-            android:layout_weight="1"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            style="@style/TextInputLayoutStyle"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:boxStrokeColor="@color/black"
-            android:textColorHint="@color/black"
             android:layout_marginStart="4dp"
             android:layout_marginTop="@dimen/margin_middle"
-            app:endIconMode="clear_text"
+            android:layout_weight="1"
             app:counterMaxLength="5"
-            app:hintTextColor="@color/black"
-            app:errorTextColor="@android:color/holo_red_dark"
-            >
+            app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etMonth"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
+                android:layout_marginVertical="@dimen/margin_middle"
                 android:hint="Месяц"
                 android:inputType="number"
-                android:textCursorDrawable="@color/black"
-                android:maxLines="1"
                 android:maxLength="2"
-                android:cursorVisible="true"
-                android:layout_marginVertical="@dimen/margin_middle"
+                android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/black" />
+                android:textColor="@color/white"
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -150,6 +126,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_middle"
         android:text="Результат"
+        android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/lLayout"

@@ -3,7 +3,6 @@ package uz.texnopos.installment.ui.main.orders
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import okhttp3.internal.format
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.data.model.Order
@@ -14,11 +13,11 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
     inner class ClientOrdersViewHolder(private val binding: ItemOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(order: Order) {
-            binding.price.text = (order.product_price.toInt() - order.first_pay).toString().changeFormat()
-            binding.tvProductName.text = order.product_name
-            binding.tvData.text = "${order.start_date} - ${order.end_date}"
-            binding.tvOrderId.text = "Номер заказа: ${order.order_id}"
-            binding.tvPaidSum.text = "Оплачено: ${order.paid_sum.toInt().toString().changeFormat()}"
+            binding.price.text = (order.productPrice.toInt() - order.firstPay).toString().changeFormat()
+            binding.tvProductName.text = order.productName
+            binding.tvData.text = "${order.startDate} - ${order.endDate}"
+            binding.tvOrderId.text = "Номер заказа: ${order.orderId}"
+            binding.tvPaidSum.text = "Оплачено: ${order.paidSum.toInt().toString().changeFormat()}"
             binding.imgCheck.setImageResource(
                 if (order.status == 1) R.drawable.ic_round_circle_green
                 else R.drawable.ic_round_circle_red

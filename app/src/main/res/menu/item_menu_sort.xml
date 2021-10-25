@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/sortRed"
+        android:contentDescription="@string/content_description_logout"
+        android:icon="@drawable/ic_round_circle_red"
+        android:title="По красным" />
+
+    <item
+        android:id="@+id/sortYellow"
+        android:contentDescription="@string/content_description_logout"
+        android:icon="@drawable/ic_round_circle_yellow"
+        android:title="По желтым" />
+
+    <item
+        android:id="@+id/sortGreen"
+        android:contentDescription="@string/content_description_logout"
+        android:icon="@drawable/ic_round_circle_green"
+        android:title="По зеленым" />
+</menu>

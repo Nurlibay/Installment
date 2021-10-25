@@ -1,20 +1,27 @@
 package uz.texnopos.installment.data.model
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Client(
-    val all_sum: Double,
-    val client_id: Int,
-    val client_name: String,
+    @SerializedName("all_sum")
+    val allSum: Double,
+    @SerializedName("client_id")
+    val clientId: Int,
+    @SerializedName("client_name")
+    val clientName: String,
     val color: String,
     val count: Int,
     val latter: String,
     val paid: Double,
-    val pasport_number: String,
-    val pasport_photo: String,
-    val pasport_serial: String,
+    @SerializedName("pasport_number")
+    val passportNumber: String,
+    @SerializedName("pasport_photo")
+    val passportPhoto: String,
+    @SerializedName("pasport_serial")
+    val passportSerial: String,
     val phone1: String,
-    val phone2: String
+    val phone2: String,
 ): Parcelable

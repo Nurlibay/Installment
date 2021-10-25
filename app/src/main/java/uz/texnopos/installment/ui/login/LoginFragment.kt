@@ -6,7 +6,6 @@ import android.os.Handler
 import android.os.Looper
 import android.view.View
 import android.widget.Button
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -16,7 +15,7 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.databinding.FragmentLoginBinding
-import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
+import uz.texnopos.installment.settings.Constants.NO_INTERNET
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -63,11 +62,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
-                    bind.btnLogin.hideProgress(R.string.btn_login_ru)
+                    bind.btnLogin.hideProgress(R.string.btn_login)
                     bind.btnLogin.showProgress(false)
                 }
                 ResourceState.NETWORK_ERROR -> {
-                    bind.btnLogin.hideProgress(R.string.btn_login_ru)
+                    bind.btnLogin.hideProgress(R.string.btn_login)
                     bind.btnLogin.showProgress(false)
                     toast(NO_INTERNET)
                 }
@@ -78,11 +77,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     private fun validate(): Boolean {
         return when {
             bind.etLogin.checkIsEmpty() -> {
-                bind.etLogin.showError(getString(R.string.required_ru))
+                bind.etLogin.showError(getString(R.string.required))
                 false
             }
             bind.etPassword.checkIsEmpty() -> {
-                bind.etPassword.showError(getString(R.string.required_ru))
+                bind.etPassword.showError(getString(R.string.required))
                 false
             }
             else -> true

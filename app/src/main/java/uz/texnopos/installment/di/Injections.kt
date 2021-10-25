@@ -13,8 +13,7 @@ import uz.texnopos.installment.core.myCache
 import uz.texnopos.installment.core.token
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.data.retrofit.CacheInterceptor
-import uz.texnopos.installment.data.retrofit.ForceCacheInterceptor
-import uz.texnopos.installment.settings.Settings
+import uz.texnopos.installment.settings.Constants
 import uz.texnopos.installment.ui.login.LoginViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.orders.OrdersViewModel
@@ -23,7 +22,7 @@ import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
 
 
-private const val baseUrl: String = "https://back-end.i-plan.uz/"
+const val baseUrl: String = "https://back-end.i-plan.uz/"
 private const val appTimeOut = 50L
 
 val networkModule = module {
@@ -54,7 +53,6 @@ val networkModule = module {
                 return@addInterceptor chain.proceed(request)
             }
             .addNetworkInterceptor(CacheInterceptor())
-//            .addInterceptor(ForceCacheInterceptor())
             .addInterceptor(loggingInterceptor)
             .connectTimeout(appTimeOut, TimeUnit.SECONDS)
             .readTimeout(appTimeOut, TimeUnit.SECONDS)
@@ -70,11 +68,8 @@ val networkModule = module {
             .client(get())
             .build()
     }
-    single { get<Retrofit>().create(ApiInterface::class.java) }
-}
 
-val helperModule = module {
-    single { Settings(androidApplication().applicationContext) }
+    single { get<Retrofit>().create(ApiInterface::class.java) }
 }
 
 val viewModelModule = module {

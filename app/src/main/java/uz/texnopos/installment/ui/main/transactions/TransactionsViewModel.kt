@@ -22,10 +22,11 @@ class TransactionsViewModel(private val api: ApiInterface) : ViewModel() {
             try {
                 val response = api.getAllTransactions(orderId)
                 withContext(Dispatchers.Main) {
+                    val body = response.body()!!
                     if (response.isSuccessful) {
-                        if (response.body()!!.successful) _transactions.value =
-                            Resource.success(response.body()!!.payload)
-                        else _transactions.value = Resource.error(response.body()!!.message)
+                        if (body.successful) _transactions.value =
+                            Resource.success(body.payload)
+                        else _transactions.value = Resource.error(body.message)
                     } else _transactions.value = Resource.error(response.message())
                 }
             }catch (e:Exception){

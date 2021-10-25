@@ -108,6 +108,10 @@
         <item name="android:textColor">#000</item>
     </style>
 
-
+    <style name="MyPopupMenu" parent="TextAppearance.AppCompat.Light.Widget.PopupMenu.Small">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:width">100dp</item>
+        <item name="android:itemBackground">@android:color/holo_red_light</item>
+    </style>
 
 </resources>

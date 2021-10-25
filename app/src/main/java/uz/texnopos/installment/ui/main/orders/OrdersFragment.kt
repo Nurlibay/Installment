@@ -1,24 +1,27 @@
 package uz.texnopos.installment.ui.main.orders
 
-import android.os.Bundle
-import android.view.View
-import androidx.fragment.app.Fragment
-import uz.texnopos.installment.R
+import android.Manifest.permission.CALL_PHONE
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import android.os.Bundle
+import android.view.View
+import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import uz.texnopos.installment.R
+import uz.texnopos.installment.background.util.askPermission
+import uz.texnopos.installment.background.util.isHasPermission
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding
-import uz.texnopos.installment.settings.Settings.Companion.CLIENT
-import uz.texnopos.installment.settings.Settings.Companion.NO_INTERNET
-import uz.texnopos.installment.settings.Settings.Companion.ORDER
+import uz.texnopos.installment.settings.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
+import uz.texnopos.installment.settings.Constants.CLIENT
+import uz.texnopos.installment.settings.Constants.NO_INTERNET
+import uz.texnopos.installment.settings.Constants.ORDER
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
@@ -28,74 +31,65 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private val adapter = OrdersAdapter()
     private var client: Client? = null
 
-    companion object {
-        const val REQUEST_CALL = 1
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        showProgress()
         client = arguments?.getParcelable(CLIENT)
         setUpObservers()
-        viewModel.getOrders(client!!.client_id)
-        refresh()
     }
 
     override fun onStart() {
         super.onStart()
         showProgress()
         refresh()
-        setUpObservers()
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
         navController = Navigation.findNavController(view)
-        binding = FragmentOrdersBinding.bind(view)
-        binding.tvClientPhone.text = client!!.phone1
-        binding.tvClientId.text = "Клиент ид: ${client!!.client_id}"
-        binding.tvProductCount.text = "Число товаров: ${client!!.count}"
-        binding.collapsingToolbar.title = client!!.client_name
-        binding.swipeRefresh.setOnRefreshListener {
-            refresh()
-        }
-        binding.toolbar.setNavigationOnClickListener {
-            requireActivity().onBackPressed()
-        }
-        adapter.onItemClick {
-            val bundle = Bundle()
-            bundle.putParcelable(CLIENT, client)
-            bundle.putParcelable(ORDER, it)
-            try {
-                navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment, bundle)
-            } catch (e: Exception) {}
-        }
-        binding.rvOrders.adapter = adapter
-        binding.btnFab.setOnClickListener {
-            makePhoneCall()
+        binding = FragmentOrdersBinding.bind(view).apply {
+
+            tvClientPhone.text = client!!.phone1
+            tvClientId.text = "Клиент ид: ${client!!.clientId}"
+            tvProductCount.text = "Число товаров: ${client!!.count}"
+            collapsingToolbar.title = client!!.clientName
+            swipeRefresh.setOnRefreshListener {
+                refresh()
+            }
+            toolbar.setNavigationOnClickListener {
+                requireActivity().onBackPressed()
+            }
+            adapter.onItemClick {
+                val bundle = Bundle()
+                bundle.putParcelable(CLIENT, client)
+                bundle.putParcelable(ORDER, it)
+                try {
+                    navController.navigate(R.id.action_clientFragment_to_clientTransactionsFragment,
+                        bundle)
+                } catch (e: Exception) {
+                }
+            }
+            rvOrders.adapter = adapter
+            btnFab.onClick {
+                if (client != null) {
+                    makePhoneCall(client!!.phone1)
+                }
+            }
         }
     }
 
-    private fun makePhoneCall() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.CALL_PHONE
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                requireActivity(),
-                arrayOf(android.Manifest.permission.CALL_PHONE), REQUEST_CALL
-            )
-        } else {
+    private fun makePhoneCall(phone: String) {
+        if (isHasPermission(CALL_PHONE)) {
             val callIntent = Intent(Intent.ACTION_CALL)
-            callIntent.data = Uri.parse("tel:${binding.tvClientPhone.text}")
+            callIntent.data = Uri.parse("tel:$phone")
             startActivity(callIntent)
-        }
+        } else askPermission(arrayOf(CALL_PHONE), ASK_PHONE_PERMISSION_REQUEST_CODE)
+
     }
 
     private fun refresh() {
-        viewModel.getOrders(client!!.client_id)
+        viewModel.getOrders(client!!.clientId)
     }
 
     override fun onRequestPermissionsResult(
@@ -103,11 +97,13 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == REQUEST_CALL) {
+        if (requestCode == ASK_PHONE_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                makePhoneCall()
+                if (client != null) {
+                    makePhoneCall(client!!.phone1)
+                }
             } else {
-                Toast.makeText(requireContext(), "PERMISSION DENIED", Toast.LENGTH_LONG).show()
+                toast("PERMISSION DENIED")
             }
         }
     }
@@ -115,12 +111,14 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     adapter.setData(it.data!!)
-                    binding.swipeRefresh.isRefreshing = false
+                    binding.apply {
+                        tvNotFound.isVisible=it.data.isEmpty()
+                        swipeRefresh.isRefreshing = false
+                    }
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
