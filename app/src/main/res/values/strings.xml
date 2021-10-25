@@ -35,5 +35,23 @@
 
     <string name="the_selected_file_is_empty">The selected file is empty. Please select file of user contacts.</string>
     <string name="sort">Sort</string>
+    <string name="client_id">Клиент номера: %1$d</string>
+    <string name="count_product">Число товаров: %1$d</string>
+    <string name="client_phone">+998(97)220–21–56</string>
+    <string name="order_not_found">Пока заказы нет</string>
+    <string name="all_debt">Общий долг</string>
+    <string name="all_debt_value">8 500 000 сум</string>
+    <string name="current_debt_value">1 500 000 сум</string>
+    <string name="search_client">Поиск…</string>
+    <string name="client_not_found">Клиент не найден</string>
+    <string name="product_price_text">Цена продукта</string>
+    <string name="first_pay_text">Первая выплата</string>
+    <string name="percent_text">Процентов</string>
+    <string name="month_text">Месяц</string>
+    <string name="result_amount">На месяц: %1$s</string>
+    <string name="calc_text">Калькулятор</string>
+    <string name="result_general">Общий: %1$s</string>
+    <string name="incorrect_amount">Неверная сумма!</string>
+    <string name="order_paid">Оплачено: %1$s</string>
 
 </resources>

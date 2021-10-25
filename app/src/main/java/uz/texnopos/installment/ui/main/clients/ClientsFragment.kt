@@ -28,7 +28,8 @@ import uz.texnopos.installment.settings.Constants.ASK_SMS_PERMISSION_REQUEST_COD
 import uz.texnopos.installment.settings.Constants.CLIENT
 import uz.texnopos.installment.settings.Constants.NO_INTERNET
 import uz.texnopos.installment.settings.Constants.TOKEN
-import uz.texnopos.installment.ui.main.clients.calc.CalculatorDialog
+import uz.texnopos.installment.settings.Constants.UNAUTHORIZED
+import uz.texnopos.installment.ui.main.calc.CalculatorDialog
 
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
@@ -39,37 +40,30 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private lateinit var binding: FragmentClientsBinding
     private var clients: List<Client> = emptyList()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        showProgress()
+        setUpObserver()
+    }
+
     override fun onStart() {
         super.onStart()
-        showProgress()
         refresh()
-        setUpObserver()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
-        setHasOptionsMenu(true)
         setStatusBarColor(R.color.background_color)
 
-
-        if (!isHasPermission(SEND_SMS) ||
-            !isHasPermission(CALL_PHONE)
-        ) {
-            askPermission(
-                arrayOf(SEND_SMS,
-                    CALL_PHONE),
-                ASK_SMS_PERMISSION_REQUEST_CODE
-            )
+        if (!isHasPermission(SEND_SMS) || !isHasPermission(CALL_PHONE)) {
+            askPermission(arrayOf(SEND_SMS, CALL_PHONE), ASK_SMS_PERMISSION_REQUEST_CODE)
         }
         binding.apply {
             swipeRefresh.setOnRefreshListener {
-                if (binding.etSearch.checkIsEmpty()) {
-                    refresh()
-                } else {
-                    binding.swipeRefresh.isRefreshing = false
-                }
+                if (etSearch.checkIsEmpty()) refresh()
+                else swipeRefresh.isRefreshing = false
             }
             rvClients.adapter = adapter
             adapter.onItemClick {
@@ -82,25 +76,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
             
             floatingButton.onClick {
-                calcCustomDialog()
+                calcDialog()
             }
 
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.itemLogout -> {
-                        AlertDialog.Builder(requireContext(), R.style.LogoutAlertDialogTheme)
-                            .apply {
-                                setTitle(getString(R.string.logout_title))
-                                setMessage(getString(R.string.supporting_text))
-                                setPositiveButton("Выйти") { _, _ ->
-                                    logOut()
-                                }
-                                setNeutralButton("Отмена") { dialog, _ ->
-                                    dialog.dismiss()
-                                }
-                                create()
-                                show()
-                            }
+                        confirmation()
                         true
                     }
                     R.id.itemSort -> {
@@ -113,10 +95,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
             }
             etSearch.addTextChangedListener {
-                if (adapter.filterClientNameAndClientId(it.toString(), clients)) {
-                    adapter.filterClientNameAndClientId(it.toString(), clients)
-                }
-                clientNotFound.isVisible = adapter.models.isEmpty()
+                adapter.filterClientNameAndClientId(it.toString(), clients)
+                clientNotFound.isVisible = adapter.models.isEmpty() && !it.isNullOrEmpty()
             }
         }
     }
@@ -138,6 +118,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 ResourceState.SUCCESS -> {
                     clients = it.data!!
+                    binding.tvNotFound.isVisible = clients.isEmpty()
                     adapter.filterClientNameAndClientId(binding.etSearch.textToString(), clients)
                     hideProgress()
                     binding.swipeRefresh.isRefreshing = false
@@ -146,6 +127,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     hideProgress()
                     toast(it.message!!)
                     binding.swipeRefresh.isRefreshing = false
+                    if (it.message==UNAUTHORIZED) logOut()
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
@@ -169,7 +151,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
     }
 
-    private fun calcCustomDialog() {
+    private fun calcDialog() {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
     
@@ -191,12 +173,30 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     adapter.sortByColor("yellow",clients)
                 }
                 R.id.sortGreen -> {
-                    adapter.sortByColor("green",clients)
+                    adapter.sortByColor("green", clients)
                 }
             }
             true
         }
         popup.show()
         menuHelper.show()
+    }
+
+    private fun confirmation() {
+        AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
+            .apply {
+                setCancelable(false)
+
+                setTitle(getString(R.string.logout_title))
+                setMessage(getString(R.string.supporting_text))
+                setPositiveButton("Выйти") { _, _ ->
+                    logOut()
+                }
+                setNeutralButton("Отмена") { dialog, _ ->
+                    dialog.dismiss()
+                }
+                create()
+                show()
+            }
     }
 }

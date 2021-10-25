@@ -18,31 +18,29 @@ class LoginViewModel(private val api: ApiInterface) : ViewModel() {
     private var _user = MutableLiveData<Resource<GenericResponse<UserResponse>>>()
     val user get() = _user
 
-    fun login(user: PostUser) {
+
+    fun login(user: PostUser) = viewModelScope.launch {
         _user.value = Resource.loading()
-        if (isNetworkAvailable())
-            viewModelScope.launch(Dispatchers.IO) {
-                load(user)
-            }
-        else _user.value = Resource.networkError()
-    }
-
-    private suspend fun load(user: PostUser) {
-        val response = api.login(user)
-        withContext(Dispatchers.Main) {
-            if (response.isSuccessful) {
-                if (response.body()!!.successful) {
-                    _user.value = Resource.success(response.body()!!)
-                }
-            } else {
-                _user.value = Resource.error(
-                    when (response.code()) {
-                        401 -> UNAUTHORIZED
-                        else -> response.errorBody()!!.source().toString()
+        if (isNetworkAvailable()) {
+            try {
+                val response = api.login(user)
+                withContext(Dispatchers.Main) {
+                    if (response.isSuccessful) {
+                        if (response.body()!!.successful) {
+                            _user.value = Resource.success(response.body()!!)
+                        }
+                    } else {
+                        _user.value = Resource.error(
+                            when (response.code()) {
+                                401 -> UNAUTHORIZED
+                                else -> response.errorBody()!!.source().toString()
+                            }
+                        )
                     }
-                )
+                }
+            } catch (e: Exception) {
+                _user.value = Resource.error(e.localizedMessage)
             }
-        }
+        } else _user.value = Resource.networkError()
     }
-
 }

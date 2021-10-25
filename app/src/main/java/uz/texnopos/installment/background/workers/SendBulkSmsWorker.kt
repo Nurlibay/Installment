@@ -44,13 +44,17 @@ class SendBulkSmsWorker(val context: Context, workerParameters: WorkerParameters
         bulkSmsDao.bulkSmsWithRowId(rowId).smsContacts.forEach {
             if (it.isSent1 || it.isSent2) phones.add(Phone(it.phone1, it.phone2))
         }
-        callApi(api.sendDelivered(Phones(phones)),
-            {
-                if (it != null) context.toast(it.message)
-            },
-            {
-                context.toast(it)
-            })
+        try {
+            callApi(api.sendDelivered(Phones(phones)),
+                {
+                    if (it != null) context.toast(it.message)
+                },
+                {
+                    context.toast(it)
+                })
+        } catch (e: Exception) {
+        }
+
         getSharedPreferences().setValue(BULKS_SMS_PREVIOUS_WORKER_ID, "")
         Timber.e("Worker ends")
         return Result.success()

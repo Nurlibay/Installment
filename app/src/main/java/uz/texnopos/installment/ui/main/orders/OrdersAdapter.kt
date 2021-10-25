@@ -13,18 +13,21 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
     inner class ClientOrdersViewHolder(private val binding: ItemOrderBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(order: Order) {
-            binding.price.text = (order.productPrice.toInt() - order.firstPay).toString().changeFormat()
-            binding.tvProductName.text = order.productName
-            binding.tvData.text = "${order.startDate} - ${order.endDate}"
-            binding.tvOrderId.text = "Номер заказа: ${order.orderId}"
-            binding.tvPaidSum.text = "Оплачено: ${order.paidSum.toInt().toString().changeFormat()}"
-            binding.imgCheck.setImageResource(
-                if (order.status == 1) R.drawable.ic_round_circle_green
-                else R.drawable.ic_round_circle_red
-            )
-            binding.cardView.setOnClickListener {
-                onItemCLick.invoke(order)
+            binding.apply {
+                binding.price.text = (order.productPrice.toInt() - order.firstPay).toString().changeFormat()
+                binding.tvProductName.text = order.productName
+                binding.tvDate.text = "${order.startDate} >> ${order.endDate}"
+                binding.tvOrderId.text =root.context.getString(R.string.order_id,order.orderId)
+                    binding.tvPaidSum.text =root.context.getString(R.string.order_paid,order.paidSum.changeFormat())
+                binding.imgCheck.setImageResource(
+                    if (order.status == 1) R.drawable.ic_round_circle_green
+                    else R.drawable.ic_round_circle_red
+                )
+                binding.cardView.setOnClickListener {
+                    onItemCLick.invoke(order)
+                }
             }
+
         }
     }
 

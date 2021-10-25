@@ -137,7 +137,7 @@ fun String.changeFormat(): String {
     return "$s сум"
 }
 
-fun Int.changeFormat(): String {
+fun Long.changeFormat(): String {
     val num = this.toString()
     var s = ""
     val sz = num.length
