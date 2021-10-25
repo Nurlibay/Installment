@@ -1,7 +1,6 @@
 package uz.texnopos.installment.ui.main.orders
 
 import android.Manifest.permission.CALL_PHONE
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -34,16 +33,15 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         client = arguments?.getParcelable(CLIENT)
+        showProgress()
         setUpObservers()
     }
 
     override fun onStart() {
         super.onStart()
-        showProgress()
         refresh()
     }
 
-    @SuppressLint("SetTextI18n")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         setStatusBarColor(R.color.background_blue)
@@ -51,8 +49,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         binding = FragmentOrdersBinding.bind(view).apply {
 
             tvClientPhone.text = client!!.phone1
-            tvClientId.text = "Клиент ид: ${client!!.clientId}"
-            tvProductCount.text = "Число товаров: ${client!!.count}"
+            tvClientId.text = getString(R.string.client_id, client!!.clientId)
+            tvProductCount.text = getString(R.string.count_product, client!!.count)
             collapsingToolbar.title = client!!.clientName
             swipeRefresh.setOnRefreshListener {
                 refresh()

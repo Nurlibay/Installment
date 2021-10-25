@@ -33,7 +33,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/background_image"
@@ -75,11 +75,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusable="true"
-                android:hint="Поиск ..."
+                android:hint="@string/search_client"
                 android:maxLines="1"
                 android:minLines="1"
                 android:padding="12dp"
-                android:paddingStart="16dp"
                 android:textColor="@color/white"
                 android:textColorHint="#96989F"
                 android:textSize="18sp"
@@ -88,7 +87,7 @@
 
         <TextView
             android:id="@+id/clientNotFound"
-            android:text="Клиент не найден"
+            android:text="@string/client_not_found"
             android:layout_width="match_parent"
             android:gravity="center"
             android:visibility="gone"
@@ -103,6 +102,18 @@
             app:layout_constraintBottom_toBottomOf="@id/swipeRefresh"
             />
 
+        <TextView
+            android:id="@+id/tvNotFound"
+            android:text="Пока клиенты нет"
+            android:layout_width="wrap_content"
+            android:textSize="24sp"
+            android:visibility="invisible"
+            android:fontFamily="serif-monospace"
+            app:layout_constraintStart_toStartOf="@id/swipeRefresh"
+            app:layout_constraintEnd_toEndOf="@id/swipeRefresh"
+            app:layout_constraintTop_toTopOf="@id/swipeRefresh"
+            app:layout_constraintBottom_toBottomOf="@id/swipeRefresh"
+            android:layout_height="wrap_content"/>
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"
@@ -144,7 +155,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:srcCompat="@drawable/ic_calculate"
-            app:tint="@color/white" />
+            app:tint="@color/white"
+            android:contentDescription="@string/app_name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

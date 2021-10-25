@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/background_blue">
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:src="@drawable/background_image"
@@ -62,25 +62,26 @@
                         app:layout_constraintStart_toEndOf="@id/profile_image"
                         app:layout_constraintTop_toTopOf="@id/profile_image">
 
-                        <TextView
-                            android:id="@+id/tvClientPhone"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+998(97)220-21-56"
-                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tvClientId"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="client id: 5"
+                            android:text="@string/client_id"
                             android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/tvProductCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Число товаров: "
+                            android:text="@string/count_product"
+                            android:textColor="@color/white" />
+
+                        <TextView
+                            android:id="@+id/tvClientPhone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/client_phone"
                             android:textColor="@color/white" />
 
                     </LinearLayout>
@@ -88,7 +89,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <TextView
                     android:id="@+id/tvNotFound"
-                    android:text="Пока заказы нет"
+                    android:text="@string/order_not_found"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:visibility="gone"

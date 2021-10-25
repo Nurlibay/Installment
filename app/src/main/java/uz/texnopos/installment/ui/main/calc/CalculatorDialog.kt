@@ -1,28 +1,34 @@
-package uz.texnopos.installment.ui.main.clients.calc
+package uz.texnopos.installment.ui.main.calc
 
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.core.widget.doAfterTextChanged
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import uz.texnopos.installment.R
-import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.MaskWatcherPrice
+import uz.texnopos.installment.core.MinMaxFilter
+import uz.texnopos.installment.core.changeFormat
+import uz.texnopos.installment.core.checkIsEmpty
 import uz.texnopos.installment.data.model.Amount
-import uz.texnopos.installment.databinding.CustomDialogFragmentBinding
+import uz.texnopos.installment.databinding.CalcDialogBinding
 
 class CalculatorDialog : DialogFragment() {
 
-    private lateinit var binding: CustomDialogFragmentBinding
+    private lateinit var binding: CalcDialogBinding
     private val amount = MediatorLiveData<Amount>().apply { value = Amount() }
-    var livePrice = MutableLiveData<Double>()
-    var liveFirstPay = MutableLiveData<Double>()
-    var livePercent = MutableLiveData<Int>()
-    var liveMonth = MutableLiveData<Int>()
+    private var livePrice = MutableLiveData<Double>()
+    private var liveFirstPay = MutableLiveData<Double>()
+    private var livePercent = MutableLiveData<Int>()
+    private var liveMonth = MutableLiveData<Int>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,55 +36,50 @@ class CalculatorDialog : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner)
-        return inflater.inflate(R.layout.custom_dialog_fragment, container, false)
+        dialog!!.setCanceledOnTouchOutside(false)
+        return inflater.inflate(R.layout.calc_dialog, container, false)
     }
 
     override fun onStart() {
         super.onStart()
         val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
-        val height = (resources.displayMetrics.heightPixels * 0.40).toInt()
-        dialog!!.window?.setLayout(width, ViewGroup.LayoutParams.WRAP_CONTENT)
+        dialog!!.window?.setLayout(width, WRAP_CONTENT)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = CustomDialogFragmentBinding.bind(view)
+        binding = CalcDialogBinding.bind(view)
 
         binding.apply {
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             etFirstPay.addTextChangedListener(MaskWatcherPrice(etFirstPay))
             etMonth.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
-            etProcent.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
+            etPercent.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
             merge()
             observe()
             etPrice.doOnTextChanged { it, _, _, _ ->
-                if (it.isNullOrEmpty()) {
-                    livePrice.postValue(0.0)
-                } else {
-                    livePrice.postValue(it.toString().getOnlyDigits().toDouble())
+                livePrice.apply {
+                    if (it.isNullOrEmpty()) postValue(0.0)
+                    else postValue(it.toString().getOnlyDigits().toDouble())
                 }
             }
             etFirstPay.doOnTextChanged { it, _, _, _ ->
-                if (it.isNullOrEmpty()) {
-                    liveFirstPay.postValue(0.0)
-                } else {
-                    liveFirstPay.postValue(it.toString().getOnlyDigits().toDouble())
+                liveFirstPay.apply {
+                    if (it.isNullOrEmpty()) postValue(0.0)
+                    else postValue(it.toString().getOnlyDigits().toDouble())
                 }
             }
-            etProcent.doAfterTextChanged {
-                if (!it.isNullOrEmpty()) {
-                    livePercent.postValue(it.toString().getOnlyDigits().toInt())
-                } else {
-                    livePercent.postValue(0)
+            etPercent.doAfterTextChanged {
+                livePercent.apply {
+                    if (it.isNullOrEmpty()) postValue(0)
+                    else postValue(it.getOnlyDigits().toInt())
                 }
+
             }
             etMonth.doAfterTextChanged {
-                if (!it.isNullOrEmpty()) {
-                    if (it.toString().toInt() != 0) {
-                        liveMonth.postValue(it.toString().getOnlyDigits().toInt())
-                    }
-                } else {
-                    liveMonth.postValue(0)
+                liveMonth.apply {
+                    if (it.isNullOrEmpty()) postValue(0)
+                    else postValue(it.getOnlyDigits().toInt())
                 }
             }
         }
@@ -105,19 +106,23 @@ class CalculatorDialog : DialogFragment() {
 
     private fun observe() {
         amount.observe(requireActivity(), {
-            val result = (((it.productPrice - it.firstPay) *
-                    ((it.percent * it.month).toDouble() / 100 + 1)) / it.month).toLong()
-            if (validate() && it.productPrice >= it.firstPay) {
-                binding.tvResult.text = result.toString().changeFormat()
-            } else if (it.productPrice < it.firstPay) {
-                binding.tvResult.text = "Неверная сумма!"
-            } else {
-                binding.tvResult.text = ""
+            binding.apply {
+                val productPrice=it.productPrice
+                val firstPay=it.firstPay
+                val remain=(productPrice - firstPay)
+                val added=(it.percent * it.month).toDouble() / 100 + 1
+                val result = (remain * added / it.month).toLong()
+
+                if (remain>=0&&validate()) tvResultAmount.text = getString(R.string.result_amount,result.changeFormat())
+                if (remain>0) tvResultAllDebt.text=getString(R.string.result_general,(remain*added+firstPay).changeFormat())
+
+                tvResultAmount.isInvisible=!(remain>=0&&validate())
+                tvResultAllDebt.isVisible=remain>0
             }
         })
     }
 
-    private fun String.getOnlyDigits(): String {
+    private fun CharSequence.getOnlyDigits(): String {
         var s = ""
         this.forEach { if (it.isDigit()) s += it }
         return if (s == "") "0"
@@ -126,6 +131,6 @@ class CalculatorDialog : DialogFragment() {
 
     private fun validate(): Boolean {
         return (!binding.etPrice.checkIsEmpty()
-                && !binding.etProcent.checkIsEmpty() && !binding.etMonth.checkIsEmpty())
+                && !binding.etMonth.checkIsEmpty())
     }
 }

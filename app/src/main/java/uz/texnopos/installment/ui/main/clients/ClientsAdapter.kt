@@ -15,13 +15,12 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(private val binding: ItemClientBinding) :
         RecyclerView.ViewHolder(binding.root) {
-        @SuppressLint("SetTextI18n")
         fun populateModel(client: Client) {
             binding.apply {
                 client.apply {
                     tvClientFullName.text = clientName
                     tvProductCount.text = count.toString()
-                    tvClientId.text = "Клиент номер: $clientId"
+                    tvClientId.text = root.context.getString(R.string.client_id, clientId)
                     tvPaidSum.text = paid.toInt().toString().changeFormat()
                     tvAllSum.text = allSum.toInt().toString().changeFormat()
                     cardView.onClick {
@@ -59,8 +58,8 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
         holder.populateModel(models[position])
     }
 
-    fun filterClientNameAndClientId(s: String, clients: List<Client>): Boolean {
-        val filteredList : MutableList<Client> = mutableListOf()
+    fun filterClientNameAndClientId(s: String, clients: List<Client>) {
+        val filteredList: MutableList<Client> = mutableListOf()
         for (client in clients) {
             if (client.clientName.contains2(s) ||
                 client.clientId.toString().contains2(s)
@@ -69,7 +68,6 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
             }
         }
         models = filteredList
-        return filteredList.isNotEmpty()
     }
     fun sortByColor(color:String,clients: List<Client>){
         when(color){

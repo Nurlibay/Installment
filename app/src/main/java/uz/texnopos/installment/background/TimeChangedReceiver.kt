@@ -18,22 +18,26 @@ class TimeChangedReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context?, intent: Intent?) {
         val api = RestApi.create()
         if (isNetworkAvailable())
-            callApi(api.getReceivers(),
-                onApiSuccess = {
-                    if (it != null) {
-                        val data = it.payload
-                        if (it.successful) {
-                            val smsText = data.sms
-                            if (data.clients.isNotEmpty()) {
-                                val clients = data.clients.filter { c ->
-                                    c.phone1.length == 13 ||
-                                            c.phone2.length == 9
-                                } as ArrayList<Client>
-                                viewModel.sendBulkSms(clients, smsText)
+            try {
+                callApi(api.getReceivers(),
+                    onApiSuccess = {
+                        if (it != null) {
+                            val data = it.payload
+                            if (it.successful) {
+                                val smsText = data.sms
+                                if (data.clients.isNotEmpty()) {
+                                    val clients = data.clients.filter { c ->
+                                        c.phone1.length == 13 ||
+                                                c.phone2.length == 9
+                                    } as ArrayList<Client>
+                                    viewModel.sendBulkSms(clients, smsText)
+                                }
                             }
                         }
-                    }
-                })
+                    })
+            } catch (e: Exception) {
+
+            }
 
         if (intent?.action == "android.intent.action.BOOT_COMPLETED") {
             Timber.d("onReceive: start2")
