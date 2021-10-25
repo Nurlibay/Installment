@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "679438566768",
+    "project_id": "installment-a036f",
+    "storage_bucket": "installment-a036f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:679438566768:android:88ecbc16d616b856ef3bb5",
+        "android_client_info": {
+          "package_name": "uz.texnopos.installment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "679438566768-fvi5ni0rp8n4m86fg0dfngtl02a39iq9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwaXisorGa4wTLrKt-jd4VnL4OEkDouyM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "679438566768-fvi5ni0rp8n4m86fg0dfngtl02a39iq9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
