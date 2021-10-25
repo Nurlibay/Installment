@@ -33,9 +33,7 @@
     <string name="supporting_text">Вы уверены ?</string>
     <string name="cancel">Отмена</string>
 
-
     <string name="the_selected_file_is_empty">The selected file is empty. Please select file of user contacts.</string>
     <string name="sort">Sort</string>
-
 
 </resources>
