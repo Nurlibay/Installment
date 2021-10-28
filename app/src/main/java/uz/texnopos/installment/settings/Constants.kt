@@ -15,4 +15,5 @@ object Constants {
     const val BULKS_SMS_PREVIOUS_WORKER_ID = "previous_worker_id"
     const val BULK_SMS_ROW_ID = "BULK_SMS_ROW_ID"
     const val MINUTE = 60 * 1000L
+
 }

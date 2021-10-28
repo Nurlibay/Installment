@@ -18,13 +18,12 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.animation.MotionSpec
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.background.util.askPermission
 import uz.texnopos.installment.background.util.isHasPermission
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.preferences.getSharedPreferences
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
@@ -41,6 +40,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
     private var clients: List<Client> = emptyList()
+    private lateinit var floatingAnimation: FloatingAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,6 +57,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
+        floatingAnimation= FloatingAnimation(binding)
         setStatusBarColor(R.color.background_color)
 
         if (!isHasPermission(SEND_SMS) || !isHasPermission(CALL_PHONE)) {
@@ -68,11 +69,11 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (dy > 0 && floatingButton.isVisible) {
                         etSearch.hideSoftKeyboard()
-                        floatingButton.hide()
+                        floatingAnimation.hide()
                     }
                     else if (dy < 0 && !floatingButton.isVisible) {
                         etSearch.hideSoftKeyboard()
-                        floatingButton.show()
+                        floatingAnimation.show()
                     }
                 }
             })
@@ -92,7 +93,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
             
             floatingButton.onClick {
-                calcDialog()
+                floatingAnimation.onFloatingClicked()
+            }
+            floatingCalcButton.onClick {
+                showCalcDialog()
             }
 
             toolbar.setOnMenuItemClickListener {
@@ -164,7 +168,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
     }
 
-    private fun calcDialog() {
+    private fun showCalcDialog() {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
     

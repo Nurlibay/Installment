@@ -10,7 +10,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import uz.texnopos.installment.background.data.Phones
 import uz.texnopos.installment.background.data.ReceiversModel
-import uz.texnopos.installment.core.token
+import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.model.response.GenericResponse
 import uz.texnopos.installment.di.baseUrl
 import java.util.concurrent.TimeUnit

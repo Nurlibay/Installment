@@ -28,12 +28,7 @@ import uz.texnopos.installment.settings.Constants.TOKEN
 import java.io.File
 import java.lang.Exception
 
-fun getSharedPreferences(): SharedPrefUtils {
-    return if (App.sharedPrefUtils == null) {
-        App.sharedPrefUtils = SharedPrefUtils()
-        App.sharedPrefUtils!!
-    } else App.sharedPrefUtils!!
-}
+
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, text, duration).show()
@@ -96,13 +91,6 @@ fun isNetworkAvailable(): Boolean {
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-var token: String?
-    set(value) = getSharedPreferences().setValue(TOKEN, value)
-    get() = getSharedPreferences().getStringValue(TOKEN)
-
-var smsDelayValue: Long
-    set(value) = getSharedPreferences().setValue(BULK_SMS_MESSAGE_DELAY_SECONDS, value)
-    get() = getSharedPreferences().getLongValue(BULK_SMS_MESSAGE_DELAY_SECONDS, 4000L)
 
 fun Client.toSmsText(smsText: String): String {
     return smsText
@@ -113,7 +101,6 @@ fun Client.toSmsText(smsText: String): String {
         .replace("{end_date}", endDate)
 }
 
-fun isSignedIn(): Boolean = !token.isNullOrEmpty()
 
 fun Fragment.showProgress() {
     (requireActivity() as AppBaseActivity).showProgress(true)

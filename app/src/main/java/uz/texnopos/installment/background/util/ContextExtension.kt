@@ -26,9 +26,6 @@ fun Context.launch(
     startActivity(intent, options)
 }
 
-fun Context.toast(content: String, length: Int = Toast.LENGTH_SHORT) =
-    Toast.makeText(this, content, length).show()
-
 fun Context.getMutedColor(@ColorRes color: Int) = ContextCompat.getColor(this, color)
 
 fun Context.getResourceString(@StringRes stringResource: Int): String =
