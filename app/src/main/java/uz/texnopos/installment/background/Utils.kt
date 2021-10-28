@@ -1,6 +1,7 @@
 package uz.texnopos.installment.background
 
 import android.app.AlarmManager
+import android.app.AlarmManager.RTC_WAKEUP
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
@@ -12,17 +13,9 @@ object Utils {
 
         val broadcastIntent = Intent(context, BootCompleteReceiver::class.java)
         val pIntent = PendingIntent.getBroadcast(context, 0, broadcastIntent, flags)
-
-        // Setting up AlarmManager
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-
         if (System.currentTimeMillis() < timeOfAlarm) {
-            alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,
-                timeOfAlarm,
-                5 * MINUTE,
-                pIntent
-            )
+            alarmManager.setInexactRepeating(RTC_WAKEUP, timeOfAlarm, 5 * MINUTE, pIntent)
         }
     }
 }

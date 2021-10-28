@@ -21,7 +21,6 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
                     tvClientFullName.text = clientName
                     tvProductCount.text = count.toString()
                     tvClientId.text = root.context.getString(R.string.client_id, clientId)
-                    tvPaidSum.text = paid.toInt().toString().changeFormat()
                     tvAllSum.text = allSum.toInt().toString().changeFormat()
                     cardView.onClick {
                         onItemClick.invoke(client)

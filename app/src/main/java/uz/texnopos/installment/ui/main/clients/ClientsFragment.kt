@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.animation.MotionSpec
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.background.util.askPermission
@@ -65,8 +67,11 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (dy > 0 && floatingButton.isVisible) {
+                        etSearch.hideSoftKeyboard()
                         floatingButton.hide()
-                    } else if (dy < 0 && floatingButton.visibility != View.VISIBLE) {
+                    }
+                    else if (dy < 0 && !floatingButton.isVisible) {
+                        etSearch.hideSoftKeyboard()
                         floatingButton.show()
                     }
                 }
@@ -102,7 +107,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     }
                     else -> false
                 }
-
             }
             etSearch.addTextChangedListener {
                 adapter.filterClientNameAndClientId(it.toString(), clients)
@@ -124,8 +128,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private fun setUpObserver() {
         viewModel.clients.observe(requireActivity(), {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
                     clients = it.data!!
                     binding.tvNotFound.isVisible = clients.isEmpty()
@@ -207,6 +210,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 create()
                 show()
+                binding.etSearch.hideSoftKeyboard()
             }
     }
 }

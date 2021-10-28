@@ -20,7 +20,7 @@ data class Order(
     @SerializedName("product_name")
     val productName: String,
     @SerializedName("product_price")
-    val productPrice: String,
+    var productPrice: String,
     @SerializedName("start_date")
     val startDate: String,
 ):Parcelable
