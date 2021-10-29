@@ -13,6 +13,7 @@ import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.data.retrofit.CacheInterceptor
 import uz.texnopos.installment.ui.login.LoginViewModel
+import uz.texnopos.installment.ui.main.addclient.AddClientViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.orders.OrdersViewModel
 import uz.texnopos.installment.ui.main.payment.PaymentViewModel
@@ -21,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 
 const val baseUrl: String = "https://back-end.i-plan.uz/"
-private const val appTimeOut = 50L
+private const val appTimeOut = 10L
 
 val networkModule = module {
     single {
@@ -76,5 +77,6 @@ val viewModelModule = module {
     viewModel { ClientsViewModel(get()) }
     viewModel { OrdersViewModel(get()) }
     viewModel { TransactionsViewModel(get()) }
+    viewModel { AddClientViewModel(get()) }
 }
 

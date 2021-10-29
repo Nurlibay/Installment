@@ -4,8 +4,9 @@
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="patronymic">Отчество</string>
-    <string name="passport_series">Серия папорта</string>
-    <string name="phone">Телефон</string>
+    <string name="passport_number">Номер папорта</string>
+    <string name="phone1">Мобилный</string>
+    <string name="phone2">Другие телефон</string>
     <string name="sign_up">Регистрация</string>
     <string name="product">Продукть</string>
     <string name="login">Логин</string>
@@ -56,5 +57,12 @@
     <string name="order_paid">Оплачено: %1$s</string>
     <string name="all_sum">Вся сумма</string>
     <string name="client_name">Алибек Ембергенов</string>
+
+    <string name="select_passport_title">Паспорт</string>
+    <string name="select_letter_title">Согласие</string>
+    <string name="passport_series">KA</string>
+    <string name="fromCamera">С камеры</string>
+    <string name="fromGallery">Из галереи</string>
+
 
 </resources>

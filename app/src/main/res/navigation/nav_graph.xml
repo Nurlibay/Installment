@@ -60,6 +60,14 @@
             app:popUpToInclusive="true"
             app:launchSingleTop="true"
             />
+        <action
+            android:id="@+id/action_clientsFragment_to_addClientFragment"
+            app:destination="@id/addClientFragment2" />
     </fragment>
+    <fragment
+        android:id="@+id/addClientFragment2"
+        android:name="uz.texnopos.installment.ui.main.addclient.AddClientFragment"
+        android:label="AddClientFragment"
+        tools:layout="@layout/fragment_add_client"/>
 
 </navigation>

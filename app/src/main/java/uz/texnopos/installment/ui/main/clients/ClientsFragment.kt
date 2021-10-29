@@ -98,15 +98,18 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             floatingCalcButton.onClick {
                 showCalcDialog()
             }
+            floatingAddButton.onClick {
+                navController.navigate(R.id.action_clientsFragment_to_addClientFragment)
+            }
 
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.itemLogout -> {
-                        confirmation()
+                        confirmationDialog()
                         true
                     }
                     R.id.itemSort -> {
-                        showPopup(toolbar.findViewById(R.id.itemLogout))
+                        sortDialog(toolbar.findViewById(R.id.itemLogout))
                         true
                     }
                     else -> false
@@ -134,7 +137,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             when (it.status) {
                 ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
-                    clients = it.data!!
+                    clients = it.data!!.reversed()
                     binding.tvNotFound.isVisible = clients.isEmpty()
                     adapter.filterClientNameAndClientId(binding.etSearch.textToString(), clients)
                     hideProgress()
@@ -173,7 +176,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     }
     
     @SuppressLint("RestrictedApi")
-    private fun showPopup(view: View) {
+    private fun sortDialog(view: View) {
         val popup = PopupMenu(requireContext(), view)
         popup.inflate(R.menu.item_menu_sort)
         popup.gravity=Gravity.CENTER
@@ -199,7 +202,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         menuHelper.show()
     }
 
-    private fun confirmation() {
+    private fun confirmationDialog() {
         AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
             .apply {
                 setCancelable(false)
