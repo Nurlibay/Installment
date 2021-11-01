@@ -12,6 +12,8 @@ import uz.texnopos.installment.background.data.Phones
 import uz.texnopos.installment.background.retrofit.RestApi
 import uz.texnopos.installment.background.roomPersistence.BulkSmsDatabase
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.preferences.getSharedPreferences
+import uz.texnopos.installment.core.preferences.smsDelayValue
 import uz.texnopos.installment.settings.Constants.BULKS_SMS_PREVIOUS_WORKER_ID
 import uz.texnopos.installment.settings.Constants.BULK_SMS_ROW_ID
 

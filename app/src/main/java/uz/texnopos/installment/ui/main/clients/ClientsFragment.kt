@@ -24,6 +24,7 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.background.util.askPermission
 import uz.texnopos.installment.background.util.isHasPermission
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.preferences.getSharedPreferences
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
 import uz.texnopos.installment.settings.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
@@ -40,6 +41,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
     private var clients: List<Client> = emptyList()
+    private lateinit var floatingAnimation: FloatingAnimation
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,6 +58,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientsBinding.bind(view)
         navController = Navigation.findNavController(view)
+        floatingAnimation= FloatingAnimation(binding)
         setStatusBarColor(R.color.background_color)
 
         if (!isHasPermission(SEND_SMS) || !isHasPermission(CALL_PHONE)) {
@@ -66,9 +69,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                     super.onScrolled(recyclerView, dx, dy)
                     if (dy > 0 && floatingButton.isVisible) {
-                        floatingButton.hide()
-                    } else if (dy < 0 && floatingButton.visibility != View.VISIBLE) {
-                        floatingButton.show()
+                        etSearch.hideSoftKeyboard()
+                        floatingAnimation.hide()
+                    }
+                    else if (dy < 0 && !floatingButton.isVisible) {
+                        etSearch.hideSoftKeyboard()
+                        floatingAnimation.show()
                     }
                 }
             })
@@ -88,7 +94,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             }
             
             floatingButton.onClick {
-                calcDialog()
+                floatingAnimation.onFloatingClicked()
+            }
+            floatingCalcButton.onClick {
+                showCalcDialog()
+            }
+            floatingAddButton.onClick {
+                navController.navigate(R.id.action_clientsFragment_to_addClientFragment)
             }
 
             toolbar.setOnMenuItemClickListener {
@@ -98,16 +110,15 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                         true
                     }
                     R.id.itemLogout -> {
-                        confirmation()
+                        confirmationDialog()
                         true
                     }
                     R.id.itemSort -> {
-                        showPopup(toolbar.findViewById(R.id.itemLogout))
+                        sortDialog(toolbar.findViewById(R.id.itemLogout))
                         true
                     }
                     else -> false
                 }
-
             }
             etSearch.addTextChangedListener {
                 adapter.filterClientNameAndClientId(it.toString(), clients)
@@ -129,10 +140,9 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     private fun setUpObserver() {
         viewModel.clients.observe(requireActivity(), {
             when (it.status) {
-                ResourceState.LOADING -> {
-                }
+                ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
-                    clients = it.data!!
+                    clients = it.data!!.reversed()
                     binding.tvNotFound.isVisible = clients.isEmpty()
                     adapter.filterClientNameAndClientId(binding.etSearch.textToString(), clients)
                     hideProgress()
@@ -166,12 +176,12 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
     }
 
-    private fun calcDialog() {
+    private fun showCalcDialog() {
         CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
     
     @SuppressLint("RestrictedApi")
-    private fun showPopup(view: View) {
+    private fun sortDialog(view: View) {
         val popup = PopupMenu(requireContext(), view)
         popup.inflate(R.menu.item_menu_sort)
         popup.gravity=Gravity.CENTER
@@ -198,7 +208,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         menuHelper.show()
     }
 
-    private fun confirmation() {
+    private fun confirmationDialog() {
         AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
             .apply {
                 setCancelable(false)
@@ -213,6 +223,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 }
                 create()
                 show()
+                binding.etSearch.hideSoftKeyboard()
             }
     }
 }

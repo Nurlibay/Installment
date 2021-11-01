@@ -4,7 +4,7 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
+    android:layout_marginVertical="@dimen/margin_small"
     android:backgroundTint="@color/item_background"
     app:cardCornerRadius="8dp">
 
@@ -18,7 +18,7 @@
             android:id="@+id/tv_client_fullName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Алибек Ембергенов"
+            android:text="@string/client_name"
             android:layout_marginStart="@dimen/margin_standard_large"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -26,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imgCheck"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,38 +41,28 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Число товаров:"
+            android:text="@string/count_product2"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
             app:layout_constraintTop_toBottomOf="@id/tv_client_fullName" />
 
 
         <TextView
-            android:id="@+id/tvPaidUp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Оплачено : "
-            android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
-            app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
-
-        <TextView
             android:id="@+id/tvLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Осталось :"
+            android:text="@string/all_debt"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
-            app:layout_constraintTop_toBottomOf="@id/tvPaidUp" />
+            app:layout_constraintTop_toBottomOf="@id/tv_product_name" />
 
         <TextView
             android:id="@+id/tvClientId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_extra_small"
-            android:text="Клиент номер: "
+            android:text="@string/client_id"
             android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@id/tv_client_fullName"
             app:layout_constraintTop_toBottomOf="@id/tvLeft" />
@@ -83,26 +73,15 @@
             android:id="@+id/tv_product_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="3"
             android:layout_marginEnd="@dimen/margin_standard_large"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/tv_product_name" />
 
         <TextView
-            android:id="@+id/tv_paid_sum"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="400$"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="@id/tv_product_count"
-            app:layout_constraintTop_toTopOf="@id/tvPaidUp" />
-
-        <TextView
             android:id="@+id/tv_all_sum"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="800$"
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="@id/tv_product_count"
             app:layout_constraintTop_toTopOf="@id/tvLeft" />

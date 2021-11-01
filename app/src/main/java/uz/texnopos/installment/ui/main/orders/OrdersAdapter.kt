@@ -1,9 +1,12 @@
 package uz.texnopos.installment.ui.main.orders
 
+import android.text.Spanned
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.text.HtmlCompat
+import androidx.core.text.isDigitsOnly
 import androidx.recyclerview.widget.RecyclerView
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.changeDateFormat2
@@ -17,21 +20,20 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(order: Order) {
             binding.apply {
-                binding.price.text =
-                    (order.productPrice.toInt() - order.firstPay).toString().changeFormat()
-                binding.tvProductName.text = order.productName
-                binding.tvDate.text =
-                    "${order.startDate.changeDateFormat2()} / ${order.endDate.changeDateFormat2()}"
-                Log.d("tek", order.startDate.split('-').toString())
-                binding.tvOrderId.text = root.context.getString(R.string.order_id, order.orderId)
-                binding.tvPaidSum.text =
-                    root.context.getString(R.string.order_paid, order.paidSum.changeFormat())
-                binding.imgCheck.setImageResource(
-                    if (order.status == 1) R.drawable.ic_round_circle_green
-                    else R.drawable.ic_round_circle_red
-                )
-                binding.cardView.setOnClickListener {
-                    onItemCLick.invoke(order)
+                order.apply {
+                    if (!productPrice.isDigitsOnly())    productPrice="0"
+                    price.text = (productPrice.toLong() - firstPay).changeFormat()
+                    tvProductName.text = productName
+                    tvDate.text =fromHtml(startDate,endDate)
+                    tvOrderId.text = root.context.getString(R.string.order_id, orderId)
+                    tvPaidSum.text = root.context.getString(R.string.order_paid, paidSum.changeFormat())
+                    imgCheck.setImageResource(
+                        if (status == 1) R.drawable.ic_round_circle_green
+                        else R.drawable.ic_round_circle_red
+                    )
+                    binding.cardView.setOnClickListener {
+                        onItemCLick.invoke(order)
+                    }
                 }
             }
         }
@@ -63,5 +65,9 @@ class OrdersAdapter : RecyclerView.Adapter<OrdersAdapter.ClientOrdersViewHolder>
 
     fun onItemClick(onItemClick: (Order) -> Unit) {
         this.onItemCLick = onItemClick
+    }
+    fun fromHtml(start:String,end:String):Spanned{
+        val b="<i>от</i> <b>${start.changeDateFormat2()}</b> <i>до</i> <b>${end.changeDateFormat2()}</b>"
+        return HtmlCompat.fromHtml(b,HtmlCompat.FROM_HTML_MODE_COMPACT)
     }
 }

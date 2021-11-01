@@ -28,12 +28,7 @@ import uz.texnopos.installment.settings.Constants.TOKEN
 import java.io.File
 import java.lang.Exception
 
-fun getSharedPreferences(): SharedPrefUtils {
-    return if (App.sharedPrefUtils == null) {
-        App.sharedPrefUtils = SharedPrefUtils()
-        App.sharedPrefUtils!!
-    } else App.sharedPrefUtils!!
-}
+
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, text, duration).show()
@@ -96,13 +91,6 @@ fun isNetworkAvailable(): Boolean {
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-var token: String?
-    set(value) = getSharedPreferences().setValue(TOKEN, value)
-    get() = getSharedPreferences().getStringValue(TOKEN)
-
-var smsDelayValue: Long
-    set(value) = getSharedPreferences().setValue(BULK_SMS_MESSAGE_DELAY_SECONDS, value)
-    get() = getSharedPreferences().getLongValue(BULK_SMS_MESSAGE_DELAY_SECONDS, 4000L)
 
 fun Client.toSmsText(smsText: String): String {
     return smsText
@@ -113,7 +101,6 @@ fun Client.toSmsText(smsText: String): String {
         .replace("{end_date}", endDate)
 }
 
-fun isSignedIn(): Boolean = !token.isNullOrEmpty()
 
 fun Fragment.showProgress() {
     (requireActivity() as AppBaseActivity).showProgress(true)
@@ -224,18 +211,18 @@ fun String.changeDateFormat(): String {
     val date = this.dropLast(3).split(' ', '-')
     s += "${date[2]} "
     s += when (date[1]) {
-        "01" -> "Январь "
-        "02" -> "Февраль "
-        "03" -> "Март "
-        "04" -> "Апрель "
-        "05" -> "Май "
-        "06" -> "Июнь "
-        "07" -> "Июль "
-        "08" -> "Август "
-        "09" -> "Сентябрь "
-        "10" -> "Октябрь "
-        "11" -> "Ноябрь "
-        "12" -> "Декабрь "
+        "01" -> "Янв "
+        "02" -> "Февр "
+        "03" -> "Мар "
+        "04" -> "Апр "
+        "05" -> "Мая "
+        "06" -> "Июн "
+        "07" -> "Июл "
+        "08" -> "Авг "
+        "09" -> "Сент "
+        "10" -> "Окт "
+        "11" -> "Нояб "
+        "12" -> "Дек "
         else -> ""
     }
     s += "${date[0]} "
@@ -248,18 +235,18 @@ fun String.changeDateFormat2(): String {
     val date = this.split('-')
     s += "${date[2]} "
     s += when (date[1]) {
-        "01" -> "Январь "
-        "02" -> "Февраль "
-        "03" -> "Март "
-        "04" -> "Апрель "
-        "05" -> "Май "
-        "06" -> "Июнь "
-        "07" -> "Июль "
-        "08" -> "Август "
-        "09" -> "Сентябрь "
-        "10" -> "Октябрь "
-        "11" -> "Ноябрь "
-        "12" -> "Декабрь "
+        "01" -> "Янв "
+        "02" -> "Февр "
+        "03" -> "Мар "
+        "04" -> "Апр "
+        "05" -> "Мая "
+        "06" -> "Июн "
+        "07" -> "Июл "
+        "08" -> "Авг "
+        "09" -> "Сент "
+        "10" -> "Окт "
+        "11" -> "Нояб "
+        "12" -> "Дек "
         else -> ""
     }
     s += "${date[0]} "

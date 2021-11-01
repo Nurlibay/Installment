@@ -42,4 +42,6 @@
     <color name="color01">#af000000</color>
     <color name="color02">#ffffff</color>
 
+    <color name="hint_white">#B7FFFFFF</color>
+
 </resources>

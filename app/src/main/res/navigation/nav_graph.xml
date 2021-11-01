@@ -63,10 +63,18 @@
         <action
             android:id="@+id/action_clientsFragment_to_fragmentCloudMessaging"
             app:destination="@id/fragmentCloudMessaging" />
+        <action
+            android:id="@+id/action_clientsFragment_to_addClientFragment"
+            app:destination="@id/addClientFragment2" />
     </fragment>
     <fragment
         android:id="@+id/fragmentCloudMessaging"
         android:name="uz.texnopos.installment.firebase.cloudMessaging.FragmentCloudMessaging"
         android:label="FragmentCloudMessaging" />
+    <fragment
+        android:id="@+id/addClientFragment2"
+        android:name="uz.texnopos.installment.ui.main.addclient.AddClientFragment"
+        android:label="AddClientFragment"
+        tools:layout="@layout/fragment_add_client"/>
 
 </navigation>

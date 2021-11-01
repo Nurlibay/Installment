@@ -3,18 +3,17 @@ package uz.texnopos.installment.di
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.core.myCache
-import uz.texnopos.installment.core.token
+import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.data.retrofit.CacheInterceptor
-import uz.texnopos.installment.settings.Constants
 import uz.texnopos.installment.ui.login.LoginViewModel
+import uz.texnopos.installment.ui.main.addclient.AddClientViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.orders.OrdersViewModel
 import uz.texnopos.installment.ui.main.payment.PaymentViewModel
@@ -23,7 +22,7 @@ import java.util.concurrent.TimeUnit
 
 
 const val baseUrl: String = "https://back-end.i-plan.uz/"
-private const val appTimeOut = 50L
+private const val appTimeOut = 10L
 
 val networkModule = module {
     single {
@@ -78,5 +77,6 @@ val viewModelModule = module {
     viewModel { ClientsViewModel(get()) }
     viewModel { OrdersViewModel(get()) }
     viewModel { TransactionsViewModel(get()) }
+    viewModel { AddClientViewModel(get()) }
 }
 

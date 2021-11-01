@@ -19,22 +19,24 @@ open class AppBaseActivity : AppCompatActivity() {
     }
 
     fun showProgress(show: Boolean) {
-        when {
-            show -> {
-                if (!isFinishing && !progressDialog!!.isShowing) {
-                    progressDialog?.setCanceledOnTouchOutside(false)
-                    progressDialog?.setCancelable(false)
-                    progressDialog?.show()
-                    showing = false
+        if (progressDialog != null) {
+            when {
+                show -> {
+                    if (!isFinishing && !progressDialog!!.isShowing) {
+                        progressDialog?.setCanceledOnTouchOutside(false)
+                        progressDialog?.setCancelable(false)
+                        progressDialog?.show()
+                        showing = false
+                    }
                 }
-            }
-            else -> try {
-                if (progressDialog?.isShowing!! && !isFinishing) {
-                    progressDialog?.dismiss()
-                    showing = true
+                else -> try {
+                    if (progressDialog?.isShowing!! && !isFinishing) {
+                        progressDialog?.dismiss()
+                        showing = true
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: Exception) {
-                e.printStackTrace()
             }
         }
     }

@@ -2,6 +2,9 @@ package uz.texnopos.installment
 
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
+import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.ktx.analytics
+import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -13,11 +16,11 @@ import uz.texnopos.installment.di.viewModelModule
 import uz.texnopos.installment.settings.Constants.MINUTE
 
 class App : MultiDexApplication() {
-
+    private lateinit var analytics: FirebaseAnalytics
     override fun onCreate() {
         super.onCreate()
         appInstance=this
-
+        analytics= FirebaseAnalytics.getInstance(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val modules = listOf(viewModelModule, networkModule)
         startKoin { // use AndroidLogger as Koin Logger - default Level.INFO

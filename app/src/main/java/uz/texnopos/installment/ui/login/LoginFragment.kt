@@ -13,6 +13,8 @@ import com.github.razir.progressbutton.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.preferences.isSignedIn
+import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.databinding.FragmentLoginBinding
 import uz.texnopos.installment.settings.Constants.NO_INTERNET

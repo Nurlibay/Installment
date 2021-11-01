@@ -1,5 +1,7 @@
 package uz.texnopos.installment.data.retrofit
 
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 import uz.texnopos.installment.data.model.*
@@ -21,4 +23,12 @@ interface ApiInterface {
 
     @GET("api/transaction/get_tran")
     suspend fun getAllTransactions(@Query("id") orderId:Int):Response<GenericResponse<Transactions>>
+
+    @Multipart
+    @POST("api/client/registration")
+    suspend  fun clientRegister(
+        @PartMap partMap: HashMap<String, RequestBody>,
+        @Part filePart1: MultipartBody.Part,
+        @Part filePart2: MultipartBody.Part
+    ): Response<GenericResponse<Any>>
 }
