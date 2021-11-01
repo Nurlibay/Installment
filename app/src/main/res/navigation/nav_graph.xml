@@ -60,6 +60,13 @@
             app:popUpToInclusive="true"
             app:launchSingleTop="true"
             />
+        <action
+            android:id="@+id/action_clientsFragment_to_fragmentCloudMessaging"
+            app:destination="@id/fragmentCloudMessaging" />
     </fragment>
+    <fragment
+        android:id="@+id/fragmentCloudMessaging"
+        android:name="uz.texnopos.installment.firebase.cloudMessaging.FragmentCloudMessaging"
+        android:label="FragmentCloudMessaging" />
 
 </navigation>

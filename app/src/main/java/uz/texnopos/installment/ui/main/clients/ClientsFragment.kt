@@ -17,6 +17,7 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
@@ -92,6 +93,10 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
+                    R.id.itemNotification -> {
+                        navController.navigate(R.id.action_clientsFragment_to_fragmentCloudMessaging)
+                        true
+                    }
                     R.id.itemLogout -> {
                         confirmation()
                         true
@@ -185,6 +190,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 R.id.sortGreen -> {
                     adapter.sortByColor("green", clients)
                 }
+
             }
             true
         }
