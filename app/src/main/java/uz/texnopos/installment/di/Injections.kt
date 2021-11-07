@@ -20,7 +20,6 @@ import uz.texnopos.installment.ui.main.payment.PaymentViewModel
 import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
 
-
 const val baseUrl: String = "https://back-end.i-plan.uz/"
 private const val appTimeOut = 10L
 

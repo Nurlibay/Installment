@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -22,6 +23,8 @@ import uz.texnopos.installment.settings.Constants.ASK_PHONE_PERMISSION_REQUEST_C
 import uz.texnopos.installment.settings.Constants.CLIENT
 import uz.texnopos.installment.settings.Constants.NO_INTERNET
 import uz.texnopos.installment.settings.Constants.ORDER
+import uz.texnopos.installment.ui.main.addOrder.DialogAddOrder
+import uz.texnopos.installment.ui.main.calc.CalculatorDialog
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
@@ -59,6 +62,19 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
+
+            toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.itemCall -> {
+                        if (client != null) {
+                            makePhoneCall(client!!.phone1)
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+
             adapter.onItemClick {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, client)
@@ -71,9 +87,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
             rvOrders.adapter = adapter
             btnFab.onClick {
-                if (client != null) {
-                    makePhoneCall(client!!.phone1)
-                }
+                showAddorderDialog()
             }
 
             rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -86,7 +100,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                     }
                 }
             })
-
         }
     }
 
@@ -96,7 +109,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             callIntent.data = Uri.parse("tel:$phone")
             startActivity(callIntent)
         } else askPermission(arrayOf(CALL_PHONE), ASK_PHONE_PERMISSION_REQUEST_CODE)
-
     }
 
     private fun refresh() {
@@ -118,7 +130,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
         }
     }
-    
+
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
             when (it.status) {
@@ -127,6 +139,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 ResourceState.SUCCESS -> {
                     hideProgress()
                     adapter.setData(it.data!!)
+                    Log.d("zakaz", it.data.toString())
                     binding.apply {
                         tvNotFound.isVisible = it.data.isEmpty()
                         swipeRefresh.isRefreshing = false
@@ -145,4 +158,9 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
         }
     }
+
+    private fun showAddorderDialog() {
+        DialogAddOrder().show(requireActivity().supportFragmentManager, "This is custom dialog")
+    }
+
 }

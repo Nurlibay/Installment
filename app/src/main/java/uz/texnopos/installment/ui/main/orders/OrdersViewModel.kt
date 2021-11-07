@@ -13,9 +13,9 @@ import uz.texnopos.installment.data.retrofit.ApiInterface
 import java.net.UnknownHostException
 
 class OrdersViewModel(private val api: ApiInterface) : ViewModel() {
+
     private var _orders: MutableLiveData<Resource<List<Order>>> = MutableLiveData()
     val orders get() = _orders
-
 
     fun getOrders(clientId: Int) = viewModelScope.launch {
         _orders.value = Resource.loading()
@@ -32,7 +32,6 @@ class OrdersViewModel(private val api: ApiInterface) : ViewModel() {
                 if (e is UnknownHostException) _orders.value = Resource.networkError()
                 else _orders.value = Resource.error(e.localizedMessage)
             }
-
 
         } else _orders.value = Resource.networkError()
     }

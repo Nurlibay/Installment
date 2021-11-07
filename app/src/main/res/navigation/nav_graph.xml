@@ -27,6 +27,9 @@
         <action
             android:id="@+id/action_clientFragment_to_clientTransactionsFragment"
             app:destination="@id/transactionsFragment" />
+        <action
+            android:id="@+id/action_ordersFragment_to_fragmentAddOrder"
+            app:destination="@id/fragmentAddOrder" />
     </fragment>
 
     <dialog
@@ -76,5 +79,9 @@
         android:name="uz.texnopos.installment.ui.main.addclient.AddClientFragment"
         android:label="AddClientFragment"
         tools:layout="@layout/fragment_add_client"/>
+    <dialog
+        android:id="@+id/fragmentAddOrder"
+        android:name="uz.texnopos.installment.ui.main.addOrder.DialogAddOrder"
+        android:label="FragmentAddOrder" />
 
 </navigation>
