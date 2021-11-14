@@ -1,7 +1,7 @@
 package uz.texnopos.installment.core.preferences
 
 import uz.texnopos.installment.App
-import uz.texnopos.installment.settings.Constants
+import uz.texnopos.installment.core.Constants
 
 fun getSharedPreferences(): SharedPrefUtils {
     return if (App.sharedPrefUtils == null) {

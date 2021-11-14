@@ -11,7 +11,7 @@
     <string name="product">Продукть</string>
     <string name="login">Логин</string>
     <string name="password_ru">Пароль</string>
-    <string name="powered_by_texnopos">Powered by TexnoPOS</string>
+    <string name="powered_by_texnopos">Powered by <a href="https://t.me/texnopos"><u>TexnoPOS</u></a></string>
     <string name="btn_login">Вход</string>
     <string name="required">Обязательно</string>
     <string name="todo">TODO</string>
@@ -63,6 +63,8 @@
     <string name="passport_series">KA</string>
     <string name="fromCamera">С камеры</string>
     <string name="fromGallery">Из галереи</string>
+    <string name="client_not_found2">Пока клиенты нет</string>
+    <string name="trans_not_found">Пока транзакций нет</string>
 
 
 </resources>

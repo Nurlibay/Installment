@@ -1,13 +1,14 @@
 package uz.texnopos.installment.ui.main.addclient
 
 import android.app.Activity.RESULT_OK
+import android.content.ContentResolver
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.util.IntentUtils
@@ -17,8 +18,10 @@ import uz.texnopos.installment.core.*
 import uz.texnopos.installment.core.imagehelper.pickCameraImage
 import uz.texnopos.installment.core.imagehelper.pickGalleryImage
 import uz.texnopos.installment.core.imagehelper.setLocalImage
+import uz.texnopos.installment.core.mask.MaskWatcherPhone
 import uz.texnopos.installment.data.model.PostClient
 import uz.texnopos.installment.databinding.FragmentAddClientBinding
+import uz.texnopos.installment.core.Constants.NO_INTERNET
 import java.io.File
 
 
@@ -28,15 +31,13 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private var mPassportImageUri: Uri? = null
     private var mLetterImageUri: Uri? = null
     private lateinit var bind: FragmentAddClientBinding
-    private lateinit var navController: NavController
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         bind = FragmentAddClientBinding.bind(view)
-        navController = Navigation.findNavController(view)
         setUpObserver()
         bind.apply {
-
+            etPassportSeries.filters= arrayOf(InputFilter.AllCaps(),InputFilter.LengthFilter(2))
             etPhone1.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             etPhone2.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             toolbar.navOnClick {
@@ -66,13 +67,13 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             btnSignUp.onClick {
                 if (validate()) {
                     val newClient = PostClient(
-                        first_name = etName.textToString(),
-                        last_name = etSurname.textToString(),
-                        middle_name = etPatronymic.textToString(),
-                        pasport_serial = etPassportSeries.textToString(),
-                        pasport_number = etPassportNumber.textToString(),
-                        pasport_photo = File(mPassportImageUri?.path!!),
-                        latter = File(mLetterImageUri?.path!!),
+                        firstName = etName.textToString(),
+                        lastName = etSurname.textToString(),
+                        middleName = etPatronymic.textToString(),
+                        passportSerial = etPassportSeries.textToString(),
+                        passportNumber = etPassportNumber.textToString(),
+                        passportPhoto = File(mPassportImageUri?.path!!),
+                        letter = File(mLetterImageUri?.path!!),
                         phone1 = etPhone1.textToString().getOnlyDigits(),
                         phone2 = etPhone2.textToString().getOnlyDigits()
                     )
@@ -98,10 +99,13 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
-                    toast("No internet connection")
+                    toast(NO_INTERNET)
                 }
             }
         })
+    }
+    private fun Context.drawableToUri(drawable: Int):Uri{
+        return Uri.parse("android.resource://$packageName/$drawable")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -154,44 +158,23 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
         }
     }
 
-    fun validate(): Boolean {
+    private fun FragmentAddClientBinding.validate(): Boolean {
         return when {
-            bind.etName.checkIsEmpty() -> {
-                bind.etName.showError(getString(R.string.required))
-                false
-            }
-            bind.etSurname.checkIsEmpty() -> {
-                bind.etSurname.showError(getString(R.string.required))
-                false
-            }
-            bind.etPatronymic.checkIsEmpty() -> {
-                bind.etPatronymic.showError(getString(R.string.required))
-                false
-            }
-            bind.etPassportSeries.checkIsEmpty() -> {
-                bind.etPassportSeries.showError(getString(R.string.required))
-                false
-            }
-            bind.etPassportNumber.checkIsEmpty() -> {
-                bind.etPassportNumber.showError(getString(R.string.required))
-                false
-            }
-            mPassportImageUri==null ->{
-                toast("Passport image required")
-                false
-            }
-            mLetterImageUri==null ->{
-                toast("Letter image required")
-                false
-            }
-            bind.etPhone1.checkIsEmpty() -> {
-                bind.etPhone1.showError(getString(R.string.required))
-                false
-            }
-            bind.etPhone2.checkIsEmpty() -> {
-                bind.etPhone2.showError(getString(R.string.required))
-                false
-            }
+            etName.checkIsEmpty() -> etName.showError(getString(R.string.required))
+            etSurname.checkIsEmpty() -> etSurname.showError(getString(R.string.required))
+            etPatronymic.checkIsEmpty() -> etPatronymic.showError(getString(R.string.required))
+            etPassportSeries.checkIsEmpty() -> etPassportSeries.showError(getString(R.string.required))
+            etPassportNumber.checkIsEmpty() -> etPassportNumber.showError(getString(R.string.required))
+//            mPassportImageUri == null -> {
+//                toast("Passport image required")
+//                false
+//            }
+//            mLetterImageUri == null -> {
+//                toast("Letter image required")
+//                false
+//            }
+            etPhone1.checkIsEmpty() -> etPhone1.showError(getString(R.string.required))
+            etPhone2.checkIsEmpty() -> etPhone2.showError(getString(R.string.required))
             else -> true
         }
     }

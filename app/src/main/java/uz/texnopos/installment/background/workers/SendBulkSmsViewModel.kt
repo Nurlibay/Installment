@@ -13,7 +13,7 @@ import uz.texnopos.installment.background.roomPersistence.BulkSmsDao
 import uz.texnopos.installment.background.util.enqueueWorker
 import uz.texnopos.installment.core.preferences.getSharedPreferences
 import uz.texnopos.installment.core.toSmsContact
-import uz.texnopos.installment.settings.Constants.BULKS_SMS_PREVIOUS_WORKER_ID
+import uz.texnopos.installment.core.Constants.BULKS_SMS_PREVIOUS_WORKER_ID
 
 @SuppressLint("MissingPermission")
 class SendBulkSmsViewModel(

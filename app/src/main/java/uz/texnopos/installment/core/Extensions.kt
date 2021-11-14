@@ -1,7 +1,10 @@
 package uz.texnopos.installment.core
 
+import android.content.ActivityNotFoundException
 import android.content.Context
+import android.content.Intent
 import android.net.ConnectivityManager
+import android.net.Uri
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -17,17 +20,16 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import okhttp3.Cache
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
-import uz.texnopos.installment.App
 import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.background.data.Client
-import uz.texnopos.installment.core.preferences.SharedPrefUtils
-import uz.texnopos.installment.settings.Constants.BULK_SMS_MESSAGE_DELAY_SECONDS
-import uz.texnopos.installment.settings.Constants.TOKEN
 import java.io.File
-import java.lang.Exception
-
 
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
@@ -63,9 +65,10 @@ fun TextInputEditText.checkIsEmpty(): Boolean = text == null ||
         textToString().equals("null", ignoreCase = true)
 
 
-fun TextInputEditText.showError(error: String) {
+fun TextInputEditText.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()
+    return false
 }
 
 fun ViewGroup.inflate(@LayoutRes id: Int): View =
@@ -251,4 +254,23 @@ fun String.changeDateFormat2(): String {
     }
     s += "${date[0]} "
     return s
+}
+
+fun String.toRequestBody(): RequestBody =
+    this.toRequestBody("text/plain".toMediaTypeOrNull())
+
+fun File.toRequestBody(): RequestBody =
+    this.asRequestBody("image/*".toMediaTypeOrNull())
+
+fun File.toMultiPart(key: String) =
+    MultipartBody.Part.createFormData(key, this.name, this.toRequestBody())
+
+fun Fragment.launchBrowser(link: String) {
+    try {
+        val myIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
+        startActivity(myIntent)
+    } catch (e: ActivityNotFoundException) {
+        toast("Ни одно приложение не может обработать этот запрос \nПожалуйста, установите веб-браузер")
+        e.printStackTrace()
+    }
 }

@@ -18,10 +18,10 @@ import uz.texnopos.installment.background.util.isHasPermission
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding
-import uz.texnopos.installment.settings.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
-import uz.texnopos.installment.settings.Constants.CLIENT
-import uz.texnopos.installment.settings.Constants.NO_INTERNET
-import uz.texnopos.installment.settings.Constants.ORDER
+import uz.texnopos.installment.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
+import uz.texnopos.installment.core.Constants.CLIENT
+import uz.texnopos.installment.core.Constants.NO_INTERNET
+import uz.texnopos.installment.core.Constants.ORDER
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
@@ -34,7 +34,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         client = arguments?.getParcelable(CLIENT)
-        showProgress()
+//        showProgress()
         setUpObservers()
     }
 

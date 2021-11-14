@@ -26,12 +26,11 @@ import uz.texnopos.installment.core.*
 import uz.texnopos.installment.core.preferences.getSharedPreferences
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentClientsBinding
-import uz.texnopos.installment.settings.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
-import uz.texnopos.installment.settings.Constants.CLIENT
-import uz.texnopos.installment.settings.Constants.NO_INTERNET
-import uz.texnopos.installment.settings.Constants.TOKEN
-import uz.texnopos.installment.settings.Constants.UNAUTHORIZED
-import uz.texnopos.installment.ui.main.calc.CalculatorDialog
+import uz.texnopos.installment.core.Constants.ASK_SMS_PERMISSION_REQUEST_CODE
+import uz.texnopos.installment.core.Constants.CLIENT
+import uz.texnopos.installment.core.Constants.NO_INTERNET
+import uz.texnopos.installment.core.Constants.TOKEN
+import uz.texnopos.installment.core.Constants.UNAUTHORIZED
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
@@ -87,7 +86,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, it)
                 try {
-                    navController.navigate(R.id.action_clientsFragment_to_clientFragment, bundle)
+                    navController.navigate(R.id.action_clientsFragment_to_ordersFragment, bundle)
                 } catch (e: Exception) {
                 }
             }
@@ -96,7 +95,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 floatingAnimation.onFloatingClicked()
             }
             floatingCalcButton.onClick {
-                showCalcDialog()
+                navController.navigate(R.id.action_clientsFragment_to_calculatorDialog)
             }
             floatingAddButton.onClick {
                 navController.navigate(R.id.action_clientsFragment_to_addClientFragment)
@@ -171,10 +170,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
     }
 
-    private fun showCalcDialog() {
-        CalculatorDialog().show(requireActivity().supportFragmentManager, "This is custom dialog")
-    }
-    
     @SuppressLint("RestrictedApi")
     private fun sortDialog(view: View) {
         val popup = PopupMenu(requireContext(), view)

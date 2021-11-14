@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue">
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -14,7 +14,7 @@
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        >
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -90,7 +90,7 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <TextView
                     android:id="@+id/tvNotFound"
-                    android:text="Пока транзакций нет"
+                    android:text="@string/trans_not_found"
                     android:layout_width="match_parent"
                     android:gravity="center"
                     android:visibility="gone"

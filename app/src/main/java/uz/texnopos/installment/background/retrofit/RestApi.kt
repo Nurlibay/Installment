@@ -12,7 +12,8 @@ import uz.texnopos.installment.background.data.Phones
 import uz.texnopos.installment.background.data.ReceiversModel
 import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.model.response.GenericResponse
-import uz.texnopos.installment.di.baseUrl
+import uz.texnopos.installment.di.appTimeOut
+import uz.texnopos.installment.core.Constants.BASE_URL
 import java.util.concurrent.TimeUnit
 
 interface RestApi {
@@ -37,16 +38,16 @@ interface RestApi {
                         return@addInterceptor chain.proceed(request)
                     }
                     .addInterceptor(loggingInterceptor)
-                    .connectTimeout(50L, TimeUnit.SECONDS)
-                    .readTimeout(50L, TimeUnit.SECONDS)
-                    .writeTimeout(50L, TimeUnit.SECONDS)
+                    .connectTimeout(appTimeOut, TimeUnit.SECONDS)
+                    .readTimeout(appTimeOut, TimeUnit.SECONDS)
+                    .writeTimeout(appTimeOut, TimeUnit.SECONDS)
                     .retryOnConnectionFailure(true)
                     .build()
 
             val retrofit = Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
-                .baseUrl(baseUrl)
+                .baseUrl(BASE_URL)
                 .build()
             return retrofit.create(RestApi::class.java)
         }

@@ -12,7 +12,7 @@ import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.data.model.response.GenericResponse
 import uz.texnopos.installment.data.model.response.UserResponse
 import uz.texnopos.installment.data.retrofit.ApiInterface
-import uz.texnopos.installment.settings.Constants.UNAUTHORIZED
+import uz.texnopos.installment.core.Constants.UNAUTHORIZED
 
 class LoginViewModel(private val api: ApiInterface) : ViewModel() {
     private var _user = MutableLiveData<Resource<GenericResponse<UserResponse>>>()

@@ -59,6 +59,7 @@
                     android:layout_height="match_parent"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:maxLength="24"
                     android:padding="@dimen/margin_middle_standard"
                     android:shadowColor="@color/white"
                     android:textColor="@color/white" />
@@ -79,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:maxLength="24"
                     android:padding="@dimen/margin_middle_standard"
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -98,6 +100,7 @@
                     android:layout_height="match_parent"
                     android:inputType="text"
                     android:maxLines="1"
+                    android:maxLength="24"
                     android:padding="@dimen/margin_middle_standard"
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
@@ -114,7 +117,8 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:baselineAligned="false">
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/inputPassportSeries"
@@ -133,12 +137,13 @@
                             android:layout_height="match_parent"
                             android:inputType="text"
                             android:textAllCaps="true"
-                            android:maxLength="2"
                             android:hint="@string/passport_series"
                             android:text="@string/passport_series"
                             android:textColorHint="@color/hint_white"
                             android:padding="@dimen/margin_middle_standard"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:nextFocusDown="@id/etPassportNumber"
+                            />
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -160,7 +165,8 @@
                             android:textColorHint="@color/hint_white"
                             android:hint="@string/passport_number"
                             android:padding="@dimen/margin_middle_standard"
-                            android:textColor="@color/white" />
+                            android:textColor="@color/white"
+                            android:nextFocusDown="@id/etPhone1"/>
                     </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -217,7 +223,8 @@
                     android:maxLines="1"
                     android:maxLength="14"
                     android:padding="@dimen/margin_middle_standard"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:nextFocusDown="@id/etPhone2"/>
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/tilPhone2"
@@ -243,7 +250,8 @@
                     android:maxLines="1"
                     android:maxLength="14"
                     android:padding="@dimen/margin_middle_standard"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:nextFocusDown="@id/btnSignUp"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.button.MaterialButton

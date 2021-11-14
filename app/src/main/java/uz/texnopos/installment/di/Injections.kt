@@ -12,6 +12,7 @@ import uz.texnopos.installment.core.myCache
 import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.data.retrofit.CacheInterceptor
+import uz.texnopos.installment.core.Constants.BASE_URL
 import uz.texnopos.installment.ui.login.LoginViewModel
 import uz.texnopos.installment.ui.main.addclient.AddClientViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
@@ -21,17 +22,17 @@ import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
 
 
-const val baseUrl: String = "https://back-end.i-plan.uz/"
-private const val appTimeOut = 10L
+const val appTimeOut = 24L
 
 val networkModule = module {
+    
     single {
         GsonBuilder().setLenient().create()
     }
     single {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
-
+        //OkHttpClient start
         OkHttpClient.Builder()
             .cache(myCache)
             .addInterceptor { chain ->
@@ -58,13 +59,14 @@ val networkModule = module {
             .writeTimeout(appTimeOut, TimeUnit.SECONDS)
             .retryOnConnectionFailure(true)
             .build()
+        //OkHttpClient end
     }
     single {
         Retrofit
             .Builder()
-            .baseUrl(baseUrl)
-            .addConverterFactory(GsonConverterFactory.create(get()))
-            .client(get())
+            .baseUrl(BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create(get())) //Gson sorap atir
+            .client(get()) //OkHttp Client sorap atir
             .build()
     }
 
