@@ -117,7 +117,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
         }
     }
-
+    
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
             when (it.status) {
