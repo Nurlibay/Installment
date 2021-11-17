@@ -22,6 +22,7 @@ import uz.texnopos.installment.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.core.Constants.CLIENT
 import uz.texnopos.installment.core.Constants.NO_INTERNET
 import uz.texnopos.installment.core.Constants.ORDER
+import uz.texnopos.installment.ui.main.addOrder.FragmentAddOrder
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
@@ -84,7 +85,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
             rvOrders.adapter = adapter
             btnFab.onClick {
-                showAddorderDialog()
+                showAddOrderDialog()
             }
 
             rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -98,10 +99,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 }
             })
         }
-    }
-
-    private fun showAddorderDialog() {
-
     }
 
     private fun makePhoneCall(phone: String) {
@@ -158,5 +155,9 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 }
             }
         }
+    }
+
+    private fun showAddOrderDialog() {
+        FragmentAddOrder().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
 }
