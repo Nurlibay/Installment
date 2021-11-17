@@ -82,6 +82,7 @@
                 android:textColorHint="#96989F"
                 android:textSize="18sp"
                 app:textInputLayoutFocusedRectEnabled="true" />
+
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView

@@ -39,7 +39,6 @@ class App : MultiDexApplication() {
     }
 
     companion object {
-
         private lateinit var appInstance: App
         var sharedPrefUtils: SharedPrefUtils? = null
         fun getAppInstance(): App {

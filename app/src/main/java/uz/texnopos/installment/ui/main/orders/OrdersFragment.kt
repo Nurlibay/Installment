@@ -86,7 +86,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                     }
                 }
             })
-
         }
     }
 

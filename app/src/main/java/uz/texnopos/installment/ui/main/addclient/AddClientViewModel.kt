@@ -13,9 +13,7 @@ import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.data.model.PostClient
 import uz.texnopos.installment.data.model.response.GenericResponse
 import uz.texnopos.installment.data.retrofit.ApiInterface
-
 import java.io.File
-
 
 class AddClientViewModel(private val api: ApiInterface) : ViewModel() {
     private var _register = MutableLiveData<Resource<GenericResponse<Any>>>()
