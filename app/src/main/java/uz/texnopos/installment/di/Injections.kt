@@ -21,7 +21,6 @@ import uz.texnopos.installment.ui.main.payment.PaymentViewModel
 import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
 
-
 const val appTimeOut = 24L
 
 val networkModule = module {
