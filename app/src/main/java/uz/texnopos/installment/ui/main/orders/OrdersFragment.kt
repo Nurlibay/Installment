@@ -59,6 +59,19 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
+
+            toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.itemCall -> {
+                        if (client != null) {
+                            makePhoneCall(client!!.phone1)
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+
             adapter.onItemClick {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, client)
@@ -71,9 +84,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
             rvOrders.adapter = adapter
             btnFab.onClick {
-                if (client != null) {
-                    makePhoneCall(client!!.phone1)
-                }
+                showAddorderDialog()
             }
 
             rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
