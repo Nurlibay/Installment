@@ -8,7 +8,7 @@
     app:cardCornerRadius="12dp"
     app:cardPreventCornerOverlap="false"
     app:cardUseCompatPadding="true"
-    tools:context=".MainActivity"
+    tools:context=".ui.MainActivity"
     app:cardBackgroundColor="@color/item_background"
     tools:showIn="@layout/activity_main">
 <androidx.constraintlayout.widget.ConstraintLayout

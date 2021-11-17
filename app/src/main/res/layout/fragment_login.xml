@@ -22,8 +22,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3" />
-
+        app:layout_constraintVertical_bias="0.2" />
+    <TextView
+        android:id="@+id/goToSite"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:padding="@dimen/margin_small"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/inputLogin"
         style="@style/TextInputLayoutStyle"
@@ -36,14 +43,13 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintTop_toBottomOf="@id/goToSite"
         app:startIconDrawable="@drawable/ic_baseline_person_24_login">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etLogin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:importantForAutofill="noExcludeDescendants"
             android:inputType="textEmailAddress"
             android:paddingVertical="@dimen/margin_middle"
             android:textColor="@color/white" />
@@ -69,7 +75,6 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:importantForAutofill="noExcludeDescendants"
             android:inputType="textPassword"
             android:paddingVertical="@dimen/margin_middle"
             android:textColor="@color/white" />
@@ -92,6 +97,7 @@
         tools:ignore="SpUsage" />
 
     <TextView
+        android:id="@+id/creators"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_standard"
@@ -99,6 +105,8 @@
         android:text="@string/powered_by_texnopos"
         android:textColor="@color/white"
         android:textSize="@dimen/text_size_standard"
+        android:linksClickable="true"
+        android:textColorLink="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

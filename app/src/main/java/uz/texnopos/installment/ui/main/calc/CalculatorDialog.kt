@@ -14,7 +14,7 @@ import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import uz.texnopos.installment.R
-import uz.texnopos.installment.core.MaskWatcherPrice
+import uz.texnopos.installment.core.mask.MaskWatcherPrice
 import uz.texnopos.installment.core.MinMaxFilter
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.checkIsEmpty

@@ -5,7 +5,7 @@ import android.app.AlarmManager.RTC_WAKEUP
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import uz.texnopos.installment.settings.Constants.MINUTE
+import uz.texnopos.installment.core.Constants.MINUTE
 
 object Utils {
     const val flags = PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT

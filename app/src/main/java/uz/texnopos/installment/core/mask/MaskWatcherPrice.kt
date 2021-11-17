@@ -1,9 +1,10 @@
-package uz.texnopos.installment.core
+package uz.texnopos.installment.core.mask
 
 import android.annotation.SuppressLint
 import android.text.Editable
 import android.text.TextWatcher
 import com.google.android.material.textfield.TextInputEditText
+import uz.texnopos.installment.core.textToString
 import java.util.*
 class MaskWatcherPrice(private val editText: TextInputEditText) : TextWatcher {
     override fun beforeTextChanged(

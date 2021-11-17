@@ -1,4 +1,4 @@
-package uz.texnopos.installment.core
+package uz.texnopos.installment.core.mask
 
 import android.text.Editable
 import android.text.TextWatcher

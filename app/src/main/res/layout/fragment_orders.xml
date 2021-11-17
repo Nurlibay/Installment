@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@drawable/background_image"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        >
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -35,7 +36,8 @@
                 app:expandedTitleGravity="bottom|center_horizontal"
                 app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="@string/name">
+                app:title="@string/name"
+                >
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -104,7 +106,7 @@
                     app:layout_collapseMode="pin"
                    android:layout_marginStart="@dimen/margin_middle"
                     app:navigationIcon="@drawable/ic_back"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+                     />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -120,6 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="@dimen/margin_standard"
+                tools:listitem="@layout/item_order"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -135,7 +138,7 @@
         android:layout_margin="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="#303A44"
+        android:backgroundTint="@color/black"
         android:contentDescription="@string/product"
         android:foregroundTint="@color/white"
         app:borderWidth="0dp"

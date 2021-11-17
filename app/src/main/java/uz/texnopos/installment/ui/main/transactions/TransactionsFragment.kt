@@ -14,9 +14,9 @@ import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.model.Order
 import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.databinding.FragmentTransactionsBinding
-import uz.texnopos.installment.settings.Constants
-import uz.texnopos.installment.settings.Constants.CLIENT
-import uz.texnopos.installment.settings.Constants.ORDER
+import uz.texnopos.installment.core.Constants
+import uz.texnopos.installment.core.Constants.CLIENT
+import uz.texnopos.installment.core.Constants.ORDER
 import uz.texnopos.installment.ui.main.payment.PaymentDialog
 
 class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
@@ -38,7 +38,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
 
     override fun onStart() {
         super.onStart()
-        showProgress()
+//        showProgress()
         refresh()
     }
 

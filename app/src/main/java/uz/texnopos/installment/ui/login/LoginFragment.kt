@@ -4,6 +4,7 @@ import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
 import androidx.fragment.app.Fragment
@@ -17,7 +18,9 @@ import uz.texnopos.installment.core.preferences.isSignedIn
 import uz.texnopos.installment.core.preferences.token
 import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.databinding.FragmentLoginBinding
-import uz.texnopos.installment.settings.Constants.NO_INTERNET
+import uz.texnopos.installment.core.Constants.BASE_URL
+import uz.texnopos.installment.core.Constants.NO_INTERNET
+
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -33,6 +36,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         navController = Navigation.findNavController(view)
         updateUI()
         bind.apply {
+            creators.movementMethod = LinkMovementMethod.getInstance()
+            goToSite.apply {
+                text = BASE_URL.removePrefix("https://").removeSuffix("/")
+                onClick { launchBrowser(BASE_URL) }
+            }
             bindProgressButton(btnLogin)
             btnLogin.attachTextChangeAnimator {
                 fadeInMills = 300

@@ -3,8 +3,6 @@ package uz.texnopos.installment
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.multidex.MultiDexApplication
 import com.google.firebase.analytics.FirebaseAnalytics
-import com.google.firebase.analytics.ktx.analytics
-import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
@@ -13,7 +11,7 @@ import uz.texnopos.installment.background.Utils
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
 import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
-import uz.texnopos.installment.settings.Constants.MINUTE
+import uz.texnopos.installment.core.Constants.MINUTE
 
 class App : MultiDexApplication() {
     private lateinit var analytics: FirebaseAnalytics

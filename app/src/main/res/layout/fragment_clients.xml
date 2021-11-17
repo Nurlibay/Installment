@@ -24,25 +24,21 @@
             android:layout_height="?attr/actionBarSize"
             app:title="@string/toolbar_title"
             app:menu="@menu/top_app_bar"
-            app:contentInsetStartWithNavigation="0dp"
             app:titleMarginStart="@dimen/margin_large"
             android:background="@color/background_blue"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            />
+            app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:src="@drawable/background_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/topAppBar"
         >
@@ -104,7 +100,7 @@
 
         <TextView
             android:id="@+id/tvNotFound"
-            android:text="Пока клиенты нет"
+            android:text="@string/client_not_found2"
             android:layout_width="wrap_content"
             android:textSize="24sp"
             android:visibility="invisible"
@@ -121,21 +117,18 @@
             android:layout_marginTop="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/input_search"
-            app:layout_constraintVertical_bias="0.0"
-            tools:layout_editor_absoluteX="0dp">
+           >
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_clients"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_marginTop="12dp"
+                tools:listitem="@layout/item_client"
                 android:paddingHorizontal="@dimen/margin_standard_large"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/input_search"
-                app:layout_constraintVertical_bias="0.0"
-                tools:layout_editor_absoluteX="0dp">
+                >
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -149,8 +142,6 @@
             android:layout_marginBottom="@dimen/margin_standard_large"
             android:alpha="1"
             android:backgroundTintMode="screen"
-            android:clickable="true"
-            android:focusable="true"
             app:backgroundTint="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -173,6 +164,7 @@
             app:layout_constraintEnd_toEndOf="@id/floating_button"
             app:layout_constraintStart_toStartOf="@id/floating_button"
             app:srcCompat="@drawable/ic_calculate"
+            android:contentDescription="@string/calc_text"
             app:tint="@color/white" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -190,6 +182,7 @@
             app:layout_constraintEnd_toEndOf="@id/floating_button"
             app:layout_constraintStart_toStartOf="@id/floating_button"
             app:srcCompat="@drawable/ic_person_add"
+            android:contentDescription="@string/add_client"
             app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

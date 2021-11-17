@@ -1,5 +1,6 @@
-package uz.texnopos.installment
+package uz.texnopos.installment.ui
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -21,15 +22,5 @@ class MainActivity : AppBaseActivity() {
         analytics= Firebase.analytics
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        openPowerSettings(this)
-    }
-
-    private fun openPowerSettings(context: Context) {
-        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if (powerManager.isIgnoringBatteryOptimizations(context.packageName)){
-            val intent = Intent()
-            intent.action = Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS
-            context.startActivity(intent)
-        }
     }
 }

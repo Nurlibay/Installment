@@ -1,4 +1,4 @@
-package uz.texnopos.installment.core
+package uz.texnopos.installment.ui.main.clients
 
 import android.content.Context
 import android.view.animation.Animation
@@ -45,7 +45,6 @@ class FloatingAnimation(private val bind: FragmentClientsBinding) {
     private fun setVisibility(clicked: Boolean) {
         bind.floatingAddButton.isInvisible = clicked
         bind.floatingCalcButton.isInvisible = clicked
-        bind.floatingButton.alpha=if (!clicked) 1f else 0.8f
     }
 
     private fun setAnimation(clicked: Boolean) {
