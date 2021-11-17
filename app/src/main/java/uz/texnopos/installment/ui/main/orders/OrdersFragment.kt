@@ -100,6 +100,10 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         }
     }
 
+    private fun showAddorderDialog() {
+
+    }
+
     private fun makePhoneCall(phone: String) {
         if (isHasPermission(CALL_PHONE)) {
             val callIntent = Intent(Intent.ACTION_CALL)
