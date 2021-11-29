@@ -15,6 +15,7 @@ import uz.texnopos.installment.data.retrofit.ApiInterface
 
 
 class AddClientViewModel(private val api: ApiInterface) : ViewModel() {
+
     private var _register = MutableLiveData<Resource<GenericResponse<Any>>>()
     val register get() = _register
 

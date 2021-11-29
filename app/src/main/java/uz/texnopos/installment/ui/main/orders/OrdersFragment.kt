@@ -22,20 +22,20 @@ import uz.texnopos.installment.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.core.Constants.CLIENT
 import uz.texnopos.installment.core.Constants.NO_INTERNET
 import uz.texnopos.installment.core.Constants.ORDER
-import uz.texnopos.installment.ui.main.addOrder.FragmentAddOrder
+import uz.texnopos.installment.ui.main.addOrder.AddOrderFragment
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
     private lateinit var binding: FragmentOrdersBinding
     private lateinit var navController: NavController
     private val viewModel: OrdersViewModel by viewModel()
-    private val adapter = OrdersAdapter()
+    private val orderAdapter = OrdersAdapter()
     private var client: Client? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         client = arguments?.getParcelable(CLIENT)
-//        showProgress()
+//      showProgress()
         setUpObservers()
     }
 
@@ -73,7 +73,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 }
             }
 
-            adapter.onItemClick {
+            orderAdapter.onItemClick {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, client)
                 bundle.putParcelable(ORDER, it)
@@ -83,9 +83,9 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 } catch (e: Exception) {
                 }
             }
-            rvOrders.adapter = adapter
+            rvOrders.adapter = orderAdapter
             btnFab.onClick {
-                showAddOrderDialog()
+                navController.navigate(R.id.action_ordersFragment_to_addOrderFragment)
             }
 
             rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -137,7 +137,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 }
                 ResourceState.SUCCESS -> {
                     hideProgress()
-                    adapter.setData(it.data!!)
+                    orderAdapter.setData(it.data!!)
                     binding.apply {
                         tvNotFound.isVisible = it.data.isEmpty()
                         swipeRefresh.isRefreshing = false
@@ -155,9 +155,5 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 }
             }
         }
-    }
-
-    private fun showAddOrderDialog() {
-        FragmentAddOrder().show(requireActivity().supportFragmentManager, "This is custom dialog")
     }
 }

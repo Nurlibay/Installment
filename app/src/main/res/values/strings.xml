@@ -76,7 +76,7 @@
     <string name="product_id">Продукт номер</string>
     <string name="clientId">Клиент номер</string>
     <string name="first_pay">Первая оплата</string>
-    <string name="surchage">доплата</string>
+    <string name="surcharge">Доплата</string>
     <string name="price">Цена</string>
     <string name="product_code">Код продукта</string>
 

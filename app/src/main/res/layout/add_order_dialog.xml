@@ -1,37 +1,44 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="@color/background_blue"
-    android:orientation="vertical"
-    android:padding="@dimen/margin_standard">
+    android:orientation="vertical">
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/title"
-        android:text="@string/add_order"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/white"
-        android:textSize="24sp"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"/>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/background_blue"
+            app:contentInsetStartWithNavigation="0dp"
+            app:navigationIcon="@drawable/ic_back"
+            app:title="@string/add_order" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout1"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_middle"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginHorizontal="@dimen/margin_standard"
+        android:layout_marginTop="@dimen/margin_standard"
+        android:layout_marginBottom="@dimen/margin_large"
         >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilProductId"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/margin_small"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
 
@@ -41,20 +48,18 @@
                 android:layout_height="match_parent"
                 android:hint="@string/product_id"
                 android:inputType="number"
-                android:maxLength="3"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilClientId"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
@@ -65,31 +70,20 @@
                 android:layout_height="match_parent"
                 android:hint="@string/clientId"
                 android:inputType="number"
-                android:maxLength="2"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/layout2"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_middle"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilFirstPay"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/margin_small"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
 
@@ -99,20 +93,18 @@
                 android:layout_height="match_parent"
                 android:hint="@string/first_pay"
                 android:inputType="number"
-                android:maxLength="3"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilMonth"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
@@ -123,31 +115,20 @@
                 android:layout_height="match_parent"
                 android:hint="@string/month_text"
                 android:inputType="number"
-                android:maxLength="2"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/Layout3"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_middle"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSurchage"
+            android:id="@+id/tilSurcharge"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/margin_small"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
 
@@ -155,22 +136,20 @@
                 android:id="@+id/etSurcharge"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/surchage"
+                android:hint="@string/surcharge"
                 android:inputType="number"
-                android:maxLength="3"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPrice"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_small"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
@@ -181,32 +160,19 @@
                 android:layout_height="match_parent"
                 android:hint="@string/price"
                 android:inputType="number"
-                android:maxLength="2"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
-
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
-        android:id="@+id/Layout4"
-        android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_middle"
-        android:layout_height="wrap_content"
-        android:weightSum="2"
-        android:orientation="horizontal"
-        >
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilProductCode"
             style="@style/TextInputLayoutStyle"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_middle"
             android:layout_weight="1"
-            android:layout_marginEnd="@dimen/margin_small"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
 
@@ -216,14 +182,24 @@
                 android:layout_height="match_parent"
                 android:hint="@string/product_code"
                 android:inputType="number"
-                android:maxLength="3"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddOrder"
+            android:layout_width="250dp"
+            android:layout_height="60dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginBottom="@dimen/margin_standard"
+            android:backgroundTint="@color/black"
+            android:text="@string/add_order"
+            android:textAllCaps="false"
+            android:textSize="18sp"
+            app:cornerRadius="@dimen/margin_middle" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 

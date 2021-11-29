@@ -21,6 +21,12 @@ interface ApiInterface {
     @GET("api/order/single_client")
     suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>
 
+    @Multipart
+    @POST("api/order/add")
+    suspend fun addOrder(
+        @PartMap partMap: HashMap<String, RequestBody>
+    ): Response<GenericResponse<List<PostOrder>>>
+
     @GET("api/transaction/get_tran")
     suspend fun getAllTransactions(@Query("id") orderId:Int):Response<GenericResponse<Transactions>>
 
@@ -31,4 +37,6 @@ interface ApiInterface {
         @Part filePart1: MultipartBody.Part,
         @Part filePart2: MultipartBody.Part
     ): Response<GenericResponse<Any>>
+
+
 }
