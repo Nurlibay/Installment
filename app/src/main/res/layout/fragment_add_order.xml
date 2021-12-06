@@ -38,20 +38,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_middle"
+
             >
 
-            <AutoCompleteTextView
+            <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="none"
                 android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textColorLink="@color/white"
-                android:textSize="20sp"
-                android:backgroundTint="@color/dark_blue"
+                android:drawableTint="@color/white"
                 android:padding="@dimen/margin_middle_standard"
-                />
+                android:backgroundTint="@color/dark_blue"
+                android:text="@string/select_product" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

@@ -83,6 +83,7 @@
     <string name="surcharge">Доплата</string>
     <string name="price">Цена</string>
     <string name="product_code">Код продукта</string>
+    <string name="select_product">Выбрать продукт</string>
 
     <string-array name="courses">
         <item>Android</item>
