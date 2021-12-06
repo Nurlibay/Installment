@@ -24,7 +24,6 @@ import uz.texnopos.installment.databinding.FragmentAddClientBinding
 import uz.texnopos.installment.core.Constants.NO_INTERNET
 import java.io.File
 
-
 class AddClientFragment : Fragment(R.layout.fragment_add_client) {
 
     private val viewModel by viewModel<AddClientViewModel>()

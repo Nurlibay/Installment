@@ -31,7 +31,6 @@ import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.background.data.Client
 import java.io.File
 
-
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
     Toast.makeText(this, text, duration).show()
 

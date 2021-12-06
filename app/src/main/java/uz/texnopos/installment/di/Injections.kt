@@ -14,13 +14,13 @@ import uz.texnopos.installment.data.retrofit.ApiInterface
 import uz.texnopos.installment.data.retrofit.CacheInterceptor
 import uz.texnopos.installment.core.Constants.BASE_URL
 import uz.texnopos.installment.ui.login.LoginViewModel
+import uz.texnopos.installment.ui.main.addOrder.AddOrderViewModel
 import uz.texnopos.installment.ui.main.addclient.AddClientViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.orders.OrdersViewModel
 import uz.texnopos.installment.ui.main.payment.PaymentViewModel
 import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
-
 
 const val appTimeOut = 24L
 
@@ -29,6 +29,7 @@ val networkModule = module {
     single {
         GsonBuilder().setLenient().create()
     }
+
     single {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
@@ -80,5 +81,6 @@ val viewModelModule = module {
     viewModel { OrdersViewModel(get()) }
     viewModel { TransactionsViewModel(get()) }
     viewModel { AddClientViewModel(get()) }
+    viewModel { AddOrderViewModel(get()) }
 }
 

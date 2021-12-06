@@ -28,13 +28,12 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     private lateinit var binding: FragmentOrdersBinding
     private lateinit var navController: NavController
     private val viewModel: OrdersViewModel by viewModel()
-    private val adapter = OrdersAdapter()
+    private val orderAdapter = OrdersAdapter()
     private var client: Client? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         client = arguments?.getParcelable(CLIENT)
-//        showProgress()
         setUpObservers()
     }
 
@@ -59,7 +58,20 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             toolbar.setNavigationOnClickListener {
                 requireActivity().onBackPressed()
             }
-            adapter.onItemClick {
+
+            toolbar.setOnMenuItemClickListener {
+                when (it.itemId) {
+                    R.id.itemCall -> {
+                        if (client != null) {
+                            makePhoneCall(client!!.phone1)
+                        }
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            orderAdapter.onItemClick {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, client)
                 bundle.putParcelable(ORDER, it)
@@ -69,11 +81,11 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 } catch (e: Exception) {
                 }
             }
-            rvOrders.adapter = adapter
+            rvOrders.adapter = orderAdapter
             btnFab.onClick {
-                if (client != null) {
-                    makePhoneCall(client!!.phone1)
-                }
+                val bundle = Bundle()
+                bundle.putInt("client_id", client!!.clientId)
+                navController.navigate(R.id.action_ordersFragment_to_addOrderFragment, bundle)
             }
 
             rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -86,7 +98,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                     }
                 }
             })
-
         }
     }
 
@@ -118,7 +129,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
         }
     }
-
+    
     private fun setUpObservers() {
         viewModel.orders.observe(requireActivity()) {
             when (it.status) {
@@ -126,7 +137,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 }
                 ResourceState.SUCCESS -> {
                     hideProgress()
-                    adapter.setData(it.data!!)
+                    orderAdapter.setData(it.data!!)
                     binding.apply {
                         tvNotFound.isVisible = it.data.isEmpty()
                         swipeRefresh.isRefreshing = false

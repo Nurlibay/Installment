@@ -71,4 +71,25 @@
     <string name="menu_settings">Настройки</string>
 
 
+    <string name="token_prefix">Token: %s</string>
+    <string name="token_error">getInstanceId failed</string>
+    <string name="handle_notification_now">We are going to do something with our notification right now!</string>
+    <string name="retrieve_token">Retrieve Token</string>
+    <string name="FCMPushNotification">FCMPushNotification</string>
+    <string name="add_order">Добавить заказ</string>
+    <string name="product_id">Продукт номер</string>
+    <string name="clientId">Клиент номер</string>
+    <string name="first_pay">Первая оплата</string>
+    <string name="surcharge">Доплата</string>
+    <string name="price">Цена</string>
+    <string name="product_code">Код продукта</string>
+
+    <string-array name="courses">
+        <item>Android</item>
+        <item>Front-End</item>
+        <item>Kotlin</item>
+        <item>Python</item>
+        <item>SMM</item>
+    </string-array>
+
 </resources>

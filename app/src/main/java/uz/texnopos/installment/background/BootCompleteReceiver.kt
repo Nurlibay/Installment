@@ -35,10 +35,7 @@ class BootCompleteReceiver : BroadcastReceiver() {
                             }
                         }
                     })
-            } catch (e: Exception) {
-
-            }
-
+            } catch (e: Exception) {}
         if (intent?.action == "android.intent.action.BOOT_COMPLETED") {
             Timber.d("onReceive: start2")
         }

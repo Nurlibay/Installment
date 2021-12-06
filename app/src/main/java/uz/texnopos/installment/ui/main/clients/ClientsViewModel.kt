@@ -14,6 +14,7 @@ import uz.texnopos.installment.core.Constants.UNAUTHORIZED
 import java.net.UnknownHostException
 
 class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
+
     private var _clients: MutableLiveData<Resource<List<Client>>> = MutableLiveData()
     val clients get() = _clients
 

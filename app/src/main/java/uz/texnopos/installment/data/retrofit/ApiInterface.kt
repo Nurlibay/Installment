@@ -18,8 +18,17 @@ interface ApiInterface {
     @GET("/api/cilents")
     suspend fun getAllClients(): Response<GenericResponse<List<Client>>>
 
+    @GET("/api/products")
+    suspend fun getAllProducts(): Response<GenericResponse<List<Product>>>
+
     @GET("api/order/single_client")
     suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>
+
+    @Multipart
+    @POST("api/order/add")
+    suspend fun addOrder(
+        @PartMap partMap: HashMap<String, RequestBody>
+    ): Response<GenericResponse<List<PostOrder>>>
 
     @GET("api/transaction/get_tran")
     suspend fun getAllTransactions(@Query("id") orderId:Int):Response<GenericResponse<Transactions>>

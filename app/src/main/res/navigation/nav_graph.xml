@@ -35,6 +35,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_ordersFragment_to_addOrderFragment"
+            app:destination="@id/addOrderFragment" />
     </fragment>
 
     <dialog
@@ -95,6 +98,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_clientsFragment_to_fragmentCloudMessaging"
+            app:destination="@id/fragmentCloudMessaging" />
     </fragment>
     <fragment
         android:id="@+id/addClientFragment2"
@@ -106,5 +112,13 @@
         android:name="uz.texnopos.installment.ui.main.calc.CalculatorDialog"
         android:label="CalculatorDialog"
         tools:layout="@layout/calc_dialog"/>
+    <fragment
+        android:id="@+id/fragmentCloudMessaging"
+        android:name="uz.texnopos.installment.firebase.cloudMessaging.FragmentCloudMessaging"
+        android:label="FragmentCloudMessaging" />
+    <fragment
+        android:id="@+id/addOrderFragment"
+        android:name="uz.texnopos.installment.ui.main.addOrder.AddOrderFragment"
+        android:label="AddOrderFragment" />
 
 </navigation>

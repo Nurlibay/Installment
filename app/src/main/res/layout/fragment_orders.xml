@@ -1,22 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_blue">
 
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:src="@drawable/background_image"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        >
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appbar"
@@ -36,8 +35,7 @@
                 app:expandedTitleGravity="bottom|center_horizontal"
                 app:expandedTitleTextAppearance="@style/TextAppearance.MyApp.Title.Expanded"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
-                app:title="@string/name"
-                >
+                app:title="@string/name">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -104,9 +102,15 @@
                     android:layout_height="?attr/actionBarSize"
                     android:background="@color/background_blue"
                     app:layout_collapseMode="pin"
-                   android:layout_marginStart="@dimen/margin_middle"
+                    app:contentInsetEnd="0dp"
+                    app:menu="@menu/menu_toolbar_orders"
                     app:navigationIcon="@drawable/ic_back"
-                     />
+                    android:paddingEnd="@dimen/margin_small"
+                    app:contentInsetLeft="0dp"
+                    app:contentInsetStart="0dp"
+                    android:paddingStart="@dimen/margin_small"
+                    style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -117,12 +121,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_orders"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:paddingHorizontal="@dimen/margin_standard"
-                tools:listitem="@layout/item_order"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
@@ -138,15 +142,16 @@
         android:layout_margin="16dp"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
-        android:backgroundTint="@color/black"
         android:contentDescription="@string/product"
         android:foregroundTint="@color/white"
         app:borderWidth="0dp"
+        android:focusable="true"
+        android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:rippleColor="@color/white"
-        app:srcCompat="@drawable/telephone"
+        app:srcCompat="@drawable/ic_add"
+        app:backgroundTint="@color/black"
         app:tint="#fff" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
