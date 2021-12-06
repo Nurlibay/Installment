@@ -25,7 +25,7 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginHorizontal="@dimen/margin_standard"
         android:layout_marginTop="@dimen/margin_standard"
@@ -33,46 +33,25 @@
         >
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilProductId"
-            style="@style/TextInputLayoutStyle"
+            android:id="@+id/menu"
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
-            app:endIconMode="clear_text">
+            >
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etProductId"
+            <AutoCompleteTextView
+                android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/product_id"
-                android:inputType="number"
-                android:maxLines="1"
+                android:inputType="none"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textColorLink="@color/white"
+                android:textSize="20sp"
+                android:backgroundTint="@color/dark_blue"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilClientId"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
-            app:endIconMode="clear_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etClientId"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/clientId"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white" />
+                />
 
         </com.google.android.material.textfield.TextInputLayout>
 

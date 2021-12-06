@@ -29,6 +29,7 @@ val networkModule = module {
     single {
         GsonBuilder().setLenient().create()
     }
+
     single {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

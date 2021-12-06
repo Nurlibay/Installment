@@ -9,6 +9,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.PostOrder
+import uz.texnopos.installment.data.model.Product
 import uz.texnopos.installment.data.model.response.GenericResponse
 import uz.texnopos.installment.data.retrofit.ApiInterface
 
@@ -16,6 +17,9 @@ class AddOrderViewModel(private val api: ApiInterface): ViewModel() {
 
     private var _addOrder = MutableLiveData<Resource<GenericResponse<List<PostOrder>>>>()
     val addOrder get() = _addOrder
+
+    private var _getProducts = MutableLiveData<Resource<GenericResponse<List<Product>>>>()
+    val getProducts get() = _getProducts
 
     fun addOrder(addOrder: PostOrder) = viewModelScope.launch {
         _addOrder.value = Resource.loading()
@@ -43,5 +47,23 @@ class AddOrderViewModel(private val api: ApiInterface): ViewModel() {
                 _addOrder.value = Resource.error(e.localizedMessage)
             }
         } else _addOrder.value = Resource.networkError()
+    }
+
+    fun getProducts() = viewModelScope.launch {
+        _getProducts.value = Resource.loading()
+        if (isNetworkAvailable()) {
+            try {
+                val response = api.getAllProducts()
+                if (response.isSuccessful) {
+                    if (response.body()!!.successful) {
+                        _getProducts.value = Resource.success(response.body()!!)
+                    } else _getProducts.value = Resource.error(response.body()!!.message)
+                } else {
+                    _getProducts.value = Resource.error(response.message())
+                }
+            } catch (e: Exception) {
+                _getProducts.value = Resource.error(e.localizedMessage)
+            }
+        } else _getProducts.value = Resource.networkError()
     }
 }

@@ -80,4 +80,12 @@
     <string name="price">Цена</string>
     <string name="product_code">Код продукта</string>
 
+    <string-array name="courses">
+        <item>Android</item>
+        <item>Front-End</item>
+        <item>Kotlin</item>
+        <item>Python</item>
+        <item>SMM</item>
+    </string-array>
+
 </resources>

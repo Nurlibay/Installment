@@ -18,6 +18,9 @@ interface ApiInterface {
     @GET("/api/cilents")
     suspend fun getAllClients(): Response<GenericResponse<List<Client>>>
 
+    @GET("/api/products")
+    suspend fun getAllProducts(): Response<GenericResponse<List<Product>>>
+
     @GET("api/order/single_client")
     suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>
 
@@ -37,6 +40,4 @@ interface ApiInterface {
         @Part filePart1: MultipartBody.Part,
         @Part filePart2: MultipartBody.Part
     ): Response<GenericResponse<Any>>
-
-
 }

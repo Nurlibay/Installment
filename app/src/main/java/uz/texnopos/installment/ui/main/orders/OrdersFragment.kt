@@ -22,7 +22,6 @@ import uz.texnopos.installment.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.core.Constants.CLIENT
 import uz.texnopos.installment.core.Constants.NO_INTERNET
 import uz.texnopos.installment.core.Constants.ORDER
-import uz.texnopos.installment.ui.main.addOrder.AddOrderFragment
 
 class OrdersFragment : Fragment(R.layout.fragment_orders) {
 
@@ -35,7 +34,6 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         client = arguments?.getParcelable(CLIENT)
-//      showProgress()
         setUpObservers()
     }
 
@@ -85,7 +83,9 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
             }
             rvOrders.adapter = orderAdapter
             btnFab.onClick {
-                navController.navigate(R.id.action_ordersFragment_to_addOrderFragment)
+                val bundle = Bundle()
+                bundle.putInt("client_id", client!!.clientId)
+                navController.navigate(R.id.action_ordersFragment_to_addOrderFragment, bundle)
             }
 
             rvOrders.addOnScrollListener(object : RecyclerView.OnScrollListener() {
