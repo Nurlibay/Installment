@@ -65,6 +65,10 @@
     <string name="fromGallery">Из галереи</string>
     <string name="client_not_found2">Пока клиенты нет</string>
     <string name="trans_not_found">Пока транзакций нет</string>
+    <string name="menu_home">Домой</string>
+    <string name="menu_clients">Клиенты</string>
+    <string name="menu_products">Продукты</string>
+    <string name="menu_settings">Настройки</string>
 
 
 </resources>

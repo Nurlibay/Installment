@@ -66,6 +66,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
 
             btnSignUp.onClick {
                 if (validate()) {
+                    etName.text.toString()
                     val newClient = PostClient(
                         firstName = etName.textToString(),
                         lastName = etSurname.textToString(),
@@ -165,14 +166,14 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             etPatronymic.checkIsEmpty() -> etPatronymic.showError(getString(R.string.required))
             etPassportSeries.checkIsEmpty() -> etPassportSeries.showError(getString(R.string.required))
             etPassportNumber.checkIsEmpty() -> etPassportNumber.showError(getString(R.string.required))
-//            mPassportImageUri == null -> {
-//                toast("Passport image required")
-//                false
-//            }
-//            mLetterImageUri == null -> {
-//                toast("Letter image required")
-//                false
-//            }
+            mPassportImageUri == null -> {
+                toast("Passport image required")
+                false
+            }
+            mLetterImageUri == null -> {
+                toast("Letter image required")
+                false
+            }
             etPhone1.checkIsEmpty() -> etPhone1.showError(getString(R.string.required))
             etPhone2.checkIsEmpty() -> etPhone2.showError(getString(R.string.required))
             else -> true
