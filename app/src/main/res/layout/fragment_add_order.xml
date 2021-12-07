@@ -5,66 +5,83 @@
     android:background="@color/background_blue"
     android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar"
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent">
+        android:background="@color/background_blue"
+        app:contentInsetStartWithNavigation="0dp"
+        app:navigationIcon="@drawable/ic_back"
+        app:title="@string/add_order" />
 
-        <com.google.android.material.appbar.MaterialToolbar
-            android:id="@+id/toolbar"
-            style="@style/Widget.MaterialComponents.Toolbar.Primary"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/background_blue"
-            app:contentInsetStartWithNavigation="0dp"
-            app:navigationIcon="@drawable/ic_back"
-            app:title="@string/add_order" />
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginHorizontal="@dimen/margin_standard"
-        android:layout_marginTop="@dimen/margin_standard"
-        android:layout_marginBottom="@dimen/margin_large"
-        >
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/menu"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/margin_big"
-            android:layout_margin="@dimen/margin_middle"
-            android:textColorHint="@color/white"
-            >
-
-            <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                android:id="@+id/productName"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/dark_blue"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:padding="@dimen/margin_middle_standard"
-                android:drawableTint="@color/white"
-                android:hint="@string/select_product"
-                android:inputType="text" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilFirstPay"
-            style="@style/TextInputLayoutStyle"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
-            app:endIconMode="clear_text">
+            android:layout_marginHorizontal="@dimen/margin_standard"
+            android:layout_marginTop="@dimen/margin_standard"
+            android:layout_marginBottom="@dimen/margin_large"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/menu"
+
+                style="@style/TextInputLayoutDropDown"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/margin_big"
+                android:layout_margin="@dimen/margin_middle"
+                android:textColorHint="@color/white">
+
+                <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                    android:id="@+id/productName"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:backgroundTint="@color/dark_blue"
+                    android:drawableTint="@color/white"
+                    android:hint="@string/select_product"
+                    android:inputType="text"
+                    android:padding="@dimen/margin_middle_standard"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilPrice"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_middle"
+                android:layout_weight="1"
+                app:counterMaxLength="5"
+                app:endIconMode="clear_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:hint="@string/price"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:padding="@dimen/margin_middle_standard"
+                    android:textColor="@color/white" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tilFirstPay"
+                style="@style/TextInputLayoutStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/margin_middle"
+                android:layout_weight="1"
+                app:counterMaxLength="5"
+                app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etFirstPay"
@@ -123,45 +140,25 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilPrice"
-            style="@style/TextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
-            app:endIconMode="clear_text">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPrice"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/price"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white" />
-
-        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilProductCode"
-            style="@style/TextInputLayoutStyle"
+            style="@style/DescriptionInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
+            app:hintEnabled="false"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etProductCode"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:hint="@string/product_code"
-                android:inputType="number"
-                android:maxLines="1"
+                android:gravity="top|center_vertical|center_horizontal|center|start"
+                android:inputType="text|textMultiLine"
+                android:scrollbars="none"
+                android:textColorHint="@color/white"
                 android:padding="@dimen/margin_middle_standard"
                 android:textColor="@color/white" />
 
@@ -180,6 +177,6 @@
             android:textSize="18sp"
             app:cornerRadius="@dimen/margin_middle" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
-
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>

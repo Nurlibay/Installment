@@ -37,7 +37,11 @@
             app:popExitAnim="@anim/slide_out_right"/>
         <action
             android:id="@+id/action_ordersFragment_to_addOrderFragment"
-            app:destination="@id/addOrderFragment" />
+            app:destination="@id/addOrderFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
 
     <dialog
@@ -119,6 +123,7 @@
     <fragment
         android:id="@+id/addOrderFragment"
         android:name="uz.texnopos.installment.ui.main.addOrder.AddOrderFragment"
-        android:label="AddOrderFragment" />
+        android:label="AddOrderFragment"
+        />
 
 </navigation>

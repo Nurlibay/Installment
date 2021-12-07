@@ -3,10 +3,6 @@ package uz.texnopos.installment.ui.main.addOrder
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import androidx.core.widget.doAfterTextChanged
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -49,26 +45,27 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             products.observe(requireActivity(), {
                 if (it != null) {
-                    val productNames= it.map { p ->
+                    val productNames = it.map { p ->
                         p.product_name
                     }
                     val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down,
-                       productNames)
+                        productNames)
                     productName.setAdapter(arrayAdapter)
-                    productName.setOnItemClickListener { parent, view, position, id ->
-                        val n=(view as TextView).text.toString()
-                        val pos=productNames.indexOf(n)
-                        productId=it[pos].product_id
-                    }
-
                 }
             })
 
             btnAddOrder.onClick {
-
-                if (validate()){
+                val writtenProduct = productName.textToString()
+                products.value.let {
+                    it?.map { p -> p.product_name }.let { n ->
+                        val index = n!!.indexOf(writtenProduct)
+                        if (index != -1) productId = it!![index].product_id
+                        else index
+                    }
+                }
+                if (validate()) {
                     val newOrder = PostOrder(
-                        product_id = productId.toString() ,
+                        product_id = productId.toString(),
                         client_id = clientId.toString(),
                         first_pay = etFirstPay.textToString().getOnlyDigits(),
                         month = etMonth.textToString(),

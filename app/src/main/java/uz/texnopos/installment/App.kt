@@ -33,7 +33,7 @@ class App : MultiDexApplication() {
             // module list
             koin.loadModules(modules)
         }
-        Utils.setAlarm(this, System.currentTimeMillis() + 5 * MINUTE)
+//        Utils.setAlarm(this, System.currentTimeMillis() + 5 * MINUTE)
     }
 
     companion object {
