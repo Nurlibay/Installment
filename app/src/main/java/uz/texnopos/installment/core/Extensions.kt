@@ -1,8 +1,10 @@
 package uz.texnopos.installment.core
 
+import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.Uri
 import android.util.Log
@@ -15,6 +17,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -28,8 +31,8 @@ import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
+import androidx.annotation.IntRange
 import uz.texnopos.installment.App.Companion.getAppInstance
-import uz.texnopos.installment.background.data.Client
 import java.io.File
 
 fun Context.toast(text: String, duration: Int = Toast.LENGTH_SHORT) =
@@ -103,14 +106,7 @@ fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
 
-fun Client.toSmsText(smsText: String): String {
-    return smsText
-        .replace("{first_name}", firstName)
-        .replace("{last_name}", lastName)
-        .replace("{magazin}", "2-magazin")
-        .replace("{amount}", amount)
-        .replace("{end_date}", endDate)
-}
+
 
 
 fun Fragment.showProgress() {
@@ -191,8 +187,15 @@ fun <T> callApi(
     })
 }
 
-fun Client.toSmsContact() = Client(amount, endDate, firstName, lastName, phone1, phone2)
+fun Fragment.isHasPermission(permission: String): Boolean {
+    return requireActivity().applicationContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED
+}
 
+fun Activity.askPermission(permissions: Array<out String>, @IntRange(from = 0) requestCode: Int) =
+    ActivityCompat.requestPermissions(this, permissions, requestCode)
+
+fun Fragment.askPermission(permissions: Array<out String>, @IntRange(from = 0) requestCode: Int) =
+    ActivityCompat.requestPermissions(requireActivity(), permissions, requestCode)
 
 fun deleteCache(context: Context) {
     try {

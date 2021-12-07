@@ -34,7 +34,7 @@ class MaskWatcherPrice(private val editText: TextInputEditText) : TextWatcher {
                 if (str == "сум") editText.setText("")
                 else {
                     var d = ""
-                    for (i in str) if (i.isDigit()) d += i
+                    for (i in str) if (i.isDigit()||i=='.') d += i
                     editText.setText("${d.toDecimalFormat()} сум")
                 }
                 editText.setSelection(editText.textToString().length - 4)

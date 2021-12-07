@@ -13,8 +13,6 @@ import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
-import uz.texnopos.installment.background.util.askPermission
-import uz.texnopos.installment.background.util.isHasPermission
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding

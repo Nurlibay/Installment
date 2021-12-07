@@ -7,11 +7,9 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidFileProperties
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import uz.texnopos.installment.background.Utils
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
 import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
-import uz.texnopos.installment.core.Constants.MINUTE
 
 class App : MultiDexApplication() {
     private lateinit var analytics: FirebaseAnalytics
@@ -33,7 +31,6 @@ class App : MultiDexApplication() {
             // module list
             koin.loadModules(modules)
         }
-//        Utils.setAlarm(this, System.currentTimeMillis() + 5 * MINUTE)
     }
 
     companion object {
