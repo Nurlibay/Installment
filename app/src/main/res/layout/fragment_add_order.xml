@@ -34,23 +34,24 @@
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/menu"
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+            style="@style/TextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/margin_big"
             android:layout_margin="@dimen/margin_middle"
-
+            android:textColorHint="@color/white"
             >
 
             <com.google.android.material.textfield.MaterialAutoCompleteTextView
                 android:id="@+id/productName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:inputType="none"
-                android:textColor="@color/white"
-                android:drawableTint="@color/white"
-                android:padding="@dimen/margin_middle_standard"
                 android:backgroundTint="@color/dark_blue"
-                android:text="@string/select_product" />
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:padding="@dimen/margin_middle_standard"
+                android:drawableTint="@color/white"
+                android:hint="@string/select_product"
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 

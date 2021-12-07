@@ -6,11 +6,11 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import uz.texnopos.installment.core.Constants.UNAUTHORIZED
 import uz.texnopos.installment.core.Resource
 import uz.texnopos.installment.core.isNetworkAvailable
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.retrofit.ApiInterface
-import uz.texnopos.installment.core.Constants.UNAUTHORIZED
 import java.net.UnknownHostException
 
 class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
@@ -25,7 +25,8 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
                 val response = api.getAllClients()
                 withContext(Dispatchers.Main) {
                     if (response.isSuccessful) {
-                        _clients.value = Resource.success(response.body()!!.payload)
+                        val clients = response.body()!!.payload
+                        _clients.value = Resource.success(clients.sortByColor())
                     } else {
                         _clients.value = Resource.error(
                             if (response.code() == 401) UNAUTHORIZED
@@ -40,4 +41,18 @@ class ClientsViewModel(private val api: ApiInterface) : ViewModel() {
             }
         } else _clients.value = Resource.networkError()
     }
+}
+
+fun List<Client>.sortByColor(): List<Client> {
+    val newClients = mutableListOf<Client>()
+    this.forEach {
+        if (it.color == "green") newClients.add(it)
+    }
+    this.forEach {
+        if (it.color == "yellow") newClients.add(it)
+    }
+    this.forEach {
+        if (it.color == "red") newClients.add(it)
+    }
+    return newClients.reversed()
 }

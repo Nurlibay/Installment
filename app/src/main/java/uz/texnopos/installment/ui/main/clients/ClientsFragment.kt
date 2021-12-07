@@ -141,7 +141,7 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             when (it.status) {
                 ResourceState.LOADING -> { }
                 ResourceState.SUCCESS -> {
-                    clients = it.data!!.reversed()
+                    clients = it.data!!
                     binding.tvNotFound.isVisible = clients.isEmpty()
                     adapter.filterClientNameAndClientId(binding.etSearch.textToString(), clients)
                     hideProgress()

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.AutoCompleteTextView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.LayoutRes
@@ -63,8 +64,16 @@ fun TextInputEditText.checkIsEmpty(): Boolean = text == null ||
         textToString() == "" ||
         textToString().equals("null", ignoreCase = true)
 
+fun AutoCompleteTextView.checkIsEmpty(): Boolean = text == null ||
+        textToString() == "" ||
+        textToString().equals("null", ignoreCase = true)
 
 fun TextInputEditText.showError(error: String): Boolean {
+    this.error = error
+    this.showSoftKeyboard()
+    return false
+}
+fun AutoCompleteTextView.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()
     return false
