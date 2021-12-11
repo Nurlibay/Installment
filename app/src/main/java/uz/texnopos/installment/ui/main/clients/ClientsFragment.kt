@@ -41,13 +41,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        showProgress()
+//        showProgress()
         setUpObserver()
     }
 
     override fun onStart() {
         super.onStart()
-        refresh()
+//        refresh()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -102,7 +102,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.itemNotification -> {
-                        navController.navigate(R.id.action_clientsFragment_to_fragmentCloudMessaging)
+                        navController.navigate(R.id.action_clientsFragment_to_multiPhoneFragment)
+//                        navController.navigate(R.id.action_clientsFragment_to_fragmentCloudMessaging)
                         true
                     }
                     R.id.itemLogout -> {

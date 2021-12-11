@@ -4,6 +4,7 @@ import android.app.Activity.RESULT_OK
 import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
+import android.hardware.biometrics.BiometricManager
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
@@ -22,6 +23,8 @@ import uz.texnopos.installment.core.mask.MaskWatcherPhone
 import uz.texnopos.installment.data.model.PostClient
 import uz.texnopos.installment.databinding.FragmentAddClientBinding
 import uz.texnopos.installment.core.Constants.NO_INTERNET
+import uz.texnopos.installment.data.model.Phone
+import uz.texnopos.installment.ui.main.addclient.phone.PhoneAdapter
 import java.io.File
 
 class AddClientFragment : Fragment(R.layout.fragment_add_client) {
@@ -29,6 +32,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private val viewModel by viewModel<AddClientViewModel>()
     private var mPassportImageUri: Uri? = null
     private var mLetterImageUri: Uri? = null
+    private val phoneAdapter=PhoneAdapter()
     private lateinit var bind: FragmentAddClientBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,9 +40,12 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
         bind = FragmentAddClientBinding.bind(view)
         setUpObserver()
         bind.apply {
+            rvPhones.adapter=phoneAdapter
+            phoneAdapter.add()
+            addPhone.onClick {
+                phoneAdapter.add()
+            }
             etPassportSeries.filters= arrayOf(InputFilter.AllCaps(),InputFilter.LengthFilter(2))
-            etPhone1.addTextChangedListener(MaskWatcherPhone.phoneNumber())
-            etPhone2.addTextChangedListener(MaskWatcherPhone.phoneNumber())
             toolbar.navOnClick {
                 requireActivity().onBackPressed()
             }
@@ -74,8 +81,8 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
                         passportNumber = etPassportNumber.textToString(),
                         passportPhoto = File(mPassportImageUri?.path!!),
                         letter = File(mLetterImageUri?.path!!),
-                        phone1 = etPhone1.textToString().getOnlyDigits(),
-                        phone2 = etPhone2.textToString().getOnlyDigits()
+                        phone1 = "etPhone1.textToString().getOnlyDigits()",
+                        phone2 = "etPhone2.textToString().getOnlyDigits()"
                     )
                     viewModel.register(newClient)
                 }
@@ -173,8 +180,8 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
                 toast("Letter image required")
                 false
             }
-            etPhone1.checkIsEmpty() -> etPhone1.showError(getString(R.string.required))
-            etPhone2.checkIsEmpty() -> etPhone2.showError(getString(R.string.required))
+//            etPhone1.checkIsEmpty() -> etPhone1.showError(getString(R.string.required))
+//            etPhone2.checkIsEmpty() -> etPhone2.showError(getString(R.string.required))
             else -> true
         }
     }
