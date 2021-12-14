@@ -41,13 +41,13 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        showProgress()
+        showProgress()
         setUpObserver()
     }
 
     override fun onStart() {
         super.onStart()
-//        refresh()
+        refresh()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

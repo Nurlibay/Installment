@@ -14,14 +14,13 @@
         android:enabled="true"
         android:hint="@string/phone2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:endIconMode="custom"
+        app:endIconMode="clear_text"
         app:endIconDrawable="@drawable/ic_cancel"
         app:expandedHintEnabled="false"
         app:hintAnimationEnabled="false"
         app:hintEnabled="true"
-        app:layout_constraintTop_toTopOf="parent"
         app:prefixText="+998"
-
+        app:layout_constraintTop_toTopOf="parent"
         app:prefixTextColor="@color/white"
         app:startIconDrawable="@drawable/ic_call">
 
@@ -30,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="phone"
-            android:maxLength="12"
+            android:maxLength="20"
+            android:textColorHint="@color/valueOperationColor"
             android:maxLines="1"
             android:padding="@dimen/margin_middle_standard"
             android:textColor="@color/white" />

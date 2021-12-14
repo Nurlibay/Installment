@@ -47,12 +47,12 @@
                 style="@style/TextInputLayoutStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/name"
+                android:hint="@string/fullname"
                 android:textColorHint="@color/white"
                 app:endIconMode="clear_text">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etName"
+                    android:id="@+id/etFullName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
@@ -63,111 +63,9 @@
                     android:textColor="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilSurname"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:hint="@string/surname"
-                app:endIconMode="clear_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etSurname"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:maxLength="24"
-                    android:padding="@dimen/margin_middle_standard"
-                    android:textColor="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPatronymic"
-                style="@style/TextInputLayoutStyle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                android:hint="@string/patronymic"
-                app:endIconMode="clear_text">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/etPatronymic"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:maxLength="24"
-                    android:padding="@dimen/margin_middle_standard"
-                    android:textColor="@color/white" />
-            </com.google.android.material.textfield.TextInputLayout>
 
 
-            <com.google.android.material.card.MaterialCardView
-                android:id="@+id/tilPassportSeries"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                app:cardBackgroundColor="@color/dark_blue"
-                app:cardCornerRadius="@dimen/margin_middle_standard"
-                android:layout_marginTop="@dimen/margin_small">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"
-                    android:baselineAligned="false">
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/inputPassportSeries"
-                        app:boxBackgroundColor="@color/dark_blue"
-                        android:textColorHint="@color/white"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="2"
-                        app:hintEnabled="false"
-                        android:orientation="horizontal"
-                        >
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPassportSeries"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="text"
-                            android:textAllCaps="true"
-                            android:hint="@string/passport_series"
-                            android:text="@string/passport_series"
-                            android:textColorHint="@color/hint_white"
-                            android:padding="@dimen/margin_middle_standard"
-                            android:textColor="@color/white"
-                            android:nextFocusDown="@id/etPassportNumber"
-                            />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/inputPassportNumber"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="7"
-                        app:hintEnabled="false"
-                        android:orientation="horizontal"
-                        app:boxBackgroundColor="@color/dark_blue"
-                        android:textColorHint="@color/white">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPassportNumber"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:inputType="number"
-                            android:maxLength="7"
-                            android:textColorHint="@color/hint_white"
-                            android:hint="@string/passport_number"
-                            android:padding="@dimen/margin_middle_standard"
-                            android:textColor="@color/white"
-                            android:nextFocusDown="@id/rvPhones" />
-                    </com.google.android.material.textfield.TextInputLayout>
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"

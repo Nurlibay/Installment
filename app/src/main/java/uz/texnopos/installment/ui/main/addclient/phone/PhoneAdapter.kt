@@ -1,21 +1,30 @@
 package uz.texnopos.installment.ui.main.addclient.phone
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.textfield.TextInputEditText
+import com.redmadrobot.inputmask.MaskedTextChangedListener.Companion.installOn
+import timber.log.Timber
+import uz.texnopos.installment.core.getOnlyDigits
 import uz.texnopos.installment.core.mask.MaskWatcherPhone
-import uz.texnopos.installment.core.textToString
-import uz.texnopos.installment.data.model.Phone
 import uz.texnopos.installment.databinding.ItemPhoneBinding
+
 
 class PhoneAdapter : RecyclerView.Adapter<PhoneAdapter.ItemViewHolder>() {
     inner class ItemViewHolder(private val bind: ItemPhoneBinding) :
         RecyclerView.ViewHolder(bind.root) {
-        fun populateModel(phone: Phone, position: Int) {
+        fun populateModel(phone: String, position: Int) {
             bind.apply {
                 etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
-                etPhone.setText(phone.phone)
-                inputPhone.setEndIconOnClickListener {
+                etPhone.setText(phone)
+                etPhone.doOnTextChanged { text, _, _, _ ->
+                    models[position] = text.toString()
+                }
+                etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")
+               /* inputPhone.setEndIconOnClickListener {
                     if (etPhone.hasFocus()||inputPhone.hasFocus()) {
                         inputPhone.clearFocus()
                         etPhone.clearFocus()
@@ -25,12 +34,20 @@ class PhoneAdapter : RecyclerView.Adapter<PhoneAdapter.ItemViewHolder>() {
                             if (models.size > 1) remove(models.indexOf(phone))
                         } else etPhone.text?.clear()
                     }
-                }
+                }*/
             }
+        }
+
+        private fun TextInputEditText.addMaskAndHint(mask: String) {
+            val listener = installOn(
+                this,
+                mask
+            )
+            this.hint = listener.placeholder()
         }
     }
 
-    private var models = mutableListOf<Phone>()
+    private var models = mutableListOf<String>()
 
     private var removeClick: () -> Unit = {}
     fun onRemoveClick(removeClick: () -> Unit) {
@@ -39,7 +56,7 @@ class PhoneAdapter : RecyclerView.Adapter<PhoneAdapter.ItemViewHolder>() {
 
     fun add() {
         if (models.size < 10) {
-            models.add(Phone())
+            models.add("")
             notifyItemInserted(models.lastIndex)
         }
     }
@@ -59,4 +76,16 @@ class PhoneAdapter : RecyclerView.Adapter<PhoneAdapter.ItemViewHolder>() {
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
         holder.populateModel(models[position], position)
     }
+
+    fun getAllPhones():List<String>{
+        return models.map { "998"+it.getOnlyDigits() }.toMutableList().fillList(10)
+    }
+    private fun MutableList<String>.fillList(maxSize: Int, s: String=""): List<String> {
+        val sz = this.size
+        repeat(maxSize - sz) {
+            this.add(s)
+        }
+        return this
+    }
+
 }

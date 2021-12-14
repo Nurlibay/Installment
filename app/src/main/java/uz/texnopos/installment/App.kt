@@ -10,11 +10,18 @@ import org.koin.core.context.startKoin
 import uz.texnopos.installment.core.preferences.SharedPrefUtils
 import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
+import timber.log.Timber
+
+
+
 
 class App : MultiDexApplication() {
     private lateinit var analytics: FirebaseAnalytics
     override fun onCreate() {
         super.onCreate()
+        if (BuildConfig.DEBUG) {
+            Timber.plant(Timber.DebugTree())
+        }
         appInstance=this
         analytics= FirebaseAnalytics.getInstance(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
