@@ -105,10 +105,6 @@ fun isNetworkAvailable(): Boolean {
 fun Context.getConnectivityManager() =
     getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-
-
-
-
 fun Fragment.showProgress() {
     (requireActivity() as AppBaseActivity).showProgress(true)
 }

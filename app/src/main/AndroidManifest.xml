@@ -31,8 +31,6 @@
             </intent-filter>
         </activity>
 
-
-
         <service
             android:name=".firebase.cloudMessaging.MyFirebaseMessagingService"
             android:exported="true"
