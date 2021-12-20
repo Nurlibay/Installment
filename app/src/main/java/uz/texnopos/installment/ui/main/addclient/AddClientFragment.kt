@@ -1,12 +1,10 @@
 package uz.texnopos.installment.ui.main.addclient
 
 import android.app.Activity.RESULT_OK
-import android.content.ContentResolver
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.text.InputFilter
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
@@ -15,13 +13,13 @@ import com.github.dhaval2404.imagepicker.util.IntentUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.Constants.NO_INTERNET
 import uz.texnopos.installment.core.imagehelper.pickCameraImage
 import uz.texnopos.installment.core.imagehelper.pickGalleryImage
 import uz.texnopos.installment.core.imagehelper.setLocalImage
-import uz.texnopos.installment.core.mask.MaskWatcherPhone
 import uz.texnopos.installment.data.model.PostClient
 import uz.texnopos.installment.databinding.FragmentAddClientBinding
-import uz.texnopos.installment.core.Constants.NO_INTERNET
+import uz.texnopos.installment.ui.main.addclient.phone.PhoneAdapter
 import java.io.File
 
 class AddClientFragment : Fragment(R.layout.fragment_add_client) {
@@ -29,6 +27,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private val viewModel by viewModel<AddClientViewModel>()
     private var mPassportImageUri: Uri? = null
     private var mLetterImageUri: Uri? = null
+    private val phoneAdapter=PhoneAdapter()
     private lateinit var bind: FragmentAddClientBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,9 +35,11 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
         bind = FragmentAddClientBinding.bind(view)
         setUpObserver()
         bind.apply {
-            etPassportSeries.filters= arrayOf(InputFilter.AllCaps(),InputFilter.LengthFilter(2))
-            etPhone1.addTextChangedListener(MaskWatcherPhone.phoneNumber())
-            etPhone2.addTextChangedListener(MaskWatcherPhone.phoneNumber())
+            rvPhones.adapter=phoneAdapter
+            phoneAdapter.add()
+            addPhone.onClick {
+                phoneAdapter.add()
+            }
             toolbar.navOnClick {
                 requireActivity().onBackPressed()
             }
@@ -64,18 +65,18 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             }
 
             btnSignUp.onClick {
-                if (validate()) {
-                    etName.text.toString()
+                val phones = phoneAdapter.getAllPhones()
+                if (validate()&&phones[0].isNotEmpty()) {
+                    etFullName.text.toString()
                     val newClient = PostClient(
-                        firstName = etName.textToString(),
-                        lastName = etSurname.textToString(),
-                        middleName = etPatronymic.textToString(),
-                        passportSerial = etPassportSeries.textToString(),
-                        passportNumber = etPassportNumber.textToString(),
+                        fullName = etFullName.textToString(),
                         passportPhoto = File(mPassportImageUri?.path!!),
                         letter = File(mLetterImageUri?.path!!),
-                        phone1 = etPhone1.textToString().getOnlyDigits(),
-                        phone2 = etPhone2.textToString().getOnlyDigits()
+                        phone1 = phones[0], phone2 = phones[1],
+                        phone3 = phones[2], phone4 = phones[3],
+                        phone5 = phones[4], phone6 = phones[5],
+                        phone7 = phones[6], phone8 = phones[7],
+                        phone9 = phones[8], phone10 = phones[9],
                     )
                     viewModel.register(newClient)
                 }
@@ -160,11 +161,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
 
     private fun FragmentAddClientBinding.validate(): Boolean {
         return when {
-            etName.checkIsEmpty() -> etName.showError(getString(R.string.required))
-            etSurname.checkIsEmpty() -> etSurname.showError(getString(R.string.required))
-            etPatronymic.checkIsEmpty() -> etPatronymic.showError(getString(R.string.required))
-            etPassportSeries.checkIsEmpty() -> etPassportSeries.showError(getString(R.string.required))
-            etPassportNumber.checkIsEmpty() -> etPassportNumber.showError(getString(R.string.required))
+            etFullName.checkIsEmpty() -> etFullName.showError(getString(R.string.required))
             mPassportImageUri == null -> {
                 toast("Passport image required")
                 false
@@ -173,8 +170,6 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
                 toast("Letter image required")
                 false
             }
-            etPhone1.checkIsEmpty() -> etPhone1.showError(getString(R.string.required))
-            etPhone2.checkIsEmpty() -> etPhone2.showError(getString(R.string.required))
             else -> true
         }
     }

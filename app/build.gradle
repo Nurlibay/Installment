@@ -175,4 +175,8 @@ dependencies {
     //Image picker
     implementation 'com.github.dhaval2404:imagepicker:2.1'
 
+    //input-mask
+    implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
+
 }

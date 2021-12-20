@@ -20,8 +20,8 @@ class MaskWatcherPhone(private val mask: String) : TextWatcher {
         if (editableLength < mask.length) {
             if (mask[editableLength] != '#') {
                 editable.append(mask[editableLength])
-            } else if (mask[editableLength - 1] != '#') {
-                editable.insert(editableLength - 1, mask, editableLength - 1, editableLength)
+            } else if (mask[editableLength] != '#') {
+                editable.insert(editableLength , mask, editableLength , editableLength)
             }
         }
         isRunning = false
@@ -29,7 +29,7 @@ class MaskWatcherPhone(private val mask: String) : TextWatcher {
 
     companion object {
         fun phoneNumber(): MaskWatcherPhone {
-            return MaskWatcherPhone("(##) ###-##-##")
+            return MaskWatcherPhone("## ### ## ##")
         }
     }
 }

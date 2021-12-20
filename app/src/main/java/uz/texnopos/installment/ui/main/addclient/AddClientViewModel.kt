@@ -25,13 +25,17 @@ class AddClientViewModel(private val api: ApiInterface) : ViewModel() {
             try {
                 val partMap = HashMap<String, RequestBody>()
                 postClient.apply {
-                    partMap["first_name"] = firstName.toRequestBody()
-                    partMap["last_name"] = lastName.toRequestBody()
-                    partMap["middle_name"] = middleName.toRequestBody()
+                    partMap["first_name"] = fullName.toRequestBody()
                     partMap["phone1"] = phone1.toRequestBody()
                     partMap["phone2"] = phone2.toRequestBody()
-                    partMap["pasport_serial"] = passportSerial.toRequestBody()
-                    partMap["pasport_number"] = passportNumber.toRequestBody()
+                    partMap["phone3"] = phone3.toRequestBody()
+                    partMap["phone4"] = phone4.toRequestBody()
+                    partMap["phone5"] = phone5.toRequestBody()
+                    partMap["phone6"] = phone6.toRequestBody()
+                    partMap["phone7"] = phone7.toRequestBody()
+                    partMap["phone8"] = phone8.toRequestBody()
+                    partMap["phone9"] = phone9.toRequestBody()
+                    partMap["phone10"] = phone10.toRequestBody()
                 }
                 val file1 = postClient.passportPhoto.toMultiPart("pasport_photo")
                 val file2 = postClient.letter.toMultiPart("latter")

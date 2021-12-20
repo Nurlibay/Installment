@@ -105,6 +105,9 @@
         <action
             android:id="@+id/action_clientsFragment_to_fragmentCloudMessaging"
             app:destination="@id/fragmentCloudMessaging" />
+        <action
+            android:id="@+id/action_clientsFragment_to_multiPhoneFragment"
+            app:destination="@id/multiPhoneFragment" />
     </fragment>
     <fragment
         android:id="@+id/addClientFragment2"
@@ -125,5 +128,10 @@
         android:name="uz.texnopos.installment.ui.main.addOrder.AddOrderFragment"
         android:label="AddOrderFragment"
         />
+    <fragment
+        tools:layout="@layout/fragment_multi_phone"
+        android:id="@+id/multiPhoneFragment"
+        android:name="uz.texnopos.installment.ui.main.addclient.phone.MultiPhoneFragment"
+        android:label="MultiPhoneFragment" />
 
 </navigation>

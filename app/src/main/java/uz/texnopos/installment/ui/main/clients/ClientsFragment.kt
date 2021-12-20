@@ -102,7 +102,8 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
                     R.id.itemNotification -> {
-                        navController.navigate(R.id.action_clientsFragment_to_fragmentCloudMessaging)
+                        navController.navigate(R.id.action_clientsFragment_to_multiPhoneFragment)
+//                        navController.navigate(R.id.action_clientsFragment_to_fragmentCloudMessaging)
                         true
                     }
                     R.id.itemLogout -> {
