@@ -78,7 +78,7 @@ class PhoneAdapter : RecyclerView.Adapter<PhoneAdapter.ItemViewHolder>() {
     }
 
     fun getAllPhones():List<String>{
-        return models.map { "998"+it.getOnlyDigits() }.toMutableList().fillList(10)
+        return models.map { "+998"+it.getOnlyDigits() }.toMutableList().fillList(10)
     }
     private fun MutableList<String>.fillList(maxSize: Int, s: String=""): List<String> {
         val sz = this.size

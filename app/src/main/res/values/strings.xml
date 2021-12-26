@@ -86,6 +86,7 @@
     <string name="select_product">Выбрать продукт</string>
     <string name="add_phone">Добавить телефон</string>
     <string name="fullname">Полное имя</string>
+    <string name="ka">KA</string>
 
     <string-array name="courses">
         <item>Android</item>
