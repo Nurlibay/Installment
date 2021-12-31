@@ -27,7 +27,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private val viewModel by viewModel<AddClientViewModel>()
     private var mPassportImageUri: Uri? = null
     private var mLetterImageUri: Uri? = null
-    private val phoneAdapter=PhoneAdapter()
+    private val phoneAdapter = PhoneAdapter()
     private lateinit var bind: FragmentAddClientBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,7 +35,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
         bind = FragmentAddClientBinding.bind(view)
         setUpObserver()
         bind.apply {
-            rvPhones.adapter=phoneAdapter
+            rvPhones.adapter = phoneAdapter
             phoneAdapter.add()
             addPhone.onClick {
                 phoneAdapter.add()
@@ -66,7 +66,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
 
             btnSignUp.onClick {
                 val phones = phoneAdapter.getAllPhones()
-                if (validate()&&phones[0].isNotEmpty()) {
+                if (validate() && phones[0].isNotEmpty()) {
                     etFullName.text.toString()
                     val newClient = PostClient(
                         fullName = etFullName.textToString(),
@@ -105,7 +105,8 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             }
         })
     }
-    private fun Context.drawableToUri(drawable: Int):Uri{
+
+    private fun Context.drawableToUri(drawable: Int): Uri {
         return Uri.parse("android.resource://$packageName/$drawable")
     }
 

@@ -1,6 +1,7 @@
 package uz.texnopos.installment.ui.main.addOrder
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.fragment.app.Fragment
@@ -10,7 +11,7 @@ import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.core.mask.MaskWatcherPrice
 import uz.texnopos.installment.data.model.PostOrder
-import uz.texnopos.installment.data.model.Product
+import uz.texnopos.installment.data.model.category.CategoryDetail
 import uz.texnopos.installment.databinding.FragmentAddOrderBinding
 
 class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
@@ -19,7 +20,8 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
     private val viewModel: AddOrderViewModel by viewModel()
     private var clientId: Int = 0
     private var productId: Int = -1
-    private val products = MutableLiveData<List<Product>?>()
+    private var productNameList = listOf<String?>()
+    private val productsWithCategory = MutableLiveData<List<CategoryDetail>?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +30,14 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
 
     override fun onStart() {
         super.onStart()
-        viewModel.getProducts()
+        viewModel.getProductsWithCategory()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAddOrderBinding.bind(view)
-        setUpObserverOrder()
-        observeProducts()
+        setUpObserverGetOrder()
+        setUpObserverProductsWithCategory()
         binding.apply {
             toolbar.navOnClick {
                 requireActivity().onBackPressed()
@@ -43,35 +45,36 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
 
             etFirstPay.addTextChangedListener(MaskWatcherPrice(etFirstPay))
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
-            products.observe(requireActivity(), {
-                if (it != null) {
-                    val productNames = it.map { p ->
-                        p.product_name
+
+            productsWithCategory.observe(requireActivity(), { categoryDetail ->
+                val categoryNameList = categoryDetail?.map { it.category.name }!!.toTypedArray()
+                val categoryAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down, categoryNameList)
+                categoryName.setAdapter(categoryAdapter)
+                categoryName.setOnItemClickListener { _, _, position, _ ->
+                    productNameList = categoryDetail[position].products.map { productName -> productName.name }
+                    val productAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down, productNameList)
+                    productName.setAdapter(productAdapter)
+
+                    // product list Item change listener
+                    productName.setOnItemClickListener { _, _, position, _ ->
+                        val productName = productName.textToString()
+                        categoryDetail[position].products.forEach {
+                            if (productName == it.name) productId = it.id
+                        }
                     }
-                    val arrayAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down,
-                        productNames)
-                    productName.setAdapter(arrayAdapter)
                 }
             })
 
             btnAddOrder.onClick {
-                val writtenProduct = productName.textToString()
-                products.value.let {
-                    it?.map { p -> p.product_name }.let { n ->
-                        val index = n!!.indexOf(writtenProduct)
-                        if (index != -1) productId = it!![index].product_id
-                        else index
-                    }
-                }
                 if (validate()) {
                     val newOrder = PostOrder(
                         product_id = productId.toString(),
                         client_id = clientId.toString(),
                         first_pay = etFirstPay.textToString().getOnlyDigits(),
                         month = etMonth.textToString(),
-                        surcharge = etSurcharge.textToString(),
+                        percent = etSurcharge.textToString(),
                         price = etPrice.textToString().getOnlyDigits(),
-                        product_code = etProductCode.textToString()
+                        description = etDescription.textToString()
                     )
                     viewModel.addOrder(newOrder)
                 }
@@ -79,7 +82,7 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
         }
     }
 
-    private fun setUpObserverOrder() {
+    private fun setUpObserverGetOrder() {
         viewModel.addOrder.observe(requireActivity(), {
             when (it.status) {
                 ResourceState.LOADING -> showProgress()
@@ -100,12 +103,12 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
         })
     }
 
-    private fun observeProducts() {
-        viewModel.getProducts.observe(requireActivity(), {
+    private fun setUpObserverProductsWithCategory() {
+        viewModel.getProductsWithCategory.observe(requireActivity(), {
             when (it.status) {
                 ResourceState.LOADING -> {}
                 ResourceState.SUCCESS -> {
-                    if (it.data != null) products.postValue(it.data.payload)
+                    if (it.data != null) productsWithCategory.postValue(it.data.payload)
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
@@ -119,7 +122,7 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
 
     private fun FragmentAddOrderBinding.validate(): Boolean {
         return when {
-            productName.checkIsEmpty()||productId==-1-> {
+            productName.checkIsEmpty() || productId == -1 -> {
                 toast("Этот продукт вам недоступен")
                 productName.showError(getString(R.string.required))
             }
@@ -127,7 +130,7 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
             etMonth.checkIsEmpty() -> etMonth.showError(getString(R.string.required))
             etSurcharge.checkIsEmpty() -> etSurcharge.showError(getString(R.string.required))
             etPrice.checkIsEmpty() -> etPrice.showError(getString(R.string.required))
-            etProductCode.checkIsEmpty() -> etProductCode.showError(getString(R.string.required))
+            etDescription.checkIsEmpty() -> etDescription.showError(getString(R.string.required))
             else -> true
         }
     }

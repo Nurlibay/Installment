@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import uz.texnopos.installment.App.Companion.getAppInstance
 import uz.texnopos.installment.core.Constants.mySharedPreferences
 
-
 class SharedPrefUtils {
      private val mSharedPreferences: SharedPreferences = getAppInstance()
         .getSharedPreferences(mySharedPreferences, Context.MODE_PRIVATE)

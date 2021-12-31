@@ -12,9 +12,6 @@ import uz.texnopos.installment.di.networkModule
 import uz.texnopos.installment.di.viewModelModule
 import timber.log.Timber
 
-
-
-
 class App : MultiDexApplication() {
     private lateinit var analytics: FirebaseAnalytics
     override fun onCreate() {
@@ -22,8 +19,8 @@ class App : MultiDexApplication() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
-        appInstance=this
-        analytics= FirebaseAnalytics.getInstance(this)
+        appInstance = this
+        analytics = FirebaseAnalytics.getInstance(this)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         val modules = listOf(viewModelModule, networkModule)
         startKoin { // use AndroidLogger as Koin Logger - default Level.INFO

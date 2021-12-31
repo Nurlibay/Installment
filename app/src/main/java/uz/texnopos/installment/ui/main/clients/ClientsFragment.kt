@@ -103,7 +103,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 when (it.itemId) {
                     R.id.itemNotification -> {
                         navController.navigate(R.id.action_clientsFragment_to_multiPhoneFragment)
-//                        navController.navigate(R.id.action_clientsFragment_to_fragmentCloudMessaging)
                         true
                     }
                     R.id.itemLogout -> {

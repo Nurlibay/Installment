@@ -19,9 +19,6 @@ class MultiPhoneFragment : Fragment(R.layout.fragment_multi_phone) {
             addBtn.onClick {
                 adapter.add()
             }
-
         }
-
-
     }
 }

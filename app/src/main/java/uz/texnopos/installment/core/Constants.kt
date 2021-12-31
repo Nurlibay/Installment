@@ -3,7 +3,7 @@ package uz.texnopos.installment.core
 object Constants {
 
     //baseUrl
-    const val BASE_URL: String = "https://back-end.i-plan.uz/"
+    const val BASE_URL: String = "https://shop1.i-plan.uz/"
 
     const val TOKEN = "accessToken"
     const val NO_INTERNET = "Интернет не подключен"

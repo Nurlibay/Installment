@@ -5,6 +5,7 @@ import okhttp3.RequestBody
 import retrofit2.Response
 import retrofit2.http.*
 import uz.texnopos.installment.data.model.*
+import uz.texnopos.installment.data.model.category.CategoryDetail
 import uz.texnopos.installment.data.model.response.GenericResponse
 import uz.texnopos.installment.data.model.response.UserResponse
 
@@ -20,6 +21,9 @@ interface ApiInterface {
 
     @GET("/api/products")
     suspend fun getAllProducts(): Response<GenericResponse<List<Product>>>
+
+    @GET("api/categories")
+    suspend fun getProductsWithCategory(): Response<GenericResponse<List<CategoryDetail>>>
 
     @GET("api/order/single_client")
     suspend fun getOrders(@Query("id") clientId:Int):Response<GenericResponse<List<Order>>>
