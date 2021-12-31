@@ -25,7 +25,8 @@ class AddClientViewModel(private val api: ApiInterface) : ViewModel() {
             try {
                 val partMap = HashMap<String, RequestBody>()
                 postClient.apply {
-                    partMap["first_name"] = fullName.toRequestBody()
+                    partMap["name"] = fullName.toRequestBody()
+                    partMap["pasport_serial"] = passportNumber.toRequestBody()
                     partMap["phone1"] = phone1.toRequestBody()
                     partMap["phone2"] = phone2.toRequestBody()
                     partMap["phone3"] = phone3.toRequestBody()

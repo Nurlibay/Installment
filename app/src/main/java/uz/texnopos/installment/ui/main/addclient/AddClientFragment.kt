@@ -5,12 +5,14 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.util.IntentUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.core.Constants.NO_INTERNET
@@ -27,7 +29,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private val viewModel by viewModel<AddClientViewModel>()
     private var mPassportImageUri: Uri? = null
     private var mLetterImageUri: Uri? = null
-    private val phoneAdapter = PhoneAdapter()
+    private val phoneAdapter=PhoneAdapter()
     private lateinit var bind: FragmentAddClientBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -35,8 +37,9 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
         bind = FragmentAddClientBinding.bind(view)
         setUpObserver()
         bind.apply {
-            rvPhones.adapter = phoneAdapter
+            rvPhones.adapter=phoneAdapter
             phoneAdapter.add()
+            etPassportSeries.filters= arrayOf(InputFilter.AllCaps(),InputFilter.LengthFilter(2))
             addPhone.onClick {
                 phoneAdapter.add()
             }
@@ -66,10 +69,11 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
 
             btnSignUp.onClick {
                 val phones = phoneAdapter.getAllPhones()
-                if (validate() && phones[0].isNotEmpty()) {
+                if (validate() && phones[0].length == 13) {
                     etFullName.text.toString()
                     val newClient = PostClient(
                         fullName = etFullName.textToString(),
+                        passportNumber = "${etPassportSeries.textToString()}${etPassportNumber.textToString()}",
                         passportPhoto = File(mPassportImageUri?.path!!),
                         letter = File(mLetterImageUri?.path!!),
                         phone1 = phones[0], phone2 = phones[1],
@@ -105,8 +109,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             }
         })
     }
-
-    private fun Context.drawableToUri(drawable: Int): Uri {
+    private fun Context.drawableToUri(drawable: Int):Uri{
         return Uri.parse("android.resource://$packageName/$drawable")
     }
 
@@ -163,14 +166,17 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private fun FragmentAddClientBinding.validate(): Boolean {
         return when {
             etFullName.checkIsEmpty() -> etFullName.showError(getString(R.string.required))
+            etPassportSeries.checkIsEmpty() -> etPassportSeries.showError(getString(R.string.required))
+            etPassportNumber.checkIsEmpty() -> etPassportNumber.showError(getString(R.string.required))
             mPassportImageUri == null -> {
-                toast("Passport image required")
+                toast("Требуется паспортное изображение")
                 false
             }
             mLetterImageUri == null -> {
-                toast("Letter image required")
+                toast("Требуется изображение заявки")
                 false
             }
+
             else -> true
         }
     }

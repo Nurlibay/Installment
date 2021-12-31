@@ -5,6 +5,7 @@ import java.io.File
 data class PostClient(
     val fullName: String,
     val letter: File,
+    val passportNumber:String,
     val passportPhoto: File,
     val phone1: String,
     val phone2: String,
