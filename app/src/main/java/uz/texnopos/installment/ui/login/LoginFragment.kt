@@ -40,7 +40,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             creators.movementMethod = LinkMovementMethod.getInstance()
             goToSite.apply {
                 text = BASE_URL.removePrefix("https://").removeSuffix("/")
-                onClick { launchBrowser(BASE_URL) }
+//                onClick { launchBrowser(BASE_URL) }
             }
             bindProgressButton(btnLogin)
             btnLogin.attachTextChangeAnimator {
