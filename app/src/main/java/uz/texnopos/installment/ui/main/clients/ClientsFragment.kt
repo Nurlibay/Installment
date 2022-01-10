@@ -101,10 +101,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.itemNotification -> {
-                        navController.navigate(R.id.action_clientsFragment_to_multiPhoneFragment)
-                        true
-                    }
                     R.id.itemLogout -> {
                         confirmationDialog()
                         true

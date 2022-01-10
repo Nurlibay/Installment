@@ -8,7 +8,6 @@ import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.databinding.FragmentMultiPhoneBinding
 
 class MultiPhoneFragment : Fragment(R.layout.fragment_multi_phone) {
-    var itemCount = -1
     private lateinit var bind: FragmentMultiPhoneBinding
 
     private val adapter = PhoneAdapter()

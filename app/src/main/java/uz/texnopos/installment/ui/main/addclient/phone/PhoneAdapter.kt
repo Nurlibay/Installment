@@ -1,15 +1,12 @@
 package uz.texnopos.installment.ui.main.addclient.phone
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.textfield.TextInputEditText
 import com.redmadrobot.inputmask.MaskedTextChangedListener.Companion.installOn
-import timber.log.Timber
 import uz.texnopos.installment.core.getOnlyDigits
-import uz.texnopos.installment.core.mask.MaskWatcherPhone
 import uz.texnopos.installment.databinding.ItemPhoneBinding
 
 
@@ -18,23 +15,11 @@ class PhoneAdapter : RecyclerView.Adapter<PhoneAdapter.ItemViewHolder>() {
         RecyclerView.ViewHolder(bind.root) {
         fun populateModel(phone: String, position: Int) {
             bind.apply {
-                etPhone.addTextChangedListener(MaskWatcherPhone.phoneNumber())
                 etPhone.setText(phone)
                 etPhone.doOnTextChanged { text, _, _, _ ->
                     models[position] = text.toString()
                 }
                 etPhone.addMaskAndHint("([00]) [000]-[00]-[00]")
-               /* inputPhone.setEndIconOnClickListener {
-                    if (etPhone.hasFocus()||inputPhone.hasFocus()) {
-                        inputPhone.clearFocus()
-                        etPhone.clearFocus()
-                    }
-                    else {
-                        if (etPhone.textToString().isEmpty()) {
-                            if (models.size > 1) remove(models.indexOf(phone))
-                        } else etPhone.text?.clear()
-                    }
-                }*/
             }
         }
 

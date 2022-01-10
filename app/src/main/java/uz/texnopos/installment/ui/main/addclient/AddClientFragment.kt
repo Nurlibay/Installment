@@ -6,6 +6,7 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
+import android.view.View.FOCUS_DOWN
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
@@ -38,6 +39,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             rvPhones.adapter = phoneAdapter
             phoneAdapter.add()
             addPhone.onClick {
+                scrollView.fullScroll(FOCUS_DOWN)
                 phoneAdapter.add()
             }
             toolbar.navOnClick {

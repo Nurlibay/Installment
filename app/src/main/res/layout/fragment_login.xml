@@ -39,7 +39,6 @@
         android:layout_marginHorizontal="@dimen/margin_large"
         android:layout_marginVertical="@dimen/margin_extra_small"
         android:hint="@string/login"
-        android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -51,6 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:inputType="textEmailAddress"
+            android:importantForAutofill="no"
             android:paddingVertical="@dimen/margin_middle"
             android:textColor="@color/white" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -64,7 +64,6 @@
         android:layout_marginVertical="@dimen/margin_extra_small"
         android:autofillHints="password"
         android:hint="@string/password"
-        android:importantForAutofill="noExcludeDescendants"
         app:endIconMode="password_toggle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,6 +74,7 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:importantForAutofill="no"
             android:inputType="textPassword"
             android:paddingVertical="@dimen/margin_middle"
             android:textColor="@color/white" />

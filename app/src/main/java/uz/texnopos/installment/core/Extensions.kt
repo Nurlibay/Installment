@@ -32,6 +32,7 @@ import okhttp3.RequestBody.Companion.toRequestBody
 import retrofit2.Call
 import retrofit2.Response
 import androidx.annotation.IntRange
+import com.google.android.material.textfield.TextInputLayout
 import uz.texnopos.installment.App.Companion.getAppInstance
 import java.io.File
 
@@ -72,6 +73,11 @@ fun AutoCompleteTextView.checkIsEmpty(): Boolean = text == null ||
         textToString().equals("null", ignoreCase = true)
 
 fun TextInputEditText.showError(error: String): Boolean {
+    this.error = error
+    this.showSoftKeyboard()
+    return false
+}
+fun TextInputLayout.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()
     return false
