@@ -1,139 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_blue">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/background_blue"
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextColor="@color/white"
+
+        app:navigationIcon="@drawable/ic_back"
+
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/background_image"/>
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/main_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:src="@drawable/background_image" />
 
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/appbar"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/toolbar">
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:fitsSystemWindows="true"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:orientation="vertical">
 
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:id="@+id/collapsing_toolbar"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:fitsSystemWindows="true"
-                app:contentScrim="@color/background_blue"
-                app:expandedTitleGravity="bottom|center_horizontal"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap">
+                android:layout_height="wrap_content">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="64dp"
-                    android:paddingBottom="64dp"
-                    app:layout_collapseMode="parallax">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/profile_image"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_marginVertical="@dimen/margin_small"
+                    android:layout_marginHorizontal="@dimen/margin_standard"
+                    android:src="@drawable/ic_baseline_person_24"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/profile_image"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_margin="@dimen/margin_standard"
-                        android:src="@drawable/ic_baseline_person_24"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/margin_standard"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                    app:layout_constraintStart_toEndOf="@id/profile_image"
+                    app:layout_constraintTop_toTopOf="@id/profile_image">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tvClientName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_standard"
-                        android:orientation="vertical"
-                        app:layout_constraintBottom_toBottomOf="@id/profile_image"
-                        app:layout_constraintStart_toEndOf="@id/profile_image"
-                        app:layout_constraintTop_toTopOf="@id/profile_image">
+                        android:text=""
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
-                        <TextView
-                            android:id="@+id/tvClientName"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="@color/white"
-                            android:textSize="18sp" />
+                    <TextView
+                        android:id="@+id/tvOrderId"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=""
+                        android:textColor="@color/white" />
 
-                        <TextView
-                            android:id="@+id/tvOrderId"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="@color/white" />
+                </LinearLayout>
 
-                    </LinearLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progressBar"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="12dp"
-                        android:layout_marginHorizontal="@dimen/margin_standard"
-                        android:layout_marginVertical="@dimen/margin_small"
-                        android:progressDrawable="@drawable/custom_progress_bar"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/profile_image" />
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-                <TextView
-                    android:id="@+id/tvNotFound"
-                    android:text="@string/trans_not_found"
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                     android:layout_width="match_parent"
-                    android:gravity="center"
-                    android:visibility="gone"
-                    android:layout_gravity="bottom"
-                    app:layout_collapseMode="pin"
-                    android:layout_height="wrap_content"/>
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
-                    android:layout_marginStart="@dimen/margin_middle"
+                    android:layout_height="12dp"
+                    android:layout_marginHorizontal="@dimen/margin_standard"
+                    android:layout_marginVertical="@dimen/margin_small"
+                    android:progressDrawable="@drawable/custom_progress_bar"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/profile_image" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_standard">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvTransactions"
                     android:layout_width="match_parent"
-                    android:layout_height="?attr/actionBarSize"
-                    android:background="@color/background_blue"
-                    app:layout_collapseMode="pin"
-                    app:navigationIcon="@drawable/ic_back"
-                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
-
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-        </com.google.android.material.appbar.AppBarLayout>
-
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_orders"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="@dimen/margin_standard"
-        android:background="@null"
-        android:visibility="visible"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-</RelativeLayout>
-
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="@dimen/margin_standard"
+                    android:background="@null"
+                    tools:listitem="@layout/item_transaction"
+                    android:visibility="visible"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </RelativeLayout>
 
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+            <TextView
+                android:id="@+id/tvNotFound"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/trans_not_found"
+                android:visibility="gone"
+                app:layout_collapseMode="pin" />
+        </LinearLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/postPayment"
@@ -145,11 +133,10 @@
         android:layout_marginBottom="24dp"
         android:backgroundTint="@color/black"
         android:contentDescription="@string/product"
-        android:foregroundTint="@color/white"
         app:borderWidth="0dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/white"
         app:srcCompat="@drawable/ic_add"
         app:tint="#fff" />
 

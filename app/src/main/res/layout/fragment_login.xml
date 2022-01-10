@@ -86,6 +86,7 @@
         android:layout_width="160dp"
         android:layout_height="@dimen/standard_height"
         android:layout_marginTop="@dimen/margin_standard"
+        android:keepScreenOn="true"
         android:backgroundTint="@color/black"
         android:paddingHorizontal="48dp"
         android:text="@string/btn_login"

@@ -2,6 +2,7 @@ package uz.texnopos.installment.ui.main.transactions
 
 import android.os.Bundle
 import android.view.View
+import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -10,13 +11,12 @@ import androidx.navigation.Navigation
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
+import uz.texnopos.installment.core.Constants.CLIENT
+import uz.texnopos.installment.core.Constants.ORDER
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.data.model.Order
 import uz.texnopos.installment.data.model.Transactions
 import uz.texnopos.installment.databinding.FragmentTransactionsBinding
-import uz.texnopos.installment.core.Constants
-import uz.texnopos.installment.core.Constants.CLIENT
-import uz.texnopos.installment.core.Constants.ORDER
 import uz.texnopos.installment.ui.main.payment.PaymentDialog
 
 class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
@@ -49,9 +49,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         navController = Navigation.findNavController(view)
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
+                scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                    if (scrollY > oldScrollY) postPayment.hide()
+                    else postPayment.show()
+                }
                 toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
                 transaction.observe(viewLifecycleOwner, {
-                    collapsingToolbar.title = order!!.productName
+                    postPayment.isInvisible = false
+                    toolbar.title = order!!.productName
                     tvClientName.text = client!!.clientName
                     tvOrderId.text = getString(R.string.order_id, order!!.orderId)
                     if (it != null) {
@@ -61,11 +66,11 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                             s.paid.toInt()
                         } / 100
                         tvNotFound.isVisible = it.transactions.isEmpty()
-                        rvOrders.isVisible = it.transactions.isNotEmpty()
+                        rvTransactions.isVisible = it.transactions.isNotEmpty()
                     }
                 })
-                swipeRefresh.setOnRefreshListener { refresh() }
-                rvOrders.adapter = adapter
+
+                rvTransactions.adapter = adapter
 
                 postPayment.onClick { showPaymentDialog() }
 
@@ -81,15 +86,12 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                 ResourceState.SUCCESS -> {
                     transaction.postValue(it.data)
                     hideProgress()
-                    bind.swipeRefresh.isRefreshing = false
                 }
                 ResourceState.ERROR -> {
-                    bind.swipeRefresh.isRefreshing = false
                     toast(it.message!!)
                     hideProgress()
                 }
                 ResourceState.NETWORK_ERROR -> {
-                    bind.swipeRefresh.isRefreshing = false
                     hideProgress()
                     toast(Constants.NO_INTERNET)
                 }

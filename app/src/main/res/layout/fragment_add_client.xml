@@ -30,6 +30,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -56,7 +57,7 @@
                     android:layout_height="match_parent"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:maxLength="24"
+                    android:maxLength="56"
                     android:padding="@dimen/margin_middle_standard"
                     android:shadowColor="@color/white"
                     android:textColor="@color/white" />
