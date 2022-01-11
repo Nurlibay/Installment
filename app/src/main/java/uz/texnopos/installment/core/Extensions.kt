@@ -77,13 +77,11 @@ fun TextInputEditText.showError(error: String): Boolean {
     this.showSoftKeyboard()
     return false
 }
-
 fun TextInputLayout.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()
     return false
 }
-
 fun AutoCompleteTextView.showError(error: String): Boolean {
     this.error = error
     this.showSoftKeyboard()
@@ -147,7 +145,7 @@ fun Long.changeFormat(): String {
 }
 
 fun Double.changeFormat(): String {
-    val num = this.toInt().toString()
+    val num = this.toLong().toString()
     var s = ""
     val sz = num.length
     for (i in 0 until sz) {
@@ -165,31 +163,6 @@ fun String.getOnlyDigits(): String {
 
 const val cacheSize = (5 * 1024 * 1024).toLong()
 val myCache = Cache(getAppInstance().cacheDir, cacheSize)
-
-fun <T> callApi(
-    call: Call<T>,
-    onApiSuccess: (T?) -> Unit = {},
-    onApiError: (errorMsg: String) -> Unit = {},
-) {
-    Log.d("api_calling", call.request().url.toString())
-    call.enqueue(object : retrofit2.Callback<T> {
-        override fun onResponse(call: Call<T>, response: Response<T>) {
-            when {
-                response.isSuccessful -> onApiSuccess.invoke(response.body())
-                else -> {
-                    onApiError.invoke(response.errorBody().toString())
-                    Log.d("api-failure", response.errorBody().toString())
-                }
-            }
-        }
-
-        override fun onFailure(call: Call<T>, t: Throwable) {
-            onApiError.invoke(t.localizedMessage!!)
-            Log.d("api-failure", t.localizedMessage!!)
-        }
-
-    })
-}
 
 fun Fragment.isHasPermission(permission: String): Boolean {
     return requireActivity().applicationContext.checkSelfPermission(permission) == PackageManager.PERMISSION_GRANTED

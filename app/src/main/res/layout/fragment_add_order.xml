@@ -33,6 +33,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_big"
                 android:layout_margin="@dimen/margin_middle"
+                app:hintEnabled="false"
                 android:textColorHint="@color/white">
 
                 <com.google.android.material.textfield.MaterialAutoCompleteTextView
@@ -43,6 +44,7 @@
                     android:drawableTint="@color/white"
                     android:hint="@string/select_category"
                     android:inputType="none"
+                    android:textColorHint="@color/white"
                     android:padding="@dimen/margin_middle_standard"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
@@ -86,6 +88,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:hint="@string/price"
+                    android:maxLength="17"
                     android:inputType="number"
                     android:maxLines="1"
                     android:padding="@dimen/margin_middle_standard"
@@ -110,55 +113,62 @@
                 android:hint="@string/first_pay"
                 android:inputType="numberDecimal"
                 android:maxLines="1"
+                android:maxLength="17"
                 android:padding="@dimen/margin_middle_standard"
                 android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
+<androidx.appcompat.widget.LinearLayoutCompat
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    >
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMonth"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:counterMaxLength="5"
+        android:layout_marginEnd="@dimen/margin_small"
+        app:endIconMode="clear_text">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilMonth"
-            style="@style/TextInputLayoutStyle"
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etMonth"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
-            app:endIconMode="clear_text">
+            android:layout_height="match_parent"
+            android:hint="@string/month_text"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="@dimen/margin_middle_standard"
+            android:textColor="@color/white" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etMonth"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/month_text"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+    </com.google.android.material.textfield.TextInputLayout>
 
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSurcharge"
-            style="@style/TextInputLayoutStyle"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilSurcharge"
+        style="@style/TextInputLayoutStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        app:counterMaxLength="5"
+        android:layout_marginStart="@dimen/margin_small"
+        app:endIconMode="clear_text">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSurcharge"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_middle"
-            android:layout_weight="1"
-            app:counterMaxLength="5"
-            app:endIconMode="clear_text">
+            android:layout_height="match_parent"
+            android:hint="@string/surcharge"
+            android:inputType="number"
+            android:maxLines="1"
+            android:padding="@dimen/margin_middle_standard"
+            android:textColor="@color/white" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSurcharge"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:hint="@string/surcharge"
-                android:inputType="number"
-                android:maxLines="1"
-                android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white" />
+    </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+</androidx.appcompat.widget.LinearLayoutCompat>
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -166,8 +176,8 @@
             style="@style/DescriptionInputLayoutStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_middle"
             app:hintEnabled="false"
+            android:layout_margin="@dimen/margin_middle"
             app:endIconMode="clear_text">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -176,9 +186,8 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/product_code"
                 android:gravity="top|center_vertical|center_horizontal|center|start"
-                android:inputType="text"
+                android:inputType="textMultiLine"
                 android:scrollbars="none"
-                android:maxLines="3"
                 android:minLines="1"
                 android:textColorHint="@color/white"
                 android:padding="@dimen/margin_middle_standard"

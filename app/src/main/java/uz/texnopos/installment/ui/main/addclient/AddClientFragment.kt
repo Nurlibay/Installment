@@ -1,18 +1,17 @@
 package uz.texnopos.installment.ui.main.addclient
 
 import android.app.Activity.RESULT_OK
-import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputFilter
 import android.view.View
+import android.view.View.FOCUS_DOWN
 import androidx.fragment.app.Fragment
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.github.dhaval2404.imagepicker.ImagePicker.Companion.RESULT_ERROR
 import com.github.dhaval2404.imagepicker.util.IntentUtils
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.core.Constants.NO_INTERNET
@@ -29,7 +28,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
     private val viewModel by viewModel<AddClientViewModel>()
     private var mPassportImageUri: Uri? = null
     private var mLetterImageUri: Uri? = null
-    private val phoneAdapter = PhoneAdapter()
+    private val phoneAdapter=PhoneAdapter()
     private lateinit var bind: FragmentAddClientBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -37,16 +36,21 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
         bind = FragmentAddClientBinding.bind(view)
         setUpObserver()
         bind.apply {
-            rvPhones.adapter = phoneAdapter
+            rvPhones.adapter=phoneAdapter
             phoneAdapter.add()
             etPassportSeries.filters = arrayOf(InputFilter.AllCaps(), InputFilter.LengthFilter(2))
             addPhone.onClick {
                 phoneAdapter.add()
+                scrollView.fullScroll(FOCUS_DOWN)
             }
             toolbar.navOnClick {
                 requireActivity().onBackPressed()
             }
 
+
+            scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                v.hideSoftKeyboard()
+            }
             selectPassportImage.apply {
                 txtGallery.text = getString(R.string.select_passport_title)
                 fabAddGalleryPhoto.onClick {
@@ -68,9 +72,9 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             }
 
             btnSignUp.onClick {
+                var isCorrect = true
                 val phones = phoneAdapter.getAllPhones()
-                if (validate() && phones[0].length == 13) {
-                    etFullName.text.toString()
+                if (validate()) {
                     val newClient = PostClient(
                         fullName = etFullName.textToString(),
                         passportNumber = "${etPassportSeries.textToString()}${etPassportNumber.textToString()}",
@@ -82,7 +86,14 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
                         phone7 = phones[6], phone8 = phones[7],
                         phone9 = phones[8], phone10 = phones[9],
                     )
-                    viewModel.register(newClient)
+                    for (phone in phones) {
+                        if (phone.length != 9 && phone.isNotEmpty()) {
+                            toast("Неверный формат телефона")
+                            isCorrect = false
+                            break
+                        }
+                    }
+                    if (isCorrect) viewModel.register(newClient)
                 }
             }
         }
@@ -108,10 +119,6 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
                 }
             }
         })
-    }
-
-    private fun Context.drawableToUri(drawable: Int): Uri {
-        return Uri.parse("android.resource://$packageName/$drawable")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -169,6 +176,7 @@ class AddClientFragment : Fragment(R.layout.fragment_add_client) {
             etFullName.checkIsEmpty() -> etFullName.showError(getString(R.string.required))
             etPassportSeries.checkIsEmpty() -> etPassportSeries.showError(getString(R.string.required))
             etPassportNumber.checkIsEmpty() -> etPassportNumber.showError(getString(R.string.required))
+            etPassportNumber.length() != 7 -> etPassportNumber.showError("Требуется 7 цифр")
             mPassportImageUri == null -> {
                 toast("Требуется паспортное изображение")
                 false
