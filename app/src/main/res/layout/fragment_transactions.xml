@@ -108,21 +108,25 @@
 
 
 
-            <TextView
-                android:id="@+id/tvNotFound"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="bottom"
-                android:gravity="center"
-                android:text="@string/trans_not_found"
-                android:visibility="gone"
-                app:layout_collapseMode="pin" />
+
         </LinearLayout>
 
 
     </androidx.core.widget.NestedScrollView>
 
-
+    <TextView
+        android:textColor="#BFFFFFFF"
+        android:id="@+id/tvNotFound"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="match_parent"
+        android:fontFamily="cursive"
+        android:textSize="16sp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/trans_not_found"
+        android:visibility="gone"
+        />
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/postPayment"
         style="@style/Widget.Design.FloatingActionButton"

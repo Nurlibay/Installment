@@ -60,7 +60,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                     tvClientName.text = client!!.clientName
                     tvOrderId.text = getString(R.string.order_id, order!!.orderId)
                     if (it != null) {
-                        progressBar.max = (order!!.productPrice.toInt() - order!!.firstPay) / 100
+                        progressBar.max = ((order!!.productPrice.toLong() - order!!.firstPay) / 100).toInt()
                         adapter.models = it.transactions
                         progressBar.progress = it.transactions.sumOf { s ->
                             s.paid.toInt()

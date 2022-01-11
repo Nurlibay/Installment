@@ -145,7 +145,7 @@ fun Long.changeFormat(): String {
 }
 
 fun Double.changeFormat(): String {
-    val num = this.toInt().toString()
+    val num = this.toLong().toString()
     var s = ""
     val sz = num.length
     for (i in 0 until sz) {
