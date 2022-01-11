@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -6,15 +7,28 @@
     android:orientation="vertical"
     android:padding="@dimen/margin_middle">
 
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/btnClose"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:padding="8dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:backgroundTint="@color/background_blue"
+        android:clickable="true"
+        android:focusable="true"
+        android:src="@drawable/ic_baseline_close_24" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"
-        android:text="@string/calc_text"
-        android:fontFamily="sans-serif-medium"
-        android:textColor="@color/white"
-        android:textSize="24sp"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_height="wrap_content"/>
+        android:fontFamily="sans-serif-medium"
+        android:text="@string/calc_text"
+        android:textColor="@color/white"
+        android:textSize="24sp" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilPrice"
         style="@style/TextInputLayoutStyle"
@@ -31,14 +45,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginVertical="@dimen/margin_middle"
+            android:digits="0123456789"
             android:hint="@string/product_price_text"
             android:inputType="number"
             android:maxLength="17"
-            android:digits="0123456789"
             android:maxLines="1"
             android:padding="@dimen/margin_middle_standard"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -49,40 +62,37 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_middle"
         app:counterMaxLength="20"
-        app:endIconMode="clear_text"
-        >
+        app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etFirstPay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginVertical="@dimen/margin_middle"
+            android:digits="0123456789"
             android:hint="@string/first_pay_text"
             android:inputType="number"
             android:maxLength="17"
-            android:digits="0123456789"
             android:maxLines="1"
             android:padding="@dimen/margin_middle_standard"
-            android:textColor="@color/white"
-            />
+            android:textColor="@color/white" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/lLayout"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_middle"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:layout_marginTop="@dimen/margin_middle"
+        android:orientation="horizontal">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilPercent"
             style="@style/TextInputLayoutStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:layout_marginEnd="@dimen/margin_small"
+            android:layout_weight="1"
             app:counterMaxLength="5"
             app:endIconMode="clear_text">
 
@@ -95,8 +105,7 @@
                 android:maxLength="3"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -119,8 +128,7 @@
                 android:maxLength="2"
                 android:maxLines="1"
                 android:padding="@dimen/margin_middle_standard"
-                android:textColor="@color/white"
-                />
+                android:textColor="@color/white" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -130,23 +138,21 @@
         android:id="@+id/tvResultAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_middle"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-condensed-light"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_middle"
+        android:fontFamily="sans-serif-condensed-light"
         android:text="@string/result_amount"
         android:textColor="@color/white"
         android:textSize="20sp"
-        />
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvResultAllDebt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_middle"
         android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/margin_middle"
         android:text="@string/result_general"
         android:textColor="@color/white"
-        android:textSize="18sp"
-        />
+        android:textSize="18sp" />
 </LinearLayout>

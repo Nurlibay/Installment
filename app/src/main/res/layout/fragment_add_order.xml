@@ -50,7 +50,7 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/menu"
+                android:id="@+id/tilProductName"
                 style="@style/TextInputLayoutDropDown"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/margin_big"
@@ -64,7 +64,7 @@
                     android:backgroundTint="@color/dark_blue"
                     android:drawableTint="@color/white"
                     android:hint="@string/select_product"
-                    android:inputType="text"
+                    android:inputType="none"
                     android:padding="@dimen/margin_middle_standard"
                     android:textColor="@color/white"
                     android:textSize="16sp" />

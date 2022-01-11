@@ -4,7 +4,7 @@
     <string name="name">Имя</string>
     <string name="surname">Фамилия</string>
     <string name="patronymic">Отчество</string>
-    <string name="passport_number">Номер папорта</string>
+    <string name="passport_number">Номер паспорта</string>
     <string name="phone1">Мобилный</string>
     <string name="phone2">Телефон</string>
     <string name="sign_up">Регистрация</string>
@@ -84,10 +84,12 @@
     <string name="price">Цена</string>
     <string name="product_code">Описание</string>
     <string name="select_product">Выбрать продукт</string>
-    <string name="select_category">Выбрать сатегори</string>
+    <string name="select_category">Выбрать категория</string>
     <string name="add_phone">Добавить телефон</string>
     <string name="fullname">Полное имя</string>
     <string name="ka">KA</string>
+    <string name="all_call_number">All call numbers</string>
+    <string name="phone_number">+998 97 968 08 05</string>
 
     <string-array name="courses">
         <item>Android</item>

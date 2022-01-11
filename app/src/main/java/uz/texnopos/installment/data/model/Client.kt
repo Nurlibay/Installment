@@ -3,6 +3,7 @@ package uz.texnopos.installment.data.model
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import uz.texnopos.installment.data.model.client.Phone
 
 @Parcelize
 data class Client(
@@ -22,6 +23,5 @@ data class Client(
     val passportPhoto: String,
     @SerializedName("pasport_serial")
     val passportSerial: String,
-    val phone1: String,
-    val phone2: String,
+    val phones: List<Phones>
 ): Parcelable

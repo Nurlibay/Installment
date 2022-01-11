@@ -1,22 +1,19 @@
 package uz.texnopos.installment.ui.main.orders
 
-import android.Manifest.permission.CALL_PHONE
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.data.model.Client
 import uz.texnopos.installment.databinding.FragmentOrdersBinding
-import uz.texnopos.installment.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
 import uz.texnopos.installment.core.Constants.CLIENT
 import uz.texnopos.installment.core.Constants.NO_INTERNET
 import uz.texnopos.installment.core.Constants.ORDER
@@ -46,7 +43,7 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         navController = Navigation.findNavController(view)
         binding = FragmentOrdersBinding.bind(view).apply {
 
-            tvClientPhone.text = client!!.phone1
+            //tvClientPhone.text = client!!.phone1
             tvClientId.text = getString(R.string.client_id, client!!.clientId)
             tvProductCount.text = getString(R.string.count_product, client!!.count)
             collapsingToolbar.title = client!!.clientName
@@ -61,7 +58,12 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
                 when (it.itemId) {
                     R.id.itemCall -> {
                         if (client != null) {
-                            makePhoneCall(client!!.phone1)
+                            val bundle = Bundle()
+                            bundle.putParcelable(CLIENT, client)
+                            try {
+                                navController.navigate(R.id.action_ordersFragment_to_callDialog, bundle)
+                            } catch (e: Exception) {
+                            }
                         }
                         true
                     }
@@ -99,33 +101,8 @@ class OrdersFragment : Fragment(R.layout.fragment_orders) {
         }
     }
 
-    private fun makePhoneCall(phone: String) {
-        if (isHasPermission(CALL_PHONE)) {
-            val callIntent = Intent(Intent.ACTION_CALL)
-            callIntent.data = Uri.parse("tel:$phone")
-            startActivity(callIntent)
-        } else askPermission(arrayOf(CALL_PHONE), ASK_PHONE_PERMISSION_REQUEST_CODE)
-
-    }
-
     private fun refresh() {
         viewModel.getOrders(client!!.clientId)
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray,
-    ) {
-        if (requestCode == ASK_PHONE_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (client != null) {
-                    makePhoneCall(client!!.phone1)
-                }
-            } else {
-                toast("PERMISSION DENIED")
-            }
-        }
     }
     
     private fun setUpObservers() {
