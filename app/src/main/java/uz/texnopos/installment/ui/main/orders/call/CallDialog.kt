@@ -54,18 +54,49 @@ class CallDialog : DialogFragment() {
             }
         }
         setData()
-        adapter.onItemClick {
-            callToUser(it.phone)
+        adapter.setOnItemClickListener {
+            callToClient(it.phone)
         }
     }
 
-    private fun setData(){
-        for(i in 0..4) {
-            adapter.models.add(i, Phone("+998 99 953 56 06"))
+    private fun setData() {
+        val models = mutableListOf<Phone>()
+        client!!.phones.forEach {
+            if(it.phone1.toString() != "null"){
+                models.add(Phone(it.phone1.toString()))
+            }
+            if(it.phone2.toString() != "null") {
+                models.add(Phone(it.phone2.toString()))
+            }
+            if(it.phone3.toString() != "null") {
+                models.add(Phone(it.phone3.toString()))
+            }
+            if(it.phone4.toString() != "null") {
+                models.add(Phone(it.phone4.toString()))
+            }
+            if(it.phone5.toString() != "null") {
+                models.add(Phone(it.phone5.toString()))
+            }
+            if(it.phone6.toString() != "null") {
+                models.add(Phone(it.phone6.toString()))
+            }
+            if(it.phone7.toString() != "null") {
+                models.add(Phone(it.phone7.toString()))
+            }
+            if(it.phone8.toString() != "null") {
+                models.add(Phone(it.phone8.toString()))
+            }
+            if(it.phone9.toString() != "null") {
+                models.add(Phone(it.phone9.toString()))
+            }
+            if(it.phone10.toString() != "null") {
+                models.add(Phone(it.phone10.toString()))
+            }
         }
+        adapter.setData(models)
     }
 
-    private fun callToUser(phoneNumber: String) {
+    private fun callToClient(phoneNumber: String) {
         if (isHasPermission(Manifest.permission.CALL_PHONE)) {
             val callIntent = Intent(Intent.ACTION_CALL)
             callIntent.data = Uri.parse("tel:$phoneNumber")
@@ -81,10 +112,10 @@ class CallDialog : DialogFragment() {
         permissions: Array<out String>,
         grantResults: IntArray,
     ) {
-        if (requestCode == Constants.ASK_PHONE_PERMISSION_REQUEST_CODE) {
+        if (requestCode == ASK_PHONE_PERMISSION_REQUEST_CODE) {
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (client != null) {
-                    //for(i in 0 until client.phones.)
+
                 }
             } else {
                 toast("PERMISSION DENIED")

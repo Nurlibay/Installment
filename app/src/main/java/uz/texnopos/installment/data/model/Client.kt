@@ -23,5 +23,5 @@ data class Client(
     val passportPhoto: String,
     @SerializedName("pasport_serial")
     val passportSerial: String,
-    val phones: List<Phones>
+    val phones: MutableList<Phones>
 ): Parcelable

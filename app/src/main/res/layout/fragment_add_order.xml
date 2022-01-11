@@ -66,7 +66,7 @@
                     android:backgroundTint="@color/dark_blue"
                     android:drawableTint="@color/white"
                     android:hint="@string/select_product"
-                    android:inputType="none"
+                    android:inputType="text"
                     android:padding="@dimen/margin_middle_standard"
                     android:textColor="@color/white"
                     android:textSize="16sp" />

@@ -54,7 +54,7 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
                 val categoryAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down, categoryNameList)
                 categoryName.setAdapter(categoryAdapter)
                 categoryName.setOnItemClickListener { _, _, pos1, _ ->
-                    productId=-1
+                    productId =- 1
                     productName.text.clear()
                     val productNameList = categoryDetail[pos1].products.map { productName -> productName.name }
                     val productAdapter = ArrayAdapter(requireContext(), R.layout.item_drop_down, productNameList)
@@ -133,7 +133,6 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
             etMonth.checkIsEmpty() -> etMonth.showError(getString(R.string.required))
             etSurcharge.checkIsEmpty() -> etSurcharge.showError(getString(R.string.required))
             etPrice.checkIsEmpty() -> etPrice.showError(getString(R.string.required))
-            etDescription.checkIsEmpty() -> etDescription.showError(getString(R.string.required))
             else -> true
         }
     }

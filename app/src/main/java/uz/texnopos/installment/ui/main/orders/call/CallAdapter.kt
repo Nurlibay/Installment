@@ -31,7 +31,7 @@ class CallAdapter : RecyclerView.Adapter<CallAdapter.CallViewHolder>() {
     }
 
     private var onItemCLick: (Phone) -> Unit = {}
-    fun onItemClick(onItemClick: (Phone) -> Unit) {
+    fun setOnItemClickListener(onItemClick: (Phone) -> Unit) {
         this.onItemCLick = onItemClick
     }
 
