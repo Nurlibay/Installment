@@ -18,6 +18,7 @@ import uz.texnopos.installment.core.mask.MaskWatcherPrice
 import uz.texnopos.installment.core.MinMaxFilter
 import uz.texnopos.installment.core.changeFormat
 import uz.texnopos.installment.core.checkIsEmpty
+import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.Amount
 import uz.texnopos.installment.databinding.CalcDialogBinding
 
@@ -49,12 +50,14 @@ class CalculatorDialog : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = CalcDialogBinding.bind(view)
-
         binding.apply {
             etPrice.addTextChangedListener(MaskWatcherPrice(etPrice))
             etFirstPay.addTextChangedListener(MaskWatcherPrice(etFirstPay))
             etMonth.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
             etPercent.filters = arrayOf<InputFilter>(MinMaxFilter(1, 100))
+            btnClose.onClick {
+                dialog!!.dismiss()
+            }
             merge()
             observe()
             etPrice.doOnTextChanged { it, _, _, _ ->

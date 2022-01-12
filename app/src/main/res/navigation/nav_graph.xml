@@ -42,6 +42,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
+        <action
+            android:id="@+id/action_ordersFragment_to_callDialog"
+            app:destination="@id/callDialog" />
     </fragment>
 
     <dialog
@@ -133,5 +136,9 @@
         android:id="@+id/multiPhoneFragment"
         android:name="uz.texnopos.installment.ui.main.addclient.phone.MultiPhoneFragment"
         android:label="MultiPhoneFragment" />
+    <dialog
+        android:id="@+id/callDialog"
+        android:name="uz.texnopos.installment.ui.main.orders.call.CallDialog"
+        android:label="CallDialog" />
 
 </navigation>

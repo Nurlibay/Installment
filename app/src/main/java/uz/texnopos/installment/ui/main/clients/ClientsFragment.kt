@@ -200,7 +200,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
             .apply {
                 setCancelable(false)
-
                 setTitle(getString(R.string.logout_title))
                 setMessage(getString(R.string.supporting_text))
                 setPositiveButton("Выйти") { _, _ ->

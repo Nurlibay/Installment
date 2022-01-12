@@ -17,14 +17,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/background_blue"
         >
+
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:title="@string/toolbar_title"
-            app:menu="@menu/top_app_bar"
-            app:titleMarginStart="@dimen/margin_large"
             android:background="@color/background_blue"
+            app:menu="@menu/top_app_bar"
+            app:title="@string/toolbar_title"
+            app:titleMarginStart="@dimen/margin_large"
             app:titleTextColor="@color/white" />
 
     </com.google.android.material.appbar.AppBarLayout>

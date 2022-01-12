@@ -61,6 +61,7 @@
                     android:padding="@dimen/margin_middle_standard"
                     android:shadowColor="@color/white"
                     android:textColor="@color/white" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.card.MaterialCardView
@@ -206,8 +207,11 @@
                 android:paddingHorizontal="@dimen/margin_large"
                 android:paddingVertical="@dimen/margin_middle"
                 app:cornerRadius="@dimen/margin_middle"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                />
 
         </LinearLayout>
+
     </androidx.core.widget.NestedScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
