@@ -88,7 +88,7 @@
     <string name="add_phone">Добавить телефон</string>
     <string name="fullname">Полное имя</string>
     <string name="ka">KA</string>
-    <string name="all_call_number">Телефоны клиентов</string>
+    <string name="all_call_number">Телефоны</string>
     <string name="phone_number">+998 97 968 08 05</string>
 
     <string-array name="courses">
