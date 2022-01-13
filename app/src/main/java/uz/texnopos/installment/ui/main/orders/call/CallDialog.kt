@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.WRAP_CONTENT
 import androidx.fragment.app.DialogFragment
-import timber.log.Timber
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
 import uz.texnopos.installment.core.Constants.ASK_PHONE_PERMISSION_REQUEST_CODE
@@ -35,7 +34,6 @@ class CallDialog : DialogFragment() {
         savedInstanceState: Bundle?,
     ): View? {
         dialog!!.window?.setBackgroundDrawableResource(R.drawable.round_corner)
-        dialog!!.setCanceledOnTouchOutside(false)
         return inflater.inflate(R.layout.call_dialog, container, false)
     }
 
@@ -113,11 +111,7 @@ class CallDialog : DialogFragment() {
         grantResults: IntArray,
     ) {
         if (requestCode == ASK_PHONE_PERMISSION_REQUEST_CODE) {
-            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (client != null) {
-
-                }
-            } else {
+            if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                 toast("PERMISSION DENIED")
             }
         }

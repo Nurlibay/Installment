@@ -5,19 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_blue"
     android:orientation="vertical"
-    android:padding="@dimen/margin_middle">
+    >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/btnClose"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="top|end"
-        android:padding="8dp"
-        android:background="?android:attr/selectableItemBackgroundBorderless"
-        android:backgroundTint="@color/background_blue"
-        android:clickable="true"
-        android:focusable="true"
-        android:src="@drawable/ic_baseline_close_24" />
+        android:padding="4dp"
+        app:tint="@color/white"
+        android:src="@drawable/ic_cancel_24" />
 
     <TextView
         android:layout_width="match_parent"

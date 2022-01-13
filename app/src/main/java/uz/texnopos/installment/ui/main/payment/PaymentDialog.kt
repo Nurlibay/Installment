@@ -71,14 +71,19 @@ class PaymentDialog(private val mFragment: TransactionsFragment) : BottomSheetDi
 
             btnPay.onClick {
                 if (validate()) {
-                    val inputSum = etAddPayment.textToString().getOnlyDigits().toDouble()
-                    if (inputSum <= transaction.withoutRate){
-                        if (inputSum.toInt() == transaction.amount.toInt())
-                            viewModel.payment(Payment(order.orderId, transaction.amount))
-                        else
-                            viewModel.payment(Payment(order.orderId, inputSum))
+                    try {
+                        val inputSum = etAddPayment.textToString().getOnlyDigits().toDouble()
+                        if (inputSum <= transaction.withoutRate){
+                            if (inputSum.toInt() == transaction.amount.toInt())
+                                viewModel.payment(Payment(order.orderId, transaction.amount))
+                            else
+                                viewModel.payment(Payment(order.orderId, inputSum))
+                        }
+                        else toast("Неверная сумма!")
+                    }catch (e:Exception){
+                        toast(e.localizedMessage!!)
                     }
-                    else toast("Неверная сумма!")
+
                 }
             }
         }

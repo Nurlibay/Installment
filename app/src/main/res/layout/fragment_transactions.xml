@@ -76,6 +76,15 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tvPaidSum"
+                    app:layout_constraintTop_toBottomOf="@id/profile_image"
+                    app:layout_constraintStart_toStartOf="@id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"/>
                 <ProgressBar
                     android:id="@+id/progressBar"
                     style="@style/Widget.AppCompat.ProgressBar.Horizontal"
@@ -86,8 +95,17 @@
                     android:progressDrawable="@drawable/custom_progress_bar"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/profile_image" />
+                    app:layout_constraintTop_toBottomOf="@id/tvPaidSum" />
 
+                <TextView
+                    android:id="@+id/tvAllDebt"
+                    app:layout_constraintTop_toBottomOf="@id/progressBar"
+                    app:layout_constraintEnd_toEndOf="@id/progressBar"
+                    android:layout_width="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <RelativeLayout

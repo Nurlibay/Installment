@@ -5,19 +5,20 @@
     android:layout_height="wrap_content"
     android:background="@color/background_blue"
     android:orientation="vertical"
-    android:padding="@dimen/margin_middle">
+    android:padding="@dimen/margin_small"
+    >
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/btnClose"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_gravity="top|end"
-        android:padding="8dp"
+        android:padding="4dp"
         android:background="?android:attr/selectableItemBackgroundBorderless"
         android:backgroundTint="@color/background_blue"
-        android:clickable="true"
         android:focusable="true"
-        android:src="@drawable/ic_baseline_close_24" />
+        app:tint="@color/white"
+        android:src="@drawable/ic_cancel_24" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/title"

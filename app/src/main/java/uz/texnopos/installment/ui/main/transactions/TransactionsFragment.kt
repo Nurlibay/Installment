@@ -49,7 +49,7 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
         navController = Navigation.findNavController(view)
         bind = FragmentTransactionsBinding.bind(view)
             .apply {
-                scrollView.setOnScrollChangeListener { v, scrollX, scrollY, oldScrollX, oldScrollY ->
+                scrollView.setOnScrollChangeListener { v, _, scrollY, _, oldScrollY ->
                     if (scrollY > oldScrollY) postPayment.hide()
                     else postPayment.show()
                 }
@@ -60,11 +60,15 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                     tvClientName.text = client!!.clientName
                     tvOrderId.text = getString(R.string.order_id, order!!.orderId)
                     if (it != null) {
-                        progressBar.max = ((order!!.productPrice.toLong() - order!!.firstPay) / 100).toInt()
-                        adapter.models = it.transactions
-                        progressBar.progress = it.transactions.sumOf { s ->
+                        val tranSum=it.transactions.sumOf { s ->
                             s.paid.toInt()
-                        } / 100
+                        }
+                        val initialLoan=it.allDebt+tranSum
+                        tvPaidSum.text=tranSum.toLong().changeFormat()
+                        tvAllDebt.text=initialLoan.changeFormat()
+                        progressBar.max = (initialLoan / 100).toInt()
+                        adapter.models = it.transactions
+                        progressBar.progress = tranSum/100
                         tvNotFound.isVisible = it.transactions.isEmpty()
                         rvTransactions.isVisible = it.transactions.isNotEmpty()
                     }
