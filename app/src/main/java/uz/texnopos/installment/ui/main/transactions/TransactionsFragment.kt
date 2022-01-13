@@ -67,6 +67,14 @@ class TransactionsFragment : Fragment(R.layout.fragment_transactions) {
                         tvPaidSum.text=tranSum.toLong().changeFormat()
                         tvAllDebt.text=initialLoan.changeFormat()
                         progressBar.max = (initialLoan / 100).toInt()
+                        it.transactions.add(Transactions.Transaction(
+                            createdAt = "",
+                            id=0,
+                            payDate = order!!.startDate+" ПерваяОплата :99",
+                            orderId = order!!.orderId,
+                            paid = order!!.firstPay.toDouble(),
+                            updatedAt = ""
+                        ))
                         adapter.models = it.transactions
                         progressBar.progress = tranSum/100
                         tvNotFound.isVisible = it.transactions.isEmpty()

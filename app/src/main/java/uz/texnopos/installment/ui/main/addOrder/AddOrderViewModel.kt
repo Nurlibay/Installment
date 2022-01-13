@@ -28,6 +28,7 @@ class AddOrderViewModel(private val api: ApiInterface): ViewModel() {
             try {
                 val partMap = HashMap<String, RequestBody>()
                 addOrder.apply {
+                    if (first_pay.isEmpty()) first_pay="0"
                     partMap["product_id"] = product_id.toRequestBody()
                     partMap["client_id"] = client_id.toRequestBody()
                     partMap["first_pay"] = first_pay.toRequestBody()

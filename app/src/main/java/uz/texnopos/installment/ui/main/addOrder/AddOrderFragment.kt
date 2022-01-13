@@ -129,7 +129,6 @@ class AddOrderFragment : Fragment(R.layout.fragment_add_order) {
                 toast("Этот продукт вам недоступен")
                 productName.showError(getString(R.string.required))
             }
-            etFirstPay.checkIsEmpty() -> etFirstPay.showError(getString(R.string.required))
             etMonth.checkIsEmpty() -> etMonth.showError(getString(R.string.required))
             etSurcharge.checkIsEmpty() -> etSurcharge.showError(getString(R.string.required))
             etPrice.checkIsEmpty() -> etPrice.showError(getString(R.string.required))
