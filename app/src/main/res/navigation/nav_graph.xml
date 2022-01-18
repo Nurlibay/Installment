@@ -2,26 +2,9 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/loginFragment"
+    android:id="@+id/nav_graph">
 
-    <fragment
-        android:id="@+id/loginFragment"
-        android:name="uz.texnopos.installment.ui.login.LoginFragment"
-        android:label="LoginFragment"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_clientsFragment"
-            app:destination="@id/clientsFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"
-            app:launchSingleTop="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
-    </fragment>
     <fragment
         android:id="@+id/ordersFragment"
         android:name="uz.texnopos.installment.ui.main.orders.OrdersFragment"
@@ -53,6 +36,7 @@
         android:label="PaymentFragment"
         tools:layout="@layout/fragment_payment"
         />
+
     <fragment
         android:id="@+id/transactionsFragment"
         android:name="uz.texnopos.installment.ui.main.transactions.TransactionsFragment"
@@ -67,78 +51,85 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
+
     <fragment
-        android:id="@+id/clientsFragment"
-        android:name="uz.texnopos.installment.ui.main.clients.ClientsFragment"
-        android:label="ClientsFragment"
-        tools:layout="@layout/fragment_clients" >
-        <action
-            android:id="@+id/action_clientsFragment_to_ordersFragment"
-            app:destination="@id/ordersFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
-        <action
-            android:id="@+id/action_clientsFragment_to_loginFragment"
-            app:destination="@id/loginFragment"
-            app:popUpTo="@id/nav_graph"
-            app:popUpToInclusive="true"
-            app:launchSingleTop="true"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            />
-        <action
-            android:id="@+id/action_clientsFragment_to_addClientFragment"
-            app:destination="@id/addClientFragment2"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right" />
-        <action
-            android:id="@+id/action_clientsFragment_to_calculatorDialog"
-            app:destination="@id/calculatorDialog"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"/>
-        <action
-            android:id="@+id/action_clientsFragment_to_fragmentCloudMessaging"
-            app:destination="@id/fragmentCloudMessaging" />
-        <action
-            android:id="@+id/action_clientsFragment_to_multiPhoneFragment"
-            app:destination="@id/multiPhoneFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/addClientFragment2"
+        android:id="@+id/addClientFragment"
         android:name="uz.texnopos.installment.ui.main.addclient.AddClientFragment"
         android:label="AddClientFragment"
         tools:layout="@layout/fragment_add_client"/>
+
     <dialog
         android:id="@+id/calculatorDialog"
         android:name="uz.texnopos.installment.ui.main.calc.CalculatorDialog"
         android:label="CalculatorDialog"
         tools:layout="@layout/calc_dialog"/>
-    <fragment
-        android:id="@+id/fragmentCloudMessaging"
-        android:name="uz.texnopos.installment.firebase.cloudMessaging.FragmentCloudMessaging"
-        android:label="FragmentCloudMessaging" />
+
     <fragment
         android:id="@+id/addOrderFragment"
         android:name="uz.texnopos.installment.ui.main.addOrder.AddOrderFragment"
         android:label="AddOrderFragment"
         />
+
     <fragment
         tools:layout="@layout/fragment_multi_phone"
         android:id="@+id/multiPhoneFragment"
         android:name="uz.texnopos.installment.ui.main.addclient.phone.MultiPhoneFragment"
         android:label="MultiPhoneFragment" />
+
     <dialog
         android:id="@+id/callDialog"
         android:name="uz.texnopos.installment.ui.main.orders.call.CallDialog"
         android:label="CallDialog" />
+
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="uz.texnopos.installment.ui.login.LoginFragment"
+        android:label="LoginFragment"
+        tools:layout="@layout/fragment_login">
+
+        <action
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/slide_in_bottom"
+            app:exitAnim="@anim/slide_out_top"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_top"
+            app:popExitAnim="@anim/slide_out_bottom"
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            />
+    </fragment>
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="uz.texnopos.installment.ui.main.MainFragment"
+        android:label="MainFragment" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addClientFragment"
+            app:destination="@id/addClientFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addProductFragment"
+            app:destination="@id/addProductFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_calculatorDialog"
+            app:destination="@id/calculatorDialog" />
+        <action
+            android:id="@+id/action_mainFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addProductFragment"
+        android:name="uz.texnopos.installment.ui.main.product.add.AddProductFragment"
+        android:label="AddProductFragment" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="uz.texnopos.installment.ui.main.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 
 </navigation>

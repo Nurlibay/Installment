@@ -19,6 +19,7 @@ import uz.texnopos.installment.ui.main.addclient.AddClientViewModel
 import uz.texnopos.installment.ui.main.clients.ClientsViewModel
 import uz.texnopos.installment.ui.main.orders.OrdersViewModel
 import uz.texnopos.installment.ui.main.payment.PaymentViewModel
+import uz.texnopos.installment.ui.main.product.ProductViewModel
 import uz.texnopos.installment.ui.main.transactions.TransactionsViewModel
 import java.util.concurrent.TimeUnit
 
@@ -82,5 +83,6 @@ val viewModelModule = module {
     viewModel { TransactionsViewModel(get()) }
     viewModel { AddClientViewModel(get()) }
     viewModel { AddOrderViewModel(get()) }
+    viewModel { ProductViewModel(get()) }
 }
 

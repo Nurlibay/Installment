@@ -2,18 +2,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+        android:id="@+id/itemCalc"
+        android:icon="@drawable/ic_calculate"
+        android:title="@string/calc_text"
+        android:contentDescription="@string/content_description_logout"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/itemSort"
         android:icon="@drawable/ic_baseline_sort_24"
         android:title="@string/sort"
         android:contentDescription="@string/content_description_logout"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/itemLogout"
-        android:icon="@drawable/baseline_logout_24"
-        android:title="@string/logout"
-        android:contentDescription="@string/content_description_logout"
-        app:showAsAction="ifRoom" />
-
 
 </menu>

@@ -4,16 +4,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background_blue"
     >
 
     <fragment
         android:id="@+id/fcvMainFragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="678dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="?attr/actionBarSize"
         app:defaultNavHost="true"
-        app:layout_anchorGravity="fill_horizontal" />
+        app:layout_anchorGravity="fill_horizontal"
+        app:navGraph="@navigation/main_nav_graph"
+        />
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/babMain"
@@ -22,16 +25,21 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:fabCradleMargin="@dimen/margin_middle"
-        app:backgroundTint="@color/background_blue"
+        app:backgroundTint="@color/bottom_bar_color"
+        app:fabCradleRoundedCornerRadius="0dp"
         app:fabCradleVerticalOffset="@dimen/margin_middle">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bnvMain"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-           app:itemTextColor="@color/white"
+            app:itemIconTint="@drawable/bottom_navigation_selector"
+            app:itemTextColor="@color/white"
             app:labelVisibilityMode="labeled"
+            app:itemRippleColor="@color/white"
+            android:layout_marginEnd="@dimen/margin_standard"
             app:menu="@menu/bottom_appbar_menu" />
+
     </com.google.android.material.bottomappbar.BottomAppBar>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -41,7 +49,18 @@
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_add"
         app:fabCustomSize="@dimen/standard_height"
-        android:backgroundTint="@color/background_blue"
+        android:backgroundTint="@color/bottom_bar_color"
         app:layout_anchor="@id/babMain"
-        app:tint="@color/white" />
+        app:tint="@color/white"
+        app:borderWidth="0dp"
+        />
+
+    <ProgressBar
+        android:id="@+id/pbLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

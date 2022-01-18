@@ -1,24 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <group>
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/homeFragment"
             android:icon="@drawable/ic_home_outlined"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_home"
+            />
         <item
-            android:id="@+id/nav_clients"
+            android:id="@+id/clientsFragment"
             android:icon="@drawable/ic_client"
-            android:title="@string/menu_clients" />
+            android:title="@string/menu_clients"
+            />
         <item
             android:id="@+id/nav_placeholder"
             android:title=""/>
         <item
-            android:id="@+id/nav_products"
-            android:icon="@drawable/ic_category"
-            android:title="@string/menu_products" />
+            android:id="@+id/productFragment"
+            android:icon="@drawable/ic_baseline_shopping_cart_24"
+            android:title="@string/menu_products"
+            />
         <item
-            android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_order"
-            android:title="@string/menu_settings" />
+            android:id="@+id/settingsFragment"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="@string/menu_settings"
+            />
     </group>
 </menu>

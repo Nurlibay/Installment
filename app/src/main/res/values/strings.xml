@@ -90,6 +90,11 @@
     <string name="ka">KA</string>
     <string name="all_call_number">Телефоны</string>
     <string name="phone_number">+998 97 968 08 05</string>
+    <string name="add_new_client_ru">Новыи клиент</string>
+    <string name="add_product_ru">Добавить продукта</string>
+    <string name="statistics">Статистика</string>
+    <string name="categories">Категории</string>
+    <string name="settings">Настройки</string>
 
     <string-array name="courses">
         <item>Android</item>

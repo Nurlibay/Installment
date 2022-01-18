@@ -22,5 +22,6 @@
     <dimen name="margin_big">64dp</dimen>
     <dimen name="size_default">10dp</dimen>
     <dimen name="size_1dp">1dp</dimen>
+    <dimen name="margin_middle_small">6dp</dimen>
 
 </resources>

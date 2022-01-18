@@ -36,37 +36,37 @@ class FloatingAnimation(private val bind: FragmentClientsBinding) {
         )
     }
 
-    fun onFloatingClicked() {
-        setAnimation(isOpen)
-        setVisibility(isOpen)
-        isOpen = !isOpen
-    }
+//    fun onFloatingClicked() {
+//        setAnimation(isOpen)
+//        setVisibility(isOpen)
+//        isOpen = !isOpen
+//    }
 
-    private fun setVisibility(clicked: Boolean) {
-        bind.floatingAddButton.isInvisible = clicked
-        bind.floatingCalcButton.isInvisible = clicked
-    }
-
-    private fun setAnimation(clicked: Boolean) {
-        val anim=if (!clicked) fromBottom else toBottom
-        val rotateAnim=if (!clicked) rotateOpen else rotateClose
-        bind.floatingAddButton.startAnimation(anim)
-        bind.floatingCalcButton.startAnimation(anim)
-        bind.floatingButton.startAnimation(rotateAnim)
-    }
-
-    fun show() {
-        bind.floatingButton.show()
-        if (isOpen) {
-            onFloatingClicked()
-        }
-    }
-
-    fun hide() {
-        bind.floatingButton.hide()
-        if (isOpen) {
-            onFloatingClicked()
-        }
-    }
+//    private fun setVisibility(clicked: Boolean) {
+//        bind.floatingAddButton.isInvisible = clicked
+//        bind.floatingCalcButton.isInvisible = clicked
+//    }
+//
+//    private fun setAnimation(clicked: Boolean) {
+//        val anim=if (!clicked) fromBottom else toBottom
+//        val rotateAnim=if (!clicked) rotateOpen else rotateClose
+//        bind.floatingAddButton.startAnimation(anim)
+//        bind.floatingCalcButton.startAnimation(anim)
+//        bind.floatingButton.startAnimation(rotateAnim)
+//    }
+//
+//    fun show() {
+//        bind.floatingButton.show()
+//        if (isOpen) {
+//            onFloatingClicked()
+//        }
+//    }
+//
+//    fun hide() {
+//        bind.floatingButton.hide()
+//        if (isOpen) {
+//            onFloatingClicked()
+//        }
+//    }
 
 }

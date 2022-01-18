@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.view.Gravity
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuPopupHelper
 import androidx.appcompat.widget.PopupMenu
@@ -29,15 +28,17 @@ import uz.texnopos.installment.core.Constants.CLIENT
 import uz.texnopos.installment.core.Constants.NO_INTERNET
 import uz.texnopos.installment.core.Constants.TOKEN
 import uz.texnopos.installment.core.Constants.UNAUTHORIZED
+import uz.texnopos.installment.ui.main.MainFragment
 
 class ClientsFragment : Fragment(R.layout.fragment_clients) {
 
     private val viewModel: ClientsViewModel by viewModel()
     private val adapter = ClientsAdapter()
-    private lateinit var navController: NavController
     private lateinit var binding: FragmentClientsBinding
     private var clients: List<Client> = emptyList()
     private lateinit var floatingAnimation: FloatingAnimation
+
+    private lateinit var parentNavController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,26 +54,26 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentClientsBinding.bind(view)
-        navController = Navigation.findNavController(view)
-        floatingAnimation= FloatingAnimation(binding)
         setStatusBarColor(R.color.background_color)
+
+        parentNavController = (requireParentFragment().requireParentFragment() as MainFragment).navController
 
         if (!isHasPermission(SEND_SMS) || !isHasPermission(CALL_PHONE)) {
             askPermission(arrayOf(SEND_SMS, CALL_PHONE), ASK_SMS_PERMISSION_REQUEST_CODE)
         }
         binding.apply {
             rvClients.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                    super.onScrolled(recyclerView, dx, dy)
-                    if (dy > 0 && floatingButton.isVisible) {
-                        etSearch.hideSoftKeyboard()
-                        floatingAnimation.hide()
-                    }
-                    else if (dy < 0 && !floatingButton.isVisible) {
-                        etSearch.hideSoftKeyboard()
-                        floatingAnimation.show()
-                    }
-                }
+//                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                    super.onScrolled(recyclerView, dx, dy)
+//                    if (dy > 0 && floatingButton.isVisible) {
+//                        etSearch.hideSoftKeyboard()
+//                        floatingAnimation.hide()
+//                    }
+//                    else if (dy < 0 && !floatingButton.isVisible) {
+//                        etSearch.hideSoftKeyboard()
+//                        floatingAnimation.show()
+//                    }
+//                }
             })
 
             swipeRefresh.setOnRefreshListener {
@@ -84,29 +85,29 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 val bundle = Bundle()
                 bundle.putParcelable(CLIENT, it)
                 try {
-                    navController.navigate(R.id.action_clientsFragment_to_ordersFragment, bundle)
+                    parentNavController.navigate(R.id.action_mainFragment_to_ordersFragment, bundle)
                 } catch (e: Exception) {
                 }
             }
             
-            floatingButton.onClick {
-                floatingAnimation.onFloatingClicked()
-            }
-            floatingCalcButton.onClick {
-                navController.navigate(R.id.action_clientsFragment_to_calculatorDialog)
-            }
-            floatingAddButton.onClick {
-                navController.navigate(R.id.action_clientsFragment_to_addClientFragment)
-            }
+//            floatingButton.onClick {
+//                floatingAnimation.onFloatingClicked()
+//            }
+//            floatingCalcButton.onClick {
+//                navController.navigate(R.id.action_clientsFragment_to_calculatorDialog)
+//            }
+//            floatingAddButton.onClick {
+//                //navController.navigate(R.id.action_clientsFragment_to_addClientFragment)
+//            }
 
             toolbar.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.itemLogout -> {
-                        confirmationDialog()
+                    R.id.itemSort -> {
+                        sortDialog(toolbar.findViewById(R.id.itemSort))
                         true
                     }
-                    R.id.itemSort -> {
-                        sortDialog(toolbar.findViewById(R.id.itemLogout))
+                    R.id.itemCalc -> {
+                        parentNavController.navigate(R.id.action_mainFragment_to_calculatorDialog)
                         true
                     }
                     else -> false
@@ -117,12 +118,6 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 clientNotFound.isVisible = adapter.models.isEmpty() && !it.isNullOrEmpty()
             }
         }
-    }
-
-    private fun logOut() {
-        deleteCache(requireContext())
-        navController.navigate(R.id.action_clientsFragment_to_loginFragment)
-        getSharedPreferences().removeKey(TOKEN)
     }
 
     private fun refresh() {
@@ -144,7 +139,9 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                     hideProgress()
                     toast(it.message!!)
                     binding.swipeRefresh.isRefreshing = false
-                    if (it.message==UNAUTHORIZED) logOut()
+                    if (it.message==UNAUTHORIZED){
+
+                    }
                 }
                 ResourceState.NETWORK_ERROR -> {
                     hideProgress()
@@ -182,9 +179,9 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
                 R.id.sortRed -> {
                 adapter.sortByColor("red",clients)
                 }
-                R.id.sortYellow -> {
-                    adapter.sortByColor("yellow",clients)
-                }
+//                R.id.sortYellow -> {
+//                    adapter.sortByColor("yellow",clients)
+//                }
                 R.id.sortGreen -> {
                     adapter.sortByColor("green", clients)
                 }
@@ -194,23 +191,5 @@ class ClientsFragment : Fragment(R.layout.fragment_clients) {
         }
         popup.show()
         menuHelper.show()
-    }
-
-    private fun confirmationDialog() {
-        AlertDialog.Builder(requireContext(), R.style.AlertDialogTheme)
-            .apply {
-                setCancelable(false)
-                setTitle(getString(R.string.logout_title))
-                setMessage(getString(R.string.supporting_text))
-                setPositiveButton("Выйти") { _, _ ->
-                    logOut()
-                }
-                setNeutralButton("Отмена") { dialog, _ ->
-                    dialog.dismiss()
-                }
-                create()
-                show()
-                binding.etSearch.hideSoftKeyboard()
-            }
     }
 }

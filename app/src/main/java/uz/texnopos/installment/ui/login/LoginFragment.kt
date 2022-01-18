@@ -7,7 +7,6 @@ import android.os.Looper
 import android.text.method.LinkMovementMethod
 import android.view.View
 import android.widget.Button
-import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
@@ -21,7 +20,6 @@ import uz.texnopos.installment.data.model.PostUser
 import uz.texnopos.installment.databinding.FragmentLoginBinding
 import uz.texnopos.installment.core.Constants.BASE_URL
 import uz.texnopos.installment.core.Constants.NO_INTERNET
-
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -64,12 +62,11 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 ResourceState.LOADING -> bind.btnLogin.showProgress(true)
                 ResourceState.SUCCESS -> {
                     bind.btnLogin.hideProgress(getString(R.string.success))
-
                     token = it.data!!.payload.token
                     Handler(Looper.getMainLooper()).postDelayed({
                         bind.btnLogin.showProgress(false)
                         updateUI()
-                    },2000)
+                    }, 2000)
                 }
                 ResourceState.ERROR -> {
                     toast(it.message!!)
@@ -100,12 +97,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     }
 
     private fun updateUI() {
-        if (isSignedIn()) navController.navigate(R.id.action_loginFragment_to_clientsFragment)
+        if (isSignedIn()) navController.navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
     private fun Button.showProgress(isLoading: Boolean) {
-        bind.inputLogin.isEnabled=!isLoading
-        bind.inputPassword.isEnabled=!isLoading
+        bind.inputLogin.isEnabled = !isLoading
+        bind.inputPassword.isEnabled = !isLoading
         this.isEnabled = !isLoading
         if (isLoading) {
             this.showProgress {

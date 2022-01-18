@@ -27,7 +27,7 @@ class ClientsAdapter : RecyclerView.Adapter<ClientsAdapter.ItemViewHolder>() {
                     }
                     if (color == "green") imgCheck.setImageResource(R.drawable.ic_round_circle_green)
                     if (color == "red") imgCheck.setImageResource(R.drawable.ic_round_circle_red)
-                    if (color == "yellow") imgCheck.setImageResource(R.drawable.ic_round_circle_yellow)
+                    //if (color == "yellow") imgCheck.setImageResource(R.drawable.ic_round_circle_yellow)
                 }
             }
         }

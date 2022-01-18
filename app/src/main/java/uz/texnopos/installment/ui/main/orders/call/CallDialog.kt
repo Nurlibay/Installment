@@ -56,7 +56,7 @@ class CallDialog : DialogFragment() {
             callToClient(it.phone)
         }
     }
-
+    
     private fun setData() {
         val models = mutableListOf<Phone>()
         client!!.phones.forEach {
