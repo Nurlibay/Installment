@@ -122,14 +122,21 @@
         <action
             android:id="@+id/action_mainFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_mainFragment_to_addCategoryFragment"
+            app:destination="@id/addCategoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/addProductFragment"
-        android:name="uz.texnopos.installment.ui.main.product.add.AddProductFragment"
+        android:name="uz.texnopos.installment.ui.main.product.addProduct.AddProductFragment"
         android:label="AddProductFragment" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="uz.texnopos.installment.ui.main.settings.SettingsFragment"
         android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/addCategoryFragment"
+        android:name="uz.texnopos.installment.ui.main.product.addCategory.AddCategoryFragment"
+        android:label="AddCategoryFragment" />
 
 </navigation>

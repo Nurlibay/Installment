@@ -1,4 +1,4 @@
-package uz.texnopos.installment.ui.main.product.add
+package uz.texnopos.installment.ui.main.product.addProduct
 
 import androidx.fragment.app.Fragment
 import uz.texnopos.installment.R

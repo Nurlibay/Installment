@@ -95,6 +95,8 @@
     <string name="statistics">Статистика</string>
     <string name="categories">Категории</string>
     <string name="settings">Настройки</string>
+    <string name="product_name">Product Name</string>
+    <string name="add_new_category_ru">Добавить категорию</string>
 
     <string-array name="courses">
         <item>Android</item>

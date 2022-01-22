@@ -5,15 +5,21 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.inflate
+import uz.texnopos.installment.core.onClick
 import uz.texnopos.installment.data.model.category.Category
 import uz.texnopos.installment.databinding.ItemCategoryBinding
 
-class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     inner class CategoryViewHolder(private val binding: ItemCategoryBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun populateModel(category: Category) {
-            binding.tvCategoryName.text = category.name
+            binding.apply {
+                tvCategoryName.text = category.name
+                tvCategoryName.onClick {
+                    onCategoryItemClick.invoke(category.id)
+                }
+            }
         }
     }
 
@@ -32,8 +38,8 @@ class CategoryAdapter: RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>(
         holder.populateModel(models[position])
     }
 
-    private var onCategoryItemClick: (category: Category) -> Unit = { }
-    fun setOnCategoryItemClickListener(onCategoryItemClick: (category: Category) -> Unit) {
+    private var onCategoryItemClick: (id: Int) -> Unit = { }
+    fun setOnCategoryItemClickListener(onCategoryItemClick: (id: Int) -> Unit) {
         this.onCategoryItemClick = onCategoryItemClick
     }
 

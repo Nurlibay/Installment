@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@color/background_blue"
+    android:weightSum="2">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddNewCategory"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/margin_middle"
+        android:padding="@dimen/margin_standard"
+        android:text="@string/add_new_category_ru"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_standard"
+        app:drawableStartCompat="@drawable/ic_baseline_person_add_24"
+        tools:ignore="SpUsage" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tvAddNewProduct"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:drawablePadding="@dimen/margin_middle"
+        android:padding="@dimen/margin_standard"
+        android:text="@string/add_product_ru"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_size_standard"
+        app:drawableStartCompat="@drawable/ic_baseline_add_shopping_cart_24"
+        tools:ignore="SpUsage" />
+</LinearLayout>

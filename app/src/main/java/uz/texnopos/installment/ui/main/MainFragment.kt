@@ -12,6 +12,7 @@ import com.google.android.material.shape.MaterialShapeDrawable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.onClick
+import uz.texnopos.installment.databinding.BottomSheetBinding
 import uz.texnopos.installment.databinding.DialogBottomSheetBinding
 import uz.texnopos.installment.databinding.FragmentMainBinding
 
@@ -73,7 +74,22 @@ class MainFragment: Fragment(R.layout.fragment_main) {
                         navController.navigate(R.id.action_mainFragment_to_addClientFragment)
                     }
                     R.id.productFragment -> {
-                        navController.navigate(R.id.action_mainFragment_to_addProductFragment)
+                        val bottomSheetDialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
+                        val v = layoutInflater.inflate(R.layout.bottom_sheet, null)
+                        val bottomSheetBinding = BottomSheetBinding.bind(v)
+                        bottomSheetDialog.setContentView(v)
+                        bottomSheetDialog.show()
+
+                        bottomSheetBinding.apply {
+                            tvAddNewCategory.onClick {
+                                bottomSheetDialog.dismiss()
+                                navController.navigate(R.id.action_mainFragment_to_addCategoryFragment)
+                            }
+                            tvAddNewProduct.onClick {
+                                bottomSheetDialog.dismiss()
+                                navController.navigate(R.id.action_mainFragment_to_addProductFragment)
+                            }
+                        }
                     }
                     R.id.settingsFragment -> {
                         val bottomSheetDialog = com.google.android.material.bottomsheet.BottomSheetDialog(requireContext())
