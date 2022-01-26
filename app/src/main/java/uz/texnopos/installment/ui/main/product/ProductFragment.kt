@@ -2,9 +2,7 @@ package uz.texnopos.installment.ui.main.product
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import uz.texnopos.installment.R
 import uz.texnopos.installment.core.*
