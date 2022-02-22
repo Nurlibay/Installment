@@ -179,4 +179,7 @@ dependencies {
     implementation 'com.github.RedMadRobot:input-mask-android:6.1.0'
     implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.6.0'
 
+    //chart
+    implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
+
 }
